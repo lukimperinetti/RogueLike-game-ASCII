@@ -10,7 +10,9 @@ public class Grid {
 
     private ArrayList<Entity> listEntity = new ArrayList<>(); //IDK ???
     private static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); //grille STATIC generale
+
     private Entity entityTest;
+    private Entity boris;
 
     public static int sizeSprite = 30;
 
@@ -31,9 +33,12 @@ public class Grid {
 
 
                 grid.get(i).get(j).add(entityTest);
-                App.displaySprite(entityTest);
+                //App.displaySprite(entityTest);
             }
         }
+
+        boris = new Boris(0, 0);
+        //App.displaySprite(boris);
 
     }
 
@@ -52,5 +57,6 @@ public class Grid {
     public static ArrayList<ArrayList<ArrayList<Entity>>> getGrid(){
         return grid;
     }
+
 
 }

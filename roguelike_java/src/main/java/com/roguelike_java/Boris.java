@@ -4,5 +4,8 @@ public class Boris extends Entity {
     
     Boris(int X, int Y){
         super("Boris", X, Y, "Boris.png");
+
+        //S'ajoute dans listEntity :
+        ListEntity.setBoris(this);
     }
 }

@@ -29,6 +29,8 @@ public class App extends Application {
         stage.show();
 
         Grid grid = new Grid(10, 20);
+
+        displaySprite(ListEntity.getBoris());
     }
 
     public static void main(String[] args) {

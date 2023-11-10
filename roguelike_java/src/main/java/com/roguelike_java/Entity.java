@@ -38,10 +38,23 @@ public class Entity {
         sprite.setTranslateX(X);
         sprite.setTranslateY(Y);
 
-        //Enregistre la nouvelle position
+        //Enregistre la nouvelle position :
         this.coordX = X;
         this.coordY = Y;
+
+        //Affichage :
+        App.displaySprite(this);
     }
 
+    public void relativeMove(int dX, int dY){ //Deplacement relatif par rapport a la position actuelle
+
+        //Deplace le sprite
+        sprite.setTranslateX(coordX+dX);
+        sprite.setTranslateY(coordY+dY);
+
+        //Enregistre la nouvelle position :
+        coordX += dX;
+        coordY += dY;
+    }
 
 }

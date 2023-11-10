@@ -36,15 +36,20 @@ public class EventHandler {
         switch (keyCode) {
             case Z:
                 System.out.println("up");
+                ListEntity.getBoris().relativeMove(0,-30);
                 break;
             case Q:
                 System.out.println("left");
+                ListEntity.getBoris().relativeMove(-30,0);
                 break;
             case S:
                 System.out.println("down");
+                ListEntity.getBoris().relativeMove(0,30);
                 break;
             case D:
                 System.out.println("right");
+                ListEntity.getBoris().relativeMove(30,0);
+
                 break;
             default:
                 System.out.println("invalid key");

@@ -40,16 +40,29 @@ public class Entity {
         sprite = new ImageView(image);   
     }
 
-    public void move(int X, int Y){
+    public void move(int X, int Y){ //Fonction de déplacement absolu
 
         //Deplace le sprite
-        sprite.setTranslateX(X);
-        sprite.setTranslateY(Y);
+        sprite.setTranslateX(X * Grid.sizeSprite);
+        sprite.setTranslateY(Y * Grid.sizeSprite);
 
         //Enregistre la nouvelle position
         this.coordX = X;
         this.coordY = Y;
     }
 
+    public void relativeMove(int dX, int dY){ //deplacement relatif par rapport a la position actuelle.
+        
+        Grid.getGrid().get(coordX).get(coordY).remove(this);
 
+        //Deplace le sprite
+        this.coordX += dX;
+        this.coordY += dY;
+
+        Grid.getGrid().get(coordX).get(coordY).add(this);
+
+        //Deplace le sprite
+        sprite.setTranslateX(coordX * Grid.sizeSprite);
+        sprite.setTranslateY(coordY * Grid.sizeSprite);
+    }
 }

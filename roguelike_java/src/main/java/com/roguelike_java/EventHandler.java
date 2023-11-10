@@ -31,16 +31,16 @@ public class EventHandler {
     public void handleKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
             case Z:
-                playerEntity.move(playerEntity.getCoordX(), playerEntity.getCoordY() - 30); // 30 est la taille d'un sprite
+                playerEntity.relativeMove(0, -1); // 30 est la taille d'un sprite
                 break;
             case S:
-                playerEntity.move(playerEntity.getCoordX(), playerEntity.getCoordY() + 30);
+                playerEntity.relativeMove(0, 1);
                 break;
             case Q:
-                playerEntity.move(playerEntity.getCoordX() - 30, playerEntity.getCoordY());
+                playerEntity.relativeMove(-1, 0);
                 break;
             case D:
-                playerEntity.move(playerEntity.getCoordX() + 30, playerEntity.getCoordY());
+                playerEntity.relativeMove(1, 0);
                 break;
             default:
                 System.out.println("invalid key");

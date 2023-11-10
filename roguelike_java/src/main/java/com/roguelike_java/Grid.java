@@ -10,10 +10,10 @@ public class Grid {
     private Entity Boris;
 
     private ArrayList<Entity> listEntity = new ArrayList<>(); // IDK ???
-    private static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
+    public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
     private Entity entityTest;
 
-    public static int sizeSprite = 30;
+    public final static int sizeSprite = 16;
 
     Grid(int sizeX, int sizeY) {
         this.sizeX = sizeX;
@@ -27,8 +27,8 @@ public class Grid {
                 grid.get(i).add(new ArrayList<>());
 
                 // On instancie un "wall" dans chaque case
-                entityTest = new Wall(i * 30, j * 30);
-                entityTest.move(i * 30, j * 30);
+                entityTest = new Wall(i, j);
+                entityTest.move(i, j);
 
                 grid.get(i).get(j).add(entityTest);
                 App.displaySprite(entityTest);

@@ -32,7 +32,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Grid grid = new Grid(20, 20);
+        Grid grid = new Grid(60, 40);
     }
 
     public static void main(String[] args) {

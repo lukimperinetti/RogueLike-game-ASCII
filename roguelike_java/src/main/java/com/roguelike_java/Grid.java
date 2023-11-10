@@ -34,7 +34,11 @@ public class Grid {
             }
         }
 
-        DungeonGeneration.createRoom(0, 0, sizeX, sizeY);
+        //GENERATION DE TERRAIN :
+        DungeonGeneration.createRoom(0, 0, sizeX, sizeY); //salle principale
+        DungeonGeneration.createBloc(25, 25, 4, 4);
+        DungeonGeneration.createBloc(10, 25, 6, 4);
+        DungeonGeneration.createBloc(50, 18, 2, 3);
 
         // On instancie Boris
         Boris = new Boris(10, 10);

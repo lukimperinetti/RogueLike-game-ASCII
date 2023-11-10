@@ -28,4 +28,21 @@ public class DungeonGeneration {
         }
 
     }
+
+    public static void createBloc(int X, int Y, int sizeX, int sizeY){
+        for( int i = 0; i < sizeX; i++){
+            for( int j = 0; j < sizeY; j++){
+                
+                Wall wall = new Wall(X+i, Y+j);
+                //Suppression :
+                App.deleteSprite(Grid.getGrid().get(X+i).get(Y+j).get(0)); //Gerer ça avec une vrai fonction.
+                Grid.getGrid().get(X+i).get(Y+j).remove(0);
+
+                //Creation :
+                Grid.getGrid().get(X+i).get(Y+j).add(wall);
+                App.displaySprite(wall);
+        
+            }
+        }
+    }
 }

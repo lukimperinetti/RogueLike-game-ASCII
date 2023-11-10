@@ -17,11 +17,13 @@ public class App extends Application {
     private EventHandler eventHandler;
     private Entity boris;
     
+    private int sizeX = 60;
+    private int sizeY = 40;
 
     @Override
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
-        this.scene = new Scene(root, 1280, 720);
+        this.scene = new Scene(root, sizeX * Grid.sizeSprite, sizeY * Grid.sizeSprite);
         eventHandler = new EventHandler(boris);
         eventHandler.pollEvents(scene);
     
@@ -32,7 +34,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Grid grid = new Grid(60, 40);
+        Grid grid = new Grid(sizeX, sizeY);
     }
 
     public static void main(String[] args) {

@@ -13,7 +13,15 @@ public class Entity {
     private int coordX;
     private int coordY;
 
-    //Visu :
+    //GETTERS :
+    public int getCoordX(){
+        return coordX;
+    }
+    public int getCoordY(){
+        return coordY;
+    }
+
+    // Visu :
     private Image image;
     public ImageView sprite;
 

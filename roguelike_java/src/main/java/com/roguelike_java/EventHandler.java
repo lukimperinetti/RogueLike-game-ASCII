@@ -6,17 +6,14 @@ import javafx.scene.input.KeyCode;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * This class handles events related to user input, such as key presses and releases.
- * It is used in the App class.
- * @see App
- * Map is used to keep track of which keys are currently pressed.
- * @see Map
- * 
- */
 public class EventHandler {
 
     private Map<KeyCode, Boolean> keyPressedMap = new HashMap<>();
+    private Entity playerEntity;  // Ajoute une référence à l'entité que tu veux déplacer
+
+    public EventHandler(Entity playerEntity) {
+        this.playerEntity = playerEntity;
+    }
 
     public void pollEvents(Scene scene) {
         scene.setOnKeyPressed(event -> {
@@ -34,16 +31,16 @@ public class EventHandler {
     public void handleKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
             case Z:
-                System.out.println("up");
-                break;
-            case Q:
-                System.out.println("left");
+                playerEntity.move(playerEntity.getCoordX(), playerEntity.getCoordY() - 30); // 30 est la taille d'un sprite
                 break;
             case S:
-                System.out.println("down");
+                playerEntity.move(playerEntity.getCoordX(), playerEntity.getCoordY() + 30);
+                break;
+            case Q:
+                playerEntity.move(playerEntity.getCoordX() - 30, playerEntity.getCoordY());
                 break;
             case D:
-                System.out.println("right");
+                playerEntity.move(playerEntity.getCoordX() + 30, playerEntity.getCoordY());
                 break;
             default:
                 System.out.println("invalid key");

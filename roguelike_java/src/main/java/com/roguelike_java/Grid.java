@@ -27,7 +27,6 @@ public class Grid {
                 
                 //On instancie un "wall" dans chaque case
                 entityTest = new Entity("wall", i*30, j*30);
-                System.out.println(i*30);
                 entityTest.move(i*30, j*30);
 
 
@@ -36,7 +35,7 @@ public class Grid {
             }
         }
 
-        System.out.println(grid);
+        App.deleteSprite(grid.get(5).get(5).get(0));
 
     }
 

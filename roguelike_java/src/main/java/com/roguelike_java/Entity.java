@@ -6,12 +6,12 @@ import javafx.scene.image.ImageView;
 //Classe de base de tt les entités présentes in game
 public class Entity {
     
-    private String name;
-    private int ID;
-    private static int globalID;
+    protected String name;
+    protected int ID;
+    protected static int globalID;
 
-    private int coordX;
-    private int coordY;
+    protected int coordX;
+    protected int coordY;
 
     //GETTERS :
     public int getCoordX(){
@@ -58,7 +58,7 @@ public class Entity {
 
     public void relativeMove(int dX, int dY){ //deplacement relatif par rapport a la position actuelle.
         
-        if(canMove()){
+        if(canMove(coordX+dX, coordY+dY)){
             Grid.getGrid().get(coordX).get(coordY).remove(this);
 
             //Deplace le sprite
@@ -71,17 +71,19 @@ public class Entity {
             sprite.setTranslateX(coordX * Grid.sizeSprite);
             sprite.setTranslateY(coordY * Grid.sizeSprite);
 
+            //DEBUG :
+            /* 
             for (int i = 0; i < Grid.getGrid().get(coordX).get(coordY).size(); i ++){
                 System.out.println( Grid.getGrid().get(coordX).get(coordY).get(i).getName());
             }
-            System.out.println("---");
+            System.out.println("---");*/ 
         }
         else{ System.out.println("Deplacement impossible. "); }
 
 
     }
 
-    public Boolean canMove(){ //A override si besoin.
+    public Boolean canMove(int X, int Y){ //A override si besoin.
         return true;
     }
 }

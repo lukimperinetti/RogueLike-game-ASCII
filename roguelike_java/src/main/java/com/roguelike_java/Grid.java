@@ -9,18 +9,14 @@ public class Grid {
     private int sizeY;
 
     private ArrayList<Entity> listEntity = new ArrayList<>(); //IDK ???
-    private ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); //Arraylist generale
+    private static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); //grille STATIC generale
     private Entity entityTest;
+
+    public static int sizeSprite = 30;
 
     Grid(int sizeX, int sizeY){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-
-        //Test :
-        entityTest = new Entity("pouet");
-        listEntity.add(entityTest);
-
-        System.out.println(grid);
 
         //Initialisation de la 2d-list :
         for (int i = 0; i < sizeX; i++){
@@ -28,6 +24,15 @@ public class Grid {
 
             for (int j = 0; j < sizeY; j++){
                 grid.get(i).add(new ArrayList<>());
+                
+                //On instancie un "wall" dans chaque case
+                entityTest = new Entity("wall", i*30, j*30);
+                System.out.println(i*30);
+                entityTest.move(i*30, j*30);
+
+
+                grid.get(i).get(j).add(entityTest);
+                App.displaySprite(entityTest);
             }
         }
 
@@ -45,4 +50,10 @@ public class Grid {
     public int getSizeY(){
         return sizeY;
     }
+
+    //Methode STATIC pour obtenir la grille generale du jeu
+    public static ArrayList<ArrayList<ArrayList<Entity>>> getGrid(){
+        return grid;
+    }
+
 }

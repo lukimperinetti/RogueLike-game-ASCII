@@ -13,7 +13,8 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    private Pane root;
+    private static Pane root;
+    
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -23,11 +24,15 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Grid grid = new Grid(10, 1);
+        Grid grid = new Grid(10, 5);
     }
 
     public static void main(String[] args) {
         launch();
     }
 
+    public static void displaySprite(Entity entity){
+        root.getChildren().add(entity.sprite);
+
+    }
 }

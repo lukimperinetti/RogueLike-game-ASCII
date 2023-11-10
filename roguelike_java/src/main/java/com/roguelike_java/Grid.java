@@ -5,8 +5,8 @@ import java.util.ArrayList;
 //Classe qui s'occupe de stocker les objets sur une grille, pour pouvoir facilement les retrouver et les afficher
 public class Grid {
 
-    private int sizeX;
-    private int sizeY;
+    private static int sizeX;
+    private static int sizeY;
     private Entity Boris;
 
     private ArrayList<Entity> listEntity = new ArrayList<>(); // IDK ???
@@ -28,16 +28,18 @@ public class Grid {
 
                 // On instancie un "wall" dans chaque case
                 entityTest = new Wall(i, j);
-                entityTest.move(i, j);
 
                 grid.get(i).get(j).add(entityTest);
                 App.displaySprite(entityTest);
             }
         }
 
+        DungeonGeneration.createRoom(0, 0, sizeX, sizeY);
+
         // On instancie Boris
-        Boris = new Boris(0, 0);
+        Boris = new Boris(10, 10);
         App.displaySprite(Boris);
+
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable
@@ -46,11 +48,11 @@ public class Grid {
     }
 
     // GETTERS :
-    public int getSizeX() {
+    public static int getSizeX() {
         return sizeX;
     }
 
-    public int getSizeY() {
+    public static int getSizeY() {
         return sizeY;
     }
 

@@ -20,6 +20,9 @@ public class Entity {
     public int getCoordY(){
         return coordY;
     }
+    public String getName(){
+        return name;
+    }
 
     // Visu :
     private Image image;
@@ -38,6 +41,8 @@ public class Entity {
         //Visu :
         image = new Image(imageName);
         sprite = new ImageView(image);   
+
+        this.move(coordX, coordY);
     }
 
     public void move(int X, int Y){ //Fonction de déplacement absolu
@@ -53,16 +58,30 @@ public class Entity {
 
     public void relativeMove(int dX, int dY){ //deplacement relatif par rapport a la position actuelle.
         
-        Grid.getGrid().get(coordX).get(coordY).remove(this);
+        if(canMove()){
+            Grid.getGrid().get(coordX).get(coordY).remove(this);
 
-        //Deplace le sprite
-        this.coordX += dX;
-        this.coordY += dY;
+            //Deplace le sprite
+            this.coordX += dX;
+            this.coordY += dY;
 
-        Grid.getGrid().get(coordX).get(coordY).add(this);
+            Grid.getGrid().get(coordX).get(coordY).add(this);
 
-        //Deplace le sprite
-        sprite.setTranslateX(coordX * Grid.sizeSprite);
-        sprite.setTranslateY(coordY * Grid.sizeSprite);
+            //Deplace le sprite
+            sprite.setTranslateX(coordX * Grid.sizeSprite);
+            sprite.setTranslateY(coordY * Grid.sizeSprite);
+
+            for (int i = 0; i < Grid.getGrid().get(coordX).get(coordY).size(); i ++){
+                System.out.println( Grid.getGrid().get(coordX).get(coordY).get(i).getName());
+            }
+            System.out.println("---");
+        }
+        else{ System.out.println("Deplacement impossible. "); }
+
+
+    }
+
+    public Boolean canMove(){ //A override si besoin.
+        return true;
     }
 }

@@ -15,11 +15,17 @@ public class App extends Application {
     private static Scene scene;
     private Pane root;
     private EventHandler eventHandler;
+    private Zombie zombie;
 
     @Override
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
         this.scene = new Scene(root, 1280, 720);
+
+        zombie = new Zombie();
+
+        root.getChildren().add(zombie.getSprite());
+
         eventHandler = new EventHandler();
         eventHandler.pollEvents(scene);
 
@@ -27,6 +33,10 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    // public void update() {
+    //     zombie.update(eventHandler);
+    // }
 
     public static void main(String[] args) {
         launch();

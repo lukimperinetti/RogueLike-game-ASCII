@@ -14,17 +14,21 @@ public class App extends Application {
 
     private static Scene scene;
     private static Pane root;
+    private EventHandler eventHandler;
     
 
     @Override
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
         this.scene = new Scene(root, 1280, 720);
+        eventHandler = new EventHandler();
+        eventHandler.pollEvents(scene);
+
 
         stage.setScene(scene);
         stage.show();
 
-        Grid grid = new Grid(20, 10);
+        Grid grid = new Grid(10, 20);
     }
 
     public static void main(String[] args) {

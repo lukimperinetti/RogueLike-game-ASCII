@@ -14,6 +14,7 @@ import java.util.Map;
  * @see Map
  * 
  */
+
 public class EventHandler {
 
     private Map<KeyCode, Boolean> keyPressedMap = new HashMap<>();

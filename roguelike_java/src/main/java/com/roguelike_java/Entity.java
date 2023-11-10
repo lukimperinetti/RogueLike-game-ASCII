@@ -17,7 +17,7 @@ public class Entity {
     private Image image;
     public ImageView sprite;
 
-    Entity(String name, int coordX, int coordY){
+    Entity(String name, int coordX, int coordY, String imageName){
         
         //ID :
         this.ID = globalID;
@@ -28,7 +28,7 @@ public class Entity {
         this.coordY = coordY;
 
         //Visu :
-        image = new Image("CubeNoirMoche.png");
+        image = new Image(imageName);
         sprite = new ImageView(image);   
     }
 

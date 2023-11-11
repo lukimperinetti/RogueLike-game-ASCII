@@ -4,6 +4,7 @@ public class Boris extends Unit {
     
     Boris(int X, int Y){
         super("Boris", X, Y, "Arobase.png", 20);
+        App.displaySprite(this); //S'affiche.
     }
 
     @Override
@@ -12,5 +13,11 @@ public class Boris extends Unit {
                 if(Grid.getGrid().get(X).get(Y).get(i).getName() == "Wall"){ return false; }
         }
         return true;
+    }
+
+    @Override
+    public void relativeMove(int dX, int dY){
+        super.relativeMove(dX, dY);
+        UnitManager.enemyTurn(); //Lance le tour des ennemis
     }
 }

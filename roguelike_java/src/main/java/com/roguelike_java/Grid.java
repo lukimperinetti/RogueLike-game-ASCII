@@ -8,6 +8,7 @@ public class Grid {
     private static int sizeX;
     private static int sizeY;
     private Entity Boris;
+    private Entity testEnemy;
 
     private ArrayList<Entity> listEntity = new ArrayList<>(); // IDK ???
     public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
@@ -42,7 +43,7 @@ public class Grid {
 
         // On instancie Boris
         Boris = new Boris(10, 10);
-        App.displaySprite(Boris);
+        testEnemy = new Goblin(20, 20);
 
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité

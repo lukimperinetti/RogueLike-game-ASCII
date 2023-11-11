@@ -31,7 +31,7 @@ public class EventHandler {
     public void handleKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
             case Z:
-                playerEntity.relativeMove(0, -1); // 30 est la taille d'un sprite
+                playerEntity.relativeMove(0, -1);
                 break;
             case S:
                 playerEntity.relativeMove(0, 1);

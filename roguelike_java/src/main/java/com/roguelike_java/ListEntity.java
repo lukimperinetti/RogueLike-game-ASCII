@@ -5,15 +5,27 @@ import java.util.ArrayList;
 public class ListEntity {
     
 
-    private static Entity mainCaracter;
+    private static Entity mainCaracter; //Contient l'instance du personnage joué
 
-    //Getters :
+    private static ArrayList<Enemy> listEnemies = new ArrayList<Enemy>(); //Liste de tout les ennemis de la map.
+
+
+    //Setters :
+    public static void addEnemy(Enemy enemy){
+        listEnemies.add(enemy);
+    }
+
     public static void setBoris(Boris boris){
         mainCaracter = boris;
     }
 
+    //Getters :
     public static Entity getBoris(){
         return mainCaracter;
+    }
+
+    public static ArrayList<Enemy> getListEnemies(){
+        return listEnemies;
     }
 
 }

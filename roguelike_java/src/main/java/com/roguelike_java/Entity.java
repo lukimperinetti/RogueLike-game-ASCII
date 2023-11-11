@@ -61,7 +61,7 @@ public class Entity {
         if(canMove(coordX+dX, coordY+dY)){
             Grid.getGrid().get(coordX).get(coordY).remove(this);
 
-            //Deplace le sprite
+            //Met a jour les coordonnées du sprite :
             this.coordX += dX;
             this.coordY += dY;
 

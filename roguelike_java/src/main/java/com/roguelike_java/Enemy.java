@@ -1,13 +1,11 @@
 package com.roguelike_java;
 
-public class Enemy extends Unit{
+public abstract class Enemy extends Unit{
     
-    Enemy(String name, int X, int Y, int hp){
+    Enemy(String name, int X, int Y, int hp, int atk){
         super(name, X, Y, "Hashtag.png", hp);
+        ListEntity.addEnemy(this); //S'ajoute a la liste d'ennemis a jouer.
     }
 
-    public void doAction(){
-        //FAIT JOUER L'ENNEMI.
-        //A OVERRIDE POUR FAIRE UNE VRAI IA
-    }
+    public abstract void doAction();
 }

@@ -31,19 +31,16 @@ public class EventHandler {
     public void handleKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
             case Z:
-                playerEntity.relativeMove(0, -1);
+                ListEntity.getBoris().playerMove(0, -1);
                 break;
             case S:
-                playerEntity.relativeMove(0, 1);
+                ListEntity.getBoris().playerMove(0, 1);
                 break;
             case Q:
-                playerEntity.relativeMove(-1, 0);
+                ListEntity.getBoris().playerMove(-1, 0);
                 break;
             case D:
-                playerEntity.relativeMove(1, 0);
-                break;
-            default:
-                System.out.println("invalid key");
+                ListEntity.getBoris().playerMove(1, 0);
                 break;
         }
     }

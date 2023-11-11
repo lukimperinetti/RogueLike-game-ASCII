@@ -7,6 +7,19 @@ public abstract class Unit extends Entity {
     protected int hp;
     protected int atk;
 
+    //GETTERS :
+    public int getHp(){
+        return hp;
+    }
+    public int getAtk(){
+        return atk;
+    }
+
+    //SETTERS :
+    public void setAtk(int atk){
+        this.atk = atk;
+    }
+
     Unit(String name, int X, int Y, String imageName, int hp, String tag){
         super(name, X, Y, imageName, tag);
 

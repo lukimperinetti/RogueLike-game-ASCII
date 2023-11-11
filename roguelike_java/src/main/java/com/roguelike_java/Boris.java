@@ -32,14 +32,27 @@ public class Boris extends Unit {
         return false;
     }
 
-    @Override
-    public void relativeMove(int dX, int dY){
-        super.relativeMove(dX, dY);
+    //A lancer spécifiquement au déplacement du joueur. Relative move est plus simple
+    public void playerMove(int dX, int dY){
 
-        if(canAttack(coordX + dX, coordY + dY)){
+        if(canMove(coordX+dX, coordY+dY)){
+            Grid.getGrid().get(coordX).get(coordY).remove(this);
+
+            //Met a jour les coordonnées du sprite :
+            this.coordX += dX;
+            this.coordY += dY;
+
+            Grid.getGrid().get(coordX).get(coordY).add(this);
+
+            //Deplace le sprite
+            sprite.setTranslateX(coordX * Grid.sizeSprite);
+            sprite.setTranslateY(coordY * Grid.sizeSprite);
+        } else if(canAttack(coordX + dX, coordY + dY)){
             Grid.getEnnemy(coordX + dX, coordY + dY).loseHp(atk);
         }
 
-        UnitManager.enemyTurn(); //Lance le tour des ennemis
+       
+
+        UnitManager.enemyTurn();
     }
 }

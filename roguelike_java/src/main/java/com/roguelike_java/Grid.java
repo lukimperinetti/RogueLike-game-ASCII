@@ -11,7 +11,7 @@ public class Grid {
     private Entity testEnemy;
     private Entity testEnemy2;
 
-    private ArrayList<Entity> listEntity = new ArrayList<>(); // IDK ???
+    
     public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
 
     private Entity entityTest;
@@ -63,6 +63,20 @@ public class Grid {
 
     public static int getSizeY() {
         return sizeY;
+    }
+
+    //GETTERS ALTERNATIFS :
+    //Retourne le premier ennemi de la coordonnée donnée. Retourne null si aucun ennemi
+    public static Entity getEnnemy(int X, int Y){
+        ArrayList<Entity> listEntity = grid.get(X).get(Y);
+
+        for (int i = 0; i < listEntity.size(); i++){
+            if (listEntity.get(i).getTag() == "enemy"){
+                return listEntity.get(i);
+            }
+        }
+
+        return null;
     }
 
     // Methode STATIC pour obtenir la grille generale du jeu

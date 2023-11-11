@@ -57,9 +57,15 @@ public class Goblin extends Enemy{
     @Override
     public Boolean canMove(int X, int Y){ 
 
+        String tag;
+
         //CONDITION DE DEPLACEMENT
         for (int i = 0; i < Grid.getGrid().get(X).get(Y).size(); i ++){
-                if(Grid.getGrid().get(X).get(Y).get(i).getName() == "Wall"){ return false; }
+                tag = Grid.getGrid().get(X).get(Y).get(i).getTag();
+                
+                if(tag == "bloc"){ return false; }
+                if(tag == "enemy"){ return false; }
+                if(tag == "PJ"){ return false; }
         }
         return true;
     }

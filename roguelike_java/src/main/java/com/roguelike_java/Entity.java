@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 public class Entity {
     
     protected String name;
+    protected String tag;
     protected int ID;
     protected static int globalID;
 
@@ -23,18 +24,22 @@ public class Entity {
     public String getName(){
         return name;
     }
+    public String getTag(){
+        return tag;
+    }
 
     // Visu :
     private Image image;
     public ImageView sprite;
 
-    Entity(String name, int coordX, int coordY, String imageName){
+    Entity(String name, int coordX, int coordY, String imageName, String tag){
         
         //ID :
         this.ID = globalID;
         globalID++;
 
         this.name = name;
+        this.tag = tag;
         this.coordX = coordX;
         this.coordY = coordY;
 
@@ -71,12 +76,14 @@ public class Entity {
             sprite.setTranslateX(coordX * Grid.sizeSprite);
             sprite.setTranslateY(coordY * Grid.sizeSprite);
         }
-        else{ System.out.println("Deplacement impossible. "); }
-
 
     }
 
     public Boolean canMove(int X, int Y){ //A override si besoin.
         return true;
+    }
+
+    public void loseHp(int damage){
+        System.out.println("Fonction loseHP non défini. Bug.");
     }
 }

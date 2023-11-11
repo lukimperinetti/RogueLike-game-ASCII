@@ -9,10 +9,13 @@ public class Grid {
     private static int sizeY;
     private Entity Boris;
     private Entity testEnemy;
+    private Entity testEnemy2;
 
     private ArrayList<Entity> listEntity = new ArrayList<>(); // IDK ???
     public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
+
     private Entity entityTest;
+
 
     public final static int sizeSprite = 16;
 
@@ -44,6 +47,7 @@ public class Grid {
         // On instancie Boris
         Boris = new Boris(10, 10);
         testEnemy = new Goblin(20, 20);
+        //testEnemy2 = new Goblin(30, 15);
 
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité

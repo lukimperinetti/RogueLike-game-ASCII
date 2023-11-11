@@ -4,6 +4,7 @@ public class Boris extends Unit {
     
     Boris(int X, int Y){
         super("Boris", X, Y, "Arobase.png", 20);
+        ListEntity.setBoris(this);
         App.displaySprite(this); //S'affiche.
     }
 

@@ -70,13 +70,6 @@ public class Entity {
             //Deplace le sprite
             sprite.setTranslateX(coordX * Grid.sizeSprite);
             sprite.setTranslateY(coordY * Grid.sizeSprite);
-
-            //DEBUG :
-            /* 
-            for (int i = 0; i < Grid.getGrid().get(coordX).get(coordY).size(); i ++){
-                System.out.println( Grid.getGrid().get(coordX).get(coordY).get(i).getName());
-            }
-            System.out.println("---");*/ 
         }
         else{ System.out.println("Deplacement impossible. "); }
 

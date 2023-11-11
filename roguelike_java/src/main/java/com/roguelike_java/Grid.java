@@ -47,7 +47,7 @@ public class Grid {
         // On instancie Boris
         Boris = new Boris(10, 10);
         testEnemy = new Goblin(20, 20);
-        //testEnemy2 = new Goblin(30, 15);
+        testEnemy2 = new Goblin(30, 15);
 
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité

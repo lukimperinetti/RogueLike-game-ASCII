@@ -2,28 +2,55 @@ package com.roguelike_java;
 
 public class Goblin extends Enemy{
 
+    private int turn;
+
     Goblin(int X, int Y){
         super("Goblin", X, Y, 50, 10);
         App.displaySprite(this);
+        this.turn = 0;
     }
 
     public void doAction(){
 
         //SE DIRIGE VERS LE JOUEUR :
-        int Xplayer = ListEntity.getBoris().coordX;
-        int Yplayer = ListEntity.getBoris().coordY;
 
-        int SignX = 1;
-        int SignY = 1;
-
-        if (Xplayer < coordX){ SignX = -1; }
-        if (Yplayer < coordY){ SignY = -1;}
-
-        if (Utils.distance1D(coordX, Xplayer) > Utils.distance1D(coordY, Yplayer)){ //Test de si le joueur est plus proche verticalement ou horizontalement
-            relativeMove(SignX, 0);
+        //Ne joue qu'un tour sur deux.
+        if (turn < 1){
+            turn++;
         } else {
-            relativeMove(0, SignY);
+            int Xplayer = ListEntity.getBoris().coordX;
+            int Yplayer = ListEntity.getBoris().coordY;
+
+            int SignX = 1;
+            int SignY = 1;
+
+            if (Xplayer < coordX){ SignX = -1; }
+            if (Yplayer < coordY){ SignY = -1;}
+
+            //Test de si le joueur est plus proche verticalement ou horizontalement :
+            if (Utils.distance1D(coordX, Xplayer) > Utils.distance1D(coordY, Yplayer) ){ 
+                
+                //Test s'il peut avancer dans selon X, sinon il avance selon Y
+                if (this.canMove(coordX + SignX, coordY)){ 
+                    relativeMove(SignX, 0);
+                }
+                else { 
+                    relativeMove(0, SignY);
+                }
+
+                //Test s'il peut avancer selon Y, sinon il avance selon X
+            } else {
+                if ( this.canMove(coordX, coordY + SignY)) {
+                    relativeMove(0, SignY);
+                }
+                else {
+                    relativeMove(SignX, 0);
+                }
+            }
+            turn = 0;
         }
+
+        
 
     }
 

@@ -20,6 +20,22 @@ public abstract class Enemy extends Unit{
         return false;
     }
 
+    @Override
+    public void loseHp(int damage){
+        super.loseHp(damage);
+        
+        if (hp == 0){
+            this.die();
+        }
+    }
+
+    public void die(){
+        System.out.println(name + " est mort.");
+        this.deleteEntity();
+    }
+
     //METHODES ABSTRACT
     public abstract void doAction();
+
+
 }

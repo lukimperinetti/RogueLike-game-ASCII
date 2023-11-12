@@ -5,7 +5,7 @@ public class Goblin extends Enemy{
     private int turn;
 
     Goblin(int X, int Y){
-        super("Goblin", X, Y, 50, 10);
+        super("Goblin", X, Y, 50, 1);
         App.displaySprite(this);
         this.turn = 0;
     }

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 //Classe de base de tt les entités présentes in game
-public class Entity {
+public abstract class Entity {
     
     protected String name;
     protected String tag;
@@ -79,11 +79,24 @@ public class Entity {
 
     }
 
+    //Défini ici pour pouvoir l'appeller a partir des entity obtenu dans la liste d'entity de la grid
+    //Pas élégant. a voir si possible de faire mieux.
+    public void loseHp(int damage){ 
+        System.out.println("Fonction loseHP non défini.");
+    }
+
+    public void deleteEntity(){
+
+        //A TESTER - DEBUG NON VERIF
+        App.deleteSprite(this); //Se supprime de l'affichage.
+        Grid.deleteEntity(this); //Se supprime de la grid.
+
+    }
+
     public Boolean canMove(int X, int Y){ //A override si besoin.
         return true;
     }
 
-    public void loseHp(int damage){
-        System.out.println("Fonction loseHP non défini. Bug.");
-    }
+
 }
+

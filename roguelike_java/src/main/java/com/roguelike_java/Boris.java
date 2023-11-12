@@ -6,6 +6,8 @@ public class Boris extends Unit {
         super("Boris", X, Y, "Arobase.png", 20, "PJ");
         ListEntity.setBoris(this);
         App.displaySprite(this); //S'affiche.
+
+        this.setAtk(10);
     }
 
     @Override

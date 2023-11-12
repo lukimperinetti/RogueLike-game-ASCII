@@ -84,4 +84,13 @@ public class Grid {
         return grid;
     }
 
+    //-------
+    //METHODS 
+    //-------
+
+    //Supprime l'entity donnée de la grid.
+    public static void deleteEntity(Entity entity){
+        grid.get(entity.coordX).get(entity.coordY).remove(entity);
+    }
+
 }

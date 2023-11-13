@@ -39,10 +39,14 @@ public class Grid {
 
         // GENERATION DE TERRAIN :
 
+        /*
+         * @TODO : Salle horizontale est un couloir !
+         */
+
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
         
         DungeonGeneration.createBloc(0, 0, 10, 8); // salle spawn
-        DungeonGeneration.createBloc(5, 20, 16, 3); //
+        DungeonGeneration.createBloc(5, 20, 16, 3);
         
         DungeonGeneration.connectVerticalBloc(5, 6, 3, 16); // couloir spawn
         DungeonGeneration.connectVerticalBloc(18, 21, 3, 6);

@@ -6,30 +6,34 @@ import javafx.scene.paint.Color;
 
 //Classe pour afficher du texte in game a droite de l'écran de jeu.
 public class UItext {
-    
-    private static ArrayList<Label> listLabel = new ArrayList<Label>();
+
+    private static ArrayList<TextLabel> listLabel = new ArrayList<TextLabel>();
 
     public static void printText(String text){
 
-        Label label = new Label(text);
-        listLabel.add(label);
+        TextLabel textLabel = new TextLabel(text);
+        listLabel.add(textLabel);
 
-        OffsetText(1);
+        OffsetText();
 
-        label.setTranslateX( (App.sizeX * Grid.sizeSprite) + 16);
-        label.setTranslateY( (App.sizeY * Grid.sizeSprite) - 32);
-        label.setTextFill(Color.WHITE);
+        textLabel.label.setTranslateX( (App.sizeX * Grid.sizeSprite) + 16);
+        textLabel.label.setTranslateY( (App.sizeY * Grid.sizeSprite) - 32 - (textLabel.lines * 16));
+        textLabel.label.setTextFill(Color.WHITE);
 
-        App.displayText(label);
+        App.displayText(textLabel.label);
+
     }
 
     //Fonction de décalage du texte
-    public static void OffsetText(int lines){
+    public static void OffsetText(){
 
+        int offset = 0;
         //For classique pour parcourir dans le sens inverse. On peut peut etre faire avec un foreach pour optimiser.
         for(int i = 0; i < listLabel.size(); i++){
 
-            listLabel.get(listLabel.size() - 1 - i).setTranslateY((App.sizeY * Grid.sizeSprite) - 32 - ( i * 32 ));
+            TextLabel textLabel = listLabel.get(listLabel.size() - 1 - i);
+            offset += textLabel.lines * 16;
+            textLabel.label.setTranslateY((App.sizeY * Grid.sizeSprite) - 32 - ( i * 16 ) - (offset));
 
         }
     }

@@ -7,6 +7,7 @@ public abstract class Unit extends Entity {
     protected int hp;
     protected int atk;
 
+
     //GETTERS :
     public int getHp(){
         return hp;
@@ -33,12 +34,13 @@ public abstract class Unit extends Entity {
         hp = hp - damage;
         if (hp < 0){ hp = 0; }
 
-        System.out.println(name + " perd " + damage + " PV, et tombe a " + hp + " PV.");
+        UItext.printText(name + " perd " + damage + " PV, et tombe a " + hp + " PV.");
     }
 
     public void attack(Unit unit){
         unit.loseHp(atk);
     }
+
 
 
 }

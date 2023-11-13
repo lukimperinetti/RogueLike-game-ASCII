@@ -9,6 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.control.Label;
+
+
 import java.io.IOException;
 
 /**
@@ -21,16 +24,20 @@ public class App extends Application {
     private EventHandler eventHandler;
     private Entity boris;
     
-    private int sizeX = 60;
-    private int sizeY = 40;
+    public static final int sizeX = 60;
+    public static final int sizeY = 40;
 
+    //Images de fond :
     private static Image background = new Image("FondMoche.png");
     private static ImageView spriteBackground = new ImageView(background);
+
+    private static Image backgroundText = new Image("FondText.png");
+    private static ImageView spriteBackgroundText = new ImageView(backgroundText);
 
     @Override
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
-        this.scene = new Scene(root, sizeX * Grid.sizeSprite, sizeY * Grid.sizeSprite);
+        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
         eventHandler = new EventHandler(boris);
         eventHandler.pollEvents(scene);
     
@@ -42,12 +49,15 @@ public class App extends Application {
 
         // ---- //
         root.getChildren().add(spriteBackground);
-        spriteBackground.setTranslateZ(-10);
+        spriteBackground.toBack();
+
+        root.getChildren().add(spriteBackgroundText);
+        spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
+        spriteBackgroundText.toBack();
 
         Grid grid = new Grid(sizeX, sizeY);
 
     }
-
     public static void main(String[] args) {
         launch();
     }
@@ -56,6 +66,10 @@ public class App extends Application {
     public static void displaySprite(Entity entity){
         root.getChildren().add(entity.sprite);
 
+    }
+
+    public static void displayText(Label label){
+        root.getChildren().add(label);
     }
 
     //Supprime l'affichage d'un sprite a partir d'une entity donnée (d'un sprite déjà affiché)

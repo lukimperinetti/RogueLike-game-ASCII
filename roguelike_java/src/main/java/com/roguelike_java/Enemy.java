@@ -31,7 +31,7 @@ public abstract class Enemy extends Unit{
     }
 
     public void die(){
-        System.out.println(name + " est mort.");
+        UItext.printText(name + " est mort.");
         this.deleteEntity();
     }
 

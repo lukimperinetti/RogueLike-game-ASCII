@@ -1,13 +1,22 @@
 package com.roguelike_java;
 
+import java.util.ArrayList;
+
 public class Boris extends Unit {
     
+    int rangeVisibility;
+
+
     Boris(int X, int Y){
         super("Boris", X, Y, "Arobase.png", 20, "PJ");
         ListEntity.setBoris(this);
+
         App.displaySprite(this); //S'affiche.
+        sprite.setTranslateZ(1);
 
         this.setAtk(10);
+
+        rangeVisibility = 5;
     }
 
     @Override
@@ -53,8 +62,36 @@ public class Boris extends Unit {
             Grid.getEnnemy(coordX + dX, coordY + dY).loseHp(atk);
         }
 
-       
-
+        this.playerVisibility();
         UnitManager.enemyTurn();
+        
+    }
+
+    //Methode qui gère le champ de vision du joueur.
+    public void playerVisibility(){
+
+        //Pour compter les itérations du foreach (c'est nul mais j'ai pas mieux).
+        int k = 0;
+        int l = 0;
+
+        for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
+
+            for (ArrayList<Entity> j : i) {
+                if ( k > coordX-rangeVisibility && k < coordX+rangeVisibility  && l > coordY-rangeVisibility && l < coordY+rangeVisibility){
+                    if(!j.get(0).isVisible()){ 
+
+                        j.get(0).toggleVisibility(); 
+                        j.get(0).sprite.toBack();
+                        App.backgroundUpdate();
+                        
+                    }
+                }
+                l++;
+            }
+            l = 0;
+            k++;
+
+        }
+
     }
 }

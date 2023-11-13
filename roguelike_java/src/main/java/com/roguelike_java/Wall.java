@@ -1,6 +1,6 @@
 package com.roguelike_java;
 
-public class Wall extends Entity {
+public class Wall extends Environment {
 
     Wall(int X, int Y){
         super("Wall", X, Y, "Wall.png", "bloc");

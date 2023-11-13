@@ -10,7 +10,7 @@ public class ListEntity {
     private static ArrayList<Enemy> listEnemies = new ArrayList<Enemy>(); //Liste de tout les ennemis de la map.
 
 
-    //Setters :
+    //SETTERS :
     public static void addEnemy(Enemy enemy){
         listEnemies.add(enemy);
     }
@@ -19,7 +19,12 @@ public class ListEntity {
         mainCaracter = boris;
     }
 
-    //Getters :
+    //SETTERS ALTERNATIFS :
+    public static void removeEnemy(Enemy enemy){
+        listEnemies.remove(enemy);
+    }
+
+    //GETTERS :
     public static Boris getBoris(){
         return mainCaracter;
     }

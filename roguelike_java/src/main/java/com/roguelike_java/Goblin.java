@@ -31,7 +31,9 @@ public class Goblin extends Enemy{
             if (Utils.distance1D(coordX, Xplayer) > Utils.distance1D(coordY, Yplayer) ){ 
                 
                 //Test s'il peut attaquer le joueur :
-                if (this.canAttack(coordX + SignX, coordY)) { ListEntity.getBoris().loseHp(atk); }
+                if (this.canAttack(coordX + SignX, coordY)) { 
+                    UItext.printText(name + " attaque Boris.");
+                    ListEntity.getBoris().loseHp(atk); }
                 //Test s'il peut avancer dans selon X, sinon il avance selon Y : 
                 else {
                     if (this.canMove(coordX + SignX, coordY)){ 
@@ -46,7 +48,9 @@ public class Goblin extends Enemy{
             } else {
 
                 //Test s'il peut attaquer le joueur :
-                if (this.canAttack(coordX, coordY + SignY)) { ListEntity.getBoris().loseHp(atk); }
+                if (this.canAttack(coordX, coordY + SignY)) { 
+                    UItext.printText(name + " attaque Boris.");
+                    ListEntity.getBoris().loseHp(atk); }
                 //Test s'il peut avancer selon Y, sinon il avance selon X
                 else {
                     if ( this.canMove(coordX, coordY + SignY)) {

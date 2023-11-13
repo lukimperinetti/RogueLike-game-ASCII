@@ -21,7 +21,6 @@ public class TextLabel {
             this.text += text.substring(40*i, 40*(i+1)) + "\n";
         }
         this.text += text.substring(40*(lines), text.length()-1);
-        System.out.println(this.text);
 
         label = new Label(this.text);
 

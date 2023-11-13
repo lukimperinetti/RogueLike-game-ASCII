@@ -59,7 +59,10 @@ public class Boris extends Unit {
             sprite.setTranslateX(coordX * Grid.sizeSprite);
             sprite.setTranslateY(coordY * Grid.sizeSprite);
         } else if(canAttack(coordX + dX, coordY + dY)){
+            
+            UItext.printText("Boris attaque un " + Grid.getEnnemy(coordX + dX, coordY + dY).getName() + ".");
             Grid.getEnnemy(coordX + dX, coordY + dY).loseHp(atk);
+            
         }
 
         this.playerVisibility();

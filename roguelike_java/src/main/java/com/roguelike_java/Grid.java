@@ -11,11 +11,11 @@ public class Grid {
     private Entity testEnemy;
     private Entity testEnemy2;
 
-    
-    public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
+    public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille
+                                                                                                                // STATIC
+                                                                                                                // generale
 
     private Entity entityTest;
-
 
     public final static int sizeSprite = 16;
 
@@ -37,18 +37,20 @@ public class Grid {
             }
         }
 
-        //GENERATION DE TERRAIN :
-        DungeonGeneration.createRoom(0, 0, sizeX, sizeY); //salle principale
-        // DungeonGeneration.createSubRoom(3, 3, 18, 6); //salle secondaire
-        DungeonGeneration.createBloc(0, 0, 10, 8);
-        DungeonGeneration.createBloc(10, 25, 6, 4);
-        DungeonGeneration.createBloc(50, 18, 2, 3);
+        // GENERATION DE TERRAIN :
 
+        DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
+        
+        DungeonGeneration.createBloc(0, 0, 10, 8); // salle spawn
+        DungeonGeneration.createBloc(5, 20, 16, 3); //
+        
+        DungeonGeneration.connectVerticalBloc(5, 6, 3, 16); // couloir spawn
+        DungeonGeneration.connectVerticalBloc(18, 21, 3, 6);
+        
         // On instancie Boris
-        Boris = new Boris(10, 10);
+        Boris = new Boris(2, 2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
-
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable
@@ -65,13 +67,14 @@ public class Grid {
         return sizeY;
     }
 
-    //GETTERS ALTERNATIFS :
-    //Retourne le premier ennemi de la coordonnée donnée. Retourne null si aucun ennemi
-    public static Entity getEnnemy(int X, int Y){
+    // GETTERS ALTERNATIFS :
+    // Retourne le premier ennemi de la coordonnée donnée. Retourne null si aucun
+    // ennemi
+    public static Entity getEnnemy(int X, int Y) {
         ArrayList<Entity> listEntity = grid.get(X).get(Y);
 
-        for (int i = 0; i < listEntity.size(); i++){
-            if (listEntity.get(i).getTag() == "enemy"){
+        for (int i = 0; i < listEntity.size(); i++) {
+            if (listEntity.get(i).getTag() == "enemy") {
                 return listEntity.get(i);
             }
         }
@@ -84,12 +87,12 @@ public class Grid {
         return grid;
     }
 
-    //-------
-    //METHODS 
-    //-------
+    // -------
+    // METHODS
+    // -------
 
-    //Supprime l'entity donnée de la grid.
-    public static void deleteEntity(Entity entity){
+    // Supprime l'entity donnée de la grid.
+    public static void deleteEntity(Entity entity) {
         grid.get(entity.coordX).get(entity.coordY).remove(entity);
     }
 

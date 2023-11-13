@@ -34,13 +34,13 @@ public class Grid {
                 entityTest = new Wall(i, j);
 
                 grid.get(i).get(j).add(entityTest);
-                App.displaySprite(entityTest);
             }
         }
 
         //GENERATION DE TERRAIN :
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); //salle principale
-        DungeonGeneration.createBloc(25, 25, 4, 4);
+        // DungeonGeneration.createSubRoom(3, 3, 18, 6); //salle secondaire
+        DungeonGeneration.createBloc(0, 0, 10, 8);
         DungeonGeneration.createBloc(10, 25, 6, 4);
         DungeonGeneration.createBloc(50, 18, 2, 3);
 

@@ -16,7 +16,7 @@ public class Boris extends Unit {
 
         this.setAtk(10);
 
-        rangeVisibility = 5;
+        rangeVisibility = 20;
     }
 
     @Override

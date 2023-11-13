@@ -33,7 +33,7 @@ public class UItext {
 
             TextLabel textLabel = listLabel.get(listLabel.size() - 1 - i);
             offset += textLabel.lines * 16;
-            textLabel.label.setTranslateY((App.sizeY * Grid.sizeSprite) - 32 - ( i * 32 ) - (offset));
+            textLabel.label.setTranslateY((App.sizeY * Grid.sizeSprite) - 32 - ( i * 16 ) - (offset));
 
         }
     }

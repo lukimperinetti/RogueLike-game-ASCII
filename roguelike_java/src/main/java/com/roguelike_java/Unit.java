@@ -34,7 +34,8 @@ public abstract class Unit extends Entity {
         hp = hp - damage;
         if (hp < 0){ hp = 0; }
 
-        UItext.printText(name + " perd " + damage + " PV, et tombe a " + hp + " PV.");
+        UItext.printText(name + " perd " + damage + " PV.");
+        UItext.printText(" ");
     }
 
     public void attack(Unit unit){

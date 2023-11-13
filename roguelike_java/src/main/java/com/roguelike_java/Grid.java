@@ -23,7 +23,9 @@ public class Grid {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
 
+        
         // Initialisation de la 2d-list :
+        //Optimisable
         for (int i = 0; i < sizeX; i++) {
             grid.add(new ArrayList<>());
 
@@ -34,7 +36,7 @@ public class Grid {
                 entityTest = new Wall(i, j);
 
                 grid.get(i).get(j).add(entityTest);
-                App.displaySprite(entityTest);
+                //App.displaySprite(entityTest); //Test de visibilité
             }
         }
 
@@ -67,6 +69,7 @@ public class Grid {
 
     //GETTERS ALTERNATIFS :
     //Retourne le premier ennemi de la coordonnée donnée. Retourne null si aucun ennemi
+    //A passer en foreach
     public static Entity getEnnemy(int X, int Y){
         ArrayList<Entity> listEntity = grid.get(X).get(Y);
 

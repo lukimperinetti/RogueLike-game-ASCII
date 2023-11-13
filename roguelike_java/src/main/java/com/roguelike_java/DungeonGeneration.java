@@ -1,6 +1,7 @@
 package com.roguelike_java;
 
 //Classe de génération d'environnnement : salles, couloirs, etc.
+//METHODES STATICS
 public class DungeonGeneration {
     
 
@@ -23,7 +24,7 @@ public class DungeonGeneration {
 
                 //Creation :
                 Grid.getGrid().get(X+i).get(Y+j).add(ground);
-                App.displaySprite(ground);
+                //App.displaySprite(ground);
             }
         }
 
@@ -40,7 +41,7 @@ public class DungeonGeneration {
 
                 //Creation :
                 Grid.getGrid().get(X+i).get(Y+j).add(wall);
-                App.displaySprite(wall);
+                //App.displaySprite(wall);
         
             }
         }

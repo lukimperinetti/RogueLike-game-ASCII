@@ -5,6 +5,7 @@ public abstract class Enemy extends Unit{
     Enemy(String name, int X, int Y, int hp, int atk){
         super(name, X, Y, "Hashtag.png", hp, "enemy");
         ListEntity.addEnemy(this); //S'ajoute a la liste d'ennemis a jouer.
+        sprite.toFront();
 
         setAtk(atk);
     }
@@ -32,6 +33,14 @@ public abstract class Enemy extends Unit{
     public void die(){
         System.out.println(name + " est mort.");
         this.deleteEntity();
+    }
+
+    @Override
+    public void deleteEntity(){
+        super.deleteEntity();
+        
+        //On supprime l'ennemi de ListEntity
+        ListEntity.removeEnemy(this);
     }
 
     //METHODES ABSTRACT

@@ -4,57 +4,99 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 //Classe de base de tt les entités présentes in game
-public class Entity {
+public abstract class Entity {
     
-    private String name;
-    private int ID;
-    private static int globalID;
+    protected String name;
+    protected String tag;
+    protected int ID;
+    protected static int globalID;
 
-    private int coordX;
-    private int coordY;
+    protected int coordX;
+    protected int coordY;
 
-    //Visu :
+    //GETTERS :
+    public int getCoordX(){
+        return coordX;
+    }
+    public int getCoordY(){
+        return coordY;
+    }
+    public String getName(){
+        return name;
+    }
+    public String getTag(){
+        return tag;
+    }
+
+    // Visu :
     private Image image;
     public ImageView sprite;
 
-    Entity(String name, int coordX, int coordY, String imageName){
+    Entity(String name, int coordX, int coordY, String imageName, String tag){
         
         //ID :
         this.ID = globalID;
         globalID++;
 
         this.name = name;
+        this.tag = tag;
         this.coordX = coordX;
         this.coordY = coordY;
 
         //Visu :
         image = new Image(imageName);
         sprite = new ImageView(image);   
+
+        this.move(coordX, coordY);
     }
 
-    public void move(int X, int Y){
+    public void move(int X, int Y){ //Fonction de déplacement absolu
 
         //Deplace le sprite
-        sprite.setTranslateX(X);
-        sprite.setTranslateY(Y);
+        sprite.setTranslateX(X * Grid.sizeSprite);
+        sprite.setTranslateY(Y * Grid.sizeSprite);
 
-        //Enregistre la nouvelle position :
+        //Enregistre la nouvelle position
         this.coordX = X;
         this.coordY = Y;
-
-        //Affichage :
-        App.displaySprite(this);
     }
 
-    public void relativeMove(int dX, int dY){ //Deplacement relatif par rapport a la position actuelle
+    public void relativeMove(int dX, int dY){ //deplacement relatif par rapport a la position actuelle.
+        
+        if(canMove(coordX+dX, coordY+dY)){
+            Grid.getGrid().get(coordX).get(coordY).remove(this);
 
-        //Deplace le sprite
-        sprite.setTranslateX(coordX+dX);
-        sprite.setTranslateY(coordY+dY);
+            //Met a jour les coordonnées du sprite :
+            this.coordX += dX;
+            this.coordY += dY;
 
-        //Enregistre la nouvelle position :
-        coordX += dX;
-        coordY += dY;
+            Grid.getGrid().get(coordX).get(coordY).add(this);
+
+            //Deplace le sprite
+            sprite.setTranslateX(coordX * Grid.sizeSprite);
+            sprite.setTranslateY(coordY * Grid.sizeSprite);
+        }
+
     }
+
+    //Défini ici pour pouvoir l'appeller a partir des entity obtenu dans la liste d'entity de la grid
+    //Pas élégant. a voir si possible de faire mieux.
+    public void loseHp(int damage){ 
+        System.out.println("Fonction loseHP non défini.");
+    }
+
+    public void deleteEntity(){
+
+        //A TESTER - DEBUG NON VERIF
+        App.deleteSprite(this); //Se supprime de l'affichage.
+        Grid.deleteEntity(this); //Se supprime de la grid.
+
+    }
+
+    public Boolean canMove(int X, int Y){ //A override si besoin.
+        return true;
+    }
+
 
 }
+

@@ -12,25 +12,29 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
+    static Scene scene; // Scene de base accessible par tt les classes
     private static Pane root;
     private EventHandler eventHandler;
+    private Entity boris;
     
+    private int sizeX = 60;
+    private int sizeY = 40;
 
     @Override
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
-        this.scene = new Scene(root, 1280, 720);
-        eventHandler = new EventHandler();
+        this.scene = new Scene(root, sizeX * Grid.sizeSprite, sizeY * Grid.sizeSprite);
+        eventHandler = new EventHandler(boris);
+        eventHandler.pollEvents(scene);
+    
+        eventHandler = new EventHandler(boris);
         eventHandler.pollEvents(scene);
 
 
         stage.setScene(scene);
         stage.show();
 
-        Grid grid = new Grid(10, 20);
-
-        displaySprite(ListEntity.getBoris());
+        Grid grid = new Grid(sizeX, sizeY);
     }
 
     public static void main(String[] args) {

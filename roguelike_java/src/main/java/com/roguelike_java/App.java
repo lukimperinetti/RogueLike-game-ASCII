@@ -52,4 +52,4 @@ public class App extends Application {
         root.getChildren().remove(entity.sprite);
     }
 
-}
+} 

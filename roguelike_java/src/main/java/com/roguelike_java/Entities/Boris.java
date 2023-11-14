@@ -11,19 +11,17 @@ import com.roguelike_java.Entities.Items.*;
 
 public class Boris extends Unit {
     
-    int rangeVisibility;
-
+    int rangeVisibility = 4;
+    int defaultAtk = 10;
+    Weapon weapon;
 
     public Boris(int X, int Y){
         super("Boris", X, Y, "Arobase.png", 20, "PJ");
         ListEntity.setBoris(this);
-
         App.displaySprite(this); //S'affiche.
-        sprite.setTranslateZ(1);
 
-        this.setAtk(10);
-
-        rangeVisibility = 4;
+        this.setAtk(defaultAtk);
+        this.weapon = null;
     }
 
     @Override
@@ -122,6 +120,22 @@ public class Boris extends Unit {
                 ((Item)entity).description();
             }
         }
+    }
+
+    public void equipWeapon(){
+
+        Weapon weapon = Grid.getWeapon(coordX, coordY);
+
+        if (weapon != null){
+            weapon.deleteEntity();
+            this.weapon = weapon;
+            this.atk = weapon.getAtk();
+            UItext.printText("Boris équipe : " + weapon.getName() );
+        }
+        else {
+            UItext.printText("Il n'y a rien a équipper.");
+        }
+
 
     }
 }

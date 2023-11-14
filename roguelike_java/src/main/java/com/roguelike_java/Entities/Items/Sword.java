@@ -2,10 +2,10 @@ package com.roguelike_java.Entities.Items;
 
 import com.roguelike_java.UItext;
 
-public class Sword extends Item{
+public class Sword extends Weapon{
 
     public Sword(int X, int Y){
-        super("Sword", X, Y, "Sword.png", "Weapon");
+        super("Epeee", X, Y, "Sword.png", 20);
     }
 
     public void description(){
@@ -13,4 +13,4 @@ public class Sword extends Item{
         UItext.printText(" ");
     }
     
-}
+}   

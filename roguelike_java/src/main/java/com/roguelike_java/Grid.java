@@ -56,7 +56,7 @@ public class Grid {
         Boris = new Boris(2, 2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
-        new Item("Salut", 10, 10, "pouet", "object");
+        new Sword(10, 10);
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable

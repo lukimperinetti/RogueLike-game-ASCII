@@ -122,7 +122,6 @@ public class Grid {
         ArrayList<Entity> list = getEntities(X, Y);
 
         for ( Entity entity : list ){
-            System.out.println(entity.getName());
             App.deleteSprite(entity);
         }
         

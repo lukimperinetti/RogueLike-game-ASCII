@@ -1,13 +1,19 @@
-package com.roguelike_java;
+package com.roguelike_java.Entities;
 
 import java.util.ArrayList;
+
+import com.roguelike_java.App;
+import com.roguelike_java.Grid;
+import com.roguelike_java.ListEntity;
+import com.roguelike_java.UItext;
+import com.roguelike_java.UnitManager;
 
 public class Boris extends Unit {
     
     int rangeVisibility;
 
 
-    Boris(int X, int Y){
+    public Boris(int X, int Y){
         super("Boris", X, Y, "Arobase.png", 20, "PJ");
         ListEntity.setBoris(this);
 
@@ -16,7 +22,7 @@ public class Boris extends Unit {
 
         this.setAtk(10);
 
-        rangeVisibility = 50;
+        rangeVisibility = 4;
     }
 
     @Override
@@ -47,13 +53,13 @@ public class Boris extends Unit {
     public void playerMove(int dX, int dY){
 
         if(canMove(coordX+dX, coordY+dY)){
-            Grid.getGrid().get(coordX).get(coordY).remove(this);
+            Grid.deleteEntity(this);
 
             //Met a jour les coordonnées du sprite :
             this.coordX += dX;
             this.coordY += dY;
 
-            Grid.getGrid().get(coordX).get(coordY).add(this);
+            Grid.setEntity(this);
 
             //Deplace le sprite
             sprite.setTranslateX(coordX * Grid.sizeSprite);

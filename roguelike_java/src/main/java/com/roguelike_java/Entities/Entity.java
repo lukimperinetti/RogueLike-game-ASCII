@@ -1,4 +1,7 @@
-package com.roguelike_java;
+package com.roguelike_java.Entities;
+
+import com.roguelike_java.App;
+import com.roguelike_java.Grid;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,7 +40,7 @@ public abstract class Entity {
     }
 
 
-    Entity(String name, int coordX, int coordY, String imageName, String tag){
+    public Entity(String name, int coordX, int coordY, String imageName, String tag){
         
         //ID :
         this.ID = globalID;
@@ -69,13 +72,13 @@ public abstract class Entity {
     public void relativeMove(int dX, int dY){ //Deplacement relatif par rapport a la position actuelle.
         
         if(canMove(coordX+dX, coordY+dY)){
-            Grid.getGrid().get(coordX).get(coordY).remove(this);
+            Grid.deleteEntity(this);
 
             //Met a jour les coordonnées du sprite :
             this.coordX += dX;
             this.coordY += dY;
 
-            Grid.getGrid().get(coordX).get(coordY).add(this);
+            Grid.setEntity(this);
 
             //Deplace le sprite
             sprite.setTranslateX(coordX * Grid.sizeSprite);

@@ -2,6 +2,9 @@ package com.roguelike_java;
 
 import java.util.ArrayList;
 
+import com.roguelike_java.Entities.*; //Flemme de voir quoi importer exactement.
+import com.roguelike_java.Entities.Items.*;
+
 //Classe qui s'occupe de stocker les objets sur une grille, pour pouvoir facilement les retrouver et les afficher
 public class Grid {
 
@@ -51,6 +54,7 @@ public class Grid {
         Boris = new Boris(2, 2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
+        new Item("Salut", 10, 10, "pouet", "object");
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable
@@ -91,9 +95,17 @@ public class Grid {
     // METHODS
     // -------
 
+    //Place un objet dans la grid a une position donnée
+    public static void setEntity(Entity entity){
+        grid.get(entity.getCoordX()).get(entity.getCoordY()).add(entity);
+    }
+    public static void setEntity(Entity entity, int X, int Y){ //Arguments Alternatifs.
+        grid.get(X).get(Y).add(entity);
+    }
+
     // Supprime l'entity donnée de la grid.
     public static void deleteEntity(Entity entity) {
-        grid.get(entity.coordX).get(entity.coordY).remove(entity);
+        grid.get(entity.getCoordX()).get(entity.getCoordY()).remove(entity);
     }
 
 }

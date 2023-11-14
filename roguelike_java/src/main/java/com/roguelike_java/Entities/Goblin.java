@@ -1,10 +1,16 @@
-package com.roguelike_java;
+package com.roguelike_java.Entities;
+
+import com.roguelike_java.App;
+import com.roguelike_java.Grid;
+import com.roguelike_java.ListEntity;
+import com.roguelike_java.UItext;
+import com.roguelike_java.Utils;
 
 public class Goblin extends Enemy{
 
     private int turn;
 
-    Goblin(int X, int Y){
+    public Goblin(int X, int Y){
         super("Goblin", X, Y, 50, 1);
         App.displaySprite(this);
         this.turn = 0;

@@ -52,6 +52,9 @@ public class Boris extends Unit {
     //A lancer spécifiquement au déplacement du joueur. Relative move est plus simple
     public void playerMove(int dX, int dY){
 
+        int oldX = coordX;
+        int oldY = coordY;
+
         if(canMove(coordX+dX, coordY+dY)){
             Grid.deleteEntity(this);
 
@@ -64,6 +67,11 @@ public class Boris extends Unit {
             //Deplace le sprite
             sprite.setTranslateX(coordX * Grid.sizeSprite);
             sprite.setTranslateY(coordY * Grid.sizeSprite);
+
+            //Affichage
+            Grid.displaySquareEntities(coordX, coordY);
+            Grid.displaySquareEntities(oldX, oldY);
+
         } else if(canAttack(coordX + dX, coordY + dY)){
             
             UItext.printText("Boris attaque un " + Grid.getEnnemy(coordX + dX, coordY + dY).getName() + ".");
@@ -99,8 +107,6 @@ public class Boris extends Unit {
             }
             l = 0;
             k++;
-
         }
-
     }
 }

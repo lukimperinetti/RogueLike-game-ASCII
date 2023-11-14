@@ -5,7 +5,7 @@ import com.roguelike_java.UItext;
 public class Sword extends Weapon{
 
     public Sword(int X, int Y){
-        super("Epeee", X, Y, "Sword.png", 20);
+        super("Epee", X, Y, "Sword.png", 20);
     }
 
     public void description(){

@@ -27,7 +27,6 @@ public class DungeonGeneration {
 
                 //Creation :
                 Grid.getGrid().get(X+i).get(Y+j).add(ground);
-                //App.displaySprite(ground);
             }
         }
 
@@ -44,8 +43,6 @@ public class DungeonGeneration {
 
                 //Creation :
                 Grid.getGrid().get(X+i).get(Y+j).add(wall);
-                //App.displaySprite(wall);
-        
             }
         }
     }

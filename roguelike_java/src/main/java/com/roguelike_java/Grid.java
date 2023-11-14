@@ -3,6 +3,7 @@ package com.roguelike_java;
 import java.util.ArrayList;
 
 import com.roguelike_java.Entities.*; //Flemme de voir quoi importer exactement.
+import com.roguelike_java.Entities.Items.*;
 
 //Classe qui s'occupe de stocker les objets sur une grille, pour pouvoir facilement les retrouver et les afficher
 public class Grid {
@@ -52,6 +53,7 @@ public class Grid {
         Boris = new Boris(10, 10);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
+        new Item("Salut", 10, 10, "pouet", "object");
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable

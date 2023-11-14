@@ -1,4 +1,6 @@
-package com.roguelike_java;
+package com.roguelike_java.Entities;
+
+import com.roguelike_java.UItext;
 
 //Class pour les unites (ennemi comme PJ)
 

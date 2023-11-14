@@ -1,6 +1,9 @@
 package com.roguelike_java;
 import java.util.ArrayList;
 
+import com.roguelike_java.Entities.Boris;
+import com.roguelike_java.Entities.Enemy;
+
 //Class qui se charge de stocker tt les entity, pour facilement les retrouver.
 public class ListEntity {
     

@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
+import com.roguelike_java.Entities.Entity;
+
 /**
  * JavaFX App
  */

@@ -1,8 +1,8 @@
-package com.roguelike_java;
+package com.roguelike_java.Entities;
 
 public class Ground extends Environment {
 
-    Ground(int X, int Y){
+    public Ground(int X, int Y){
         super("ground", X, Y, "Ground.png", "ground");
     }
     

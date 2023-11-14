@@ -6,6 +6,8 @@ import javafx.scene.input.KeyCode;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.roguelike_java.Entities.Entity;
+
 public class EventHandler {
 
     private Map<KeyCode, Boolean> keyPressedMap = new HashMap<>();

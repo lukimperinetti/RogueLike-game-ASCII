@@ -1,6 +1,8 @@
 package com.roguelike_java;
 import java.util.ArrayList;
 
+import com.roguelike_java.Entities.Enemy;
+
 
 //CLASSE QUI S'OCCUPE DE FAIRE JOUER LES DIFFERENTES UNITES.
 public class UnitManager {

@@ -1,5 +1,7 @@
 package com.roguelike_java;
 
+import com.roguelike_java.Entities.*;
+
 //Classe de génération d'environnnement : salles, couloirs, etc.
 //METHODES STATICS
 public class DungeonGeneration {

@@ -14,9 +14,7 @@ public class Grid {
     private Entity testEnemy;
     private Entity testEnemy2;
 
-    public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille
-                                                                                                                // STATIC
-                                                                                                                // generale
+    public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
 
     private Entity entityTest;
 
@@ -48,11 +46,11 @@ public class Grid {
 
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
         
-        DungeonGeneration.createBloc(0, 0, 10, 8); // salle spawn
-        DungeonGeneration.createBloc(5, 20, 16, 3);
+        // DungeonGeneration.createBloc(0, 0, 10, 8); // salle spawn
+        // DungeonGeneration.createBloc(5, 20, 16, 3);
         
-        DungeonGeneration.connectVerticalBloc(5, 6, 3, 16); // couloir spawn
-        DungeonGeneration.connectVerticalBloc(18, 21, 3, 6);
+        // DungeonGeneration.connectVerticalBloc(5, 6, 3, 16); // couloir spawn
+        // DungeonGeneration.connectVerticalBloc(18, 21, 3, 6);
         
         // On instancie Boris
         Boris = new Boris(2, 2);
@@ -90,6 +88,11 @@ public class Grid {
         return null;
     }
 
+    //Renvoie toutes les entités d'une case donnée
+    public static ArrayList<Entity> getEntities(int X, int Y){
+        return grid.get(X).get(Y);
+    }
+
     // Methode STATIC pour obtenir la grille generale du jeu
     public static ArrayList<ArrayList<ArrayList<Entity>>> getGrid() {
         return grid;
@@ -107,9 +110,31 @@ public class Grid {
         grid.get(X).get(Y).add(entity);
     }
 
-    // Supprime l'entity donnée de la grid.
+    //Supprime l'entity donnée de la grid.
     public static void deleteEntity(Entity entity) {
         grid.get(entity.getCoordX()).get(entity.getCoordY()).remove(entity);
+    }
+
+    //Permet d'afficher un seul des entitées présentent sur une case donnée
+    public static void displaySquareEntities(int X, int Y){ 
+
+        
+        ArrayList<Entity> list = getEntities(X, Y);
+
+        for ( Entity entity : list ){
+            App.deleteSprite(entity);
+        }
+        
+        for (int i = 0; i < list.size(); i++) {
+            
+            if (list.get(list.size()-1-i).isVisible()){
+                App.displaySprite(list.get(list.size()-1-i));
+                break;
+            }
+            
+            i++;
+        }
+
     }
 
 }

@@ -28,6 +28,7 @@ public abstract class Unit extends Entity {
 
         this.hp = hp;
         this.atk = 1; //atk par defaut.
+        visibility = true;
     }
     
     @Override

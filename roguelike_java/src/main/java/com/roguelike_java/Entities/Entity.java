@@ -64,13 +64,18 @@ public abstract class Entity {
         sprite.setTranslateX(X * Grid.sizeSprite);
         sprite.setTranslateY(Y * Grid.sizeSprite);
 
-        //Enregistre la nouvelle position :
+        //Enregistre la nouvelle position + affichage
+        //Grid.displaySquareEntities(coordX, coordY);
         this.coordX = X;
         this.coordY = Y;
+        //Grid.displaySquareEntities(X, Y);
     }
 
     public void relativeMove(int dX, int dY){ //Deplacement relatif par rapport a la position actuelle.
         
+        int oldX = coordX;
+        int oldY = coordY;
+
         if(canMove(coordX+dX, coordY+dY)){
             Grid.deleteEntity(this);
 
@@ -83,6 +88,11 @@ public abstract class Entity {
             //Deplace le sprite
             sprite.setTranslateX(coordX * Grid.sizeSprite);
             sprite.setTranslateY(coordY * Grid.sizeSprite);
+
+            //Affichage
+            App.deleteSprite(this);
+            Grid.displaySquareEntities(oldX, oldY);
+            Grid.displaySquareEntities(coordX, coordY);
         }
 
     }

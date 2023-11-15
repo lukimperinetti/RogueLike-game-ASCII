@@ -46,6 +46,8 @@ public class Grid {
 
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
         
+        //DungeonGeneration.createLane(5, 5, 20, 20);
+        
         // DungeonGeneration.createBloc(0, 0, 10, 8); // salle spawn
         // DungeonGeneration.createBloc(5, 20, 16, 3);
         
@@ -53,7 +55,7 @@ public class Grid {
         // DungeonGeneration.connectVerticalBloc(18, 21, 3, 6);
         
         // On instancie Boris
-        Boris = new Boris(2, 2);
+        Boris = new Boris(DungeonGeneration.getStartingPosX()+2, DungeonGeneration.getStartingPosY()+2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
         new Item("Salut", 10, 10, "pouet", "object");
@@ -115,6 +117,12 @@ public class Grid {
         grid.get(entity.getCoordX()).get(entity.getCoordY()).remove(entity);
     }
 
+    //Cree un sol a la position spécifiée
+    public static void createGround(int X, int Y){
+        Grid.getGrid().get(X).get(Y).remove(0);
+        Grid.getGrid().get(X).get(Y).add(new Ground(X, Y));
+    }
+
     //Permet d'afficher un seul des entitées présentent sur une case donnée
     public static void displaySquareEntities(int X, int Y){ 
 
@@ -134,7 +142,6 @@ public class Grid {
             
             i++;
         }
-
     }
 
 }

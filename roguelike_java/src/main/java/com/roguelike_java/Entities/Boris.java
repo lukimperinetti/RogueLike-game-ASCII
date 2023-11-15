@@ -22,7 +22,7 @@ public class Boris extends Unit {
 
         this.setAtk(10);
 
-        rangeVisibility = 70;
+        rangeVisibility = 5;
     }
 
     @Override

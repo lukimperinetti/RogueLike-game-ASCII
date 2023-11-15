@@ -5,8 +5,29 @@ import com.roguelike_java.Entities.*;
 //METHODES STATICS
 public class DungeonGeneration {
 
+    private static int startingPosX = 0;
+    private static int startingPosY = 0;
+
+
+
+    //GETTERS :
+    public static int getStartingPosX(){
+        return startingPosX;
+    }
+    public static int getStartingPosY(){
+        return startingPosY;
+    }
+
+
+
     // Création de la map
     public static void createRoom(int X, int Y, int sizeX, int sizeY) {
+
+        //Variables de stockage
+        int oldRoomX = 0;
+        int oldRoomY = 0;
+
+
         int nbSalle = (int) (Math.random() * 7) + 4;
 
         // création d'un tableau 2D de booléens pour garder une trace des salles
@@ -18,6 +39,20 @@ public class DungeonGeneration {
             int roomY = (int) (Math.random() * 10) + 5; // entre 5 et 15
             int posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1; // entre 1 et sizeX - roomX
             int posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; // entre 1 et sizeY - roomY
+
+ 
+            if (k == 0){
+                startingPosX = posXRoom;
+                startingPosY = posYRoom;
+            }
+
+            if (k > 0){
+                createLane(oldRoomX+2, oldRoomY+2, posXRoom+2, posYRoom+2);
+            }
+
+            oldRoomX = posXRoom;
+            oldRoomY = posYRoom;
+
 
             boolean areaFree = true;
             for (int i = -1; i <= roomX; i++) {
@@ -67,6 +102,32 @@ public class DungeonGeneration {
 
     }
 
+    //Generation de couloir en 1 dimension
+    public static void createLaneHorizontal(int X, int Y, int l){
+        for (int i = X; i < l+X; i++){
+            Grid.createGround(i, Y);
+        }
+    }
+    public static void createLaneVertical(int X, int Y, int l){
+        for (int i = Y; i < l+Y; i++){
+            Grid.createGround(X, i);
+        }
+    }
+
+    //Generation de couloir en 2 dimensions
+    public static void createLane(int X1, int Y1, int X2, int Y2){
+
+        int temp;
+        if (X1 > X2) { temp = X2; X2 = X1; X1 = temp; }
+        if (Y1 > Y2) { temp = Y2; Y2 = Y1; Y1 = temp; }
+
+        int midpointX = Math.abs(X2-X1)/2;
+        int midpointY = Math.abs(Y2-Y1)/2;
+
+        createLaneHorizontal(X1, Y1, midpointX);
+        createLaneHorizontal(midpointX+X1, Y2, midpointX);
+        createLaneVertical(midpointX+X1, Y1, Math.abs(Y2-Y1));
+    }
 
     // // Création de la grande salle :
     // for (int i = 1; i < sizeX - 1; i++) {

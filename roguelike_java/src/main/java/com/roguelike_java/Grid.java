@@ -137,7 +137,6 @@ public class Grid {
     //Permet d'afficher un seul des entitées présentent sur une case donnée
     public static void displaySquareEntities(int X, int Y){ 
 
-        
         ArrayList<Entity> list = getEntities(X, Y);
 
         for ( Entity entity : list ){

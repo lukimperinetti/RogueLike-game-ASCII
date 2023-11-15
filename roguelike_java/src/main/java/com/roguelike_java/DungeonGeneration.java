@@ -52,9 +52,7 @@ public class DungeonGeneration {
                 createLane(oldRoomX+2, oldRoomY+2, posXRoom+2, posYRoom+2);
             }
             
-            if (k > 0){
-                new Sword(posXRoom+3, posYRoom+3);
-            }
+
             oldRoomX = posXRoom;
             oldRoomY = posYRoom;
 
@@ -102,6 +100,11 @@ public class DungeonGeneration {
                     roomGrid[X + posXRoom + i][Y + posYRoom + j] = true;
                 }
             }
+
+            if (k > 0){
+                new Sword(posXRoom+3, posYRoom+3);
+            }
+
         }
 
         // Création des couloirs

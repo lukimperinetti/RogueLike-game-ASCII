@@ -19,7 +19,6 @@ public class Orc extends Enemy {
     public void doAction() {
 
         // SE DIRIGE VERS LE JOUEUR :
-
         // Joue a chaque tour.
         if (turn == 1) {
             turn++;

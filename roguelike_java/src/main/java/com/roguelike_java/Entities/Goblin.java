@@ -6,22 +6,21 @@ import com.roguelike_java.ListEntity;
 import com.roguelike_java.UItext;
 import com.roguelike_java.Utils;
 
-public class Goblin extends Enemy{
+public class Goblin extends Enemy {
 
     private int turn;
 
-    public Goblin(int X, int Y){
+    public Goblin(int X, int Y) {
         super("Goblin", X, Y, "Hashtag.png", 50, 1);
         App.displaySprite(this);
         this.turn = 0;
     }
 
-    public void doAction(){
+    public void doAction() {
 
-        //SE DIRIGE VERS LE JOUEUR :
-
-        //Ne joue qu'un tour sur deux.
-        if (turn < 1){
+        // SE DIRIGE VERS LE JOUEUR :
+        // Ne joue qu'un tour sur deux.
+        if (turn < 1) {
             turn++;
         } else {
             int Xplayer = ListEntity.getBoris().coordX;
@@ -30,39 +29,42 @@ public class Goblin extends Enemy{
             int SignX = 1;
             int SignY = 1;
 
-            if (Xplayer < coordX){ SignX = -1; }
-            if (Yplayer < coordY){ SignY = -1;}
+            if (Xplayer < coordX) {
+                SignX = -1;
+            }
+            if (Yplayer < coordY) {
+                SignY = -1;
+            }
 
-            //Test de si le joueur est plus proche verticalement ou horizontalement :
-            if (Utils.distance1D(coordX, Xplayer) > Utils.distance1D(coordY, Yplayer) ){ 
-                
-                //Test s'il peut attaquer le joueur :
-                if (this.canAttack(coordX + SignX, coordY)) { 
+            // Test de si le joueur est plus proche verticalement ou horizontalement :
+            if (Utils.distance1D(coordX, Xplayer) > Utils.distance1D(coordY, Yplayer)) {
+
+                // Test s'il peut attaquer le joueur :
+                if (this.canAttack(coordX + SignX, coordY)) {
                     UItext.printText(name + " attaque Boris.");
-                    ListEntity.getBoris().loseHp(atk); }
-                //Test s'il peut avancer dans selon X, sinon il avance selon Y : 
+                    ListEntity.getBoris().loseHp(atk);
+                }
+                // Test s'il peut avancer dans selon X, sinon il avance selon Y :
                 else {
-                    if (this.canMove(coordX + SignX, coordY)){ 
+                    if (this.canMove(coordX + SignX, coordY)) {
                         relativeMove(SignX, 0);
-                    }
-                    else { 
+                    } else {
                         relativeMove(0, SignY);
                     }
                 }
 
-                
             } else {
 
-                //Test s'il peut attaquer le joueur :
-                if (this.canAttack(coordX, coordY + SignY)) { 
+                // Test s'il peut attaquer le joueur :
+                if (this.canAttack(coordX, coordY + SignY)) {
                     UItext.printText(name + " attaque Boris.");
-                    ListEntity.getBoris().loseHp(atk); }
-                //Test s'il peut avancer selon Y, sinon il avance selon X
+                    ListEntity.getBoris().loseHp(atk);
+                }
+                // Test s'il peut avancer selon Y, sinon il avance selon X
                 else {
-                    if ( this.canMove(coordX, coordY + SignY)) {
+                    if (this.canMove(coordX, coordY + SignY)) {
                         relativeMove(0, SignY);
-                    }
-                    else {
+                    } else {
                         relativeMove(SignX, 0);
                     }
                 }
@@ -70,25 +72,28 @@ public class Goblin extends Enemy{
             turn = 0;
         }
 
-        
-
     }
 
     @Override
-    public Boolean canMove(int X, int Y){ 
+    public Boolean canMove(int X, int Y) {
 
         String tag;
 
-        //CONDITION DE DEPLACEMENT
-        for (int i = 0; i < Grid.getGrid().get(X).get(Y).size(); i ++){
-                tag = Grid.getGrid().get(X).get(Y).get(i).getTag();
+        // CONDITION DE DEPLACEMENT
+        for (int i = 0; i < Grid.getGrid().get(X).get(Y).size(); i++) {
+            tag = Grid.getGrid().get(X).get(Y).get(i).getTag();
 
-                if(tag == "bloc"){ return false; }
-                if(tag == "enemy"){ return false; }
-                if(tag == "PJ"){ return false; }
+            if (tag == "bloc") {
+                return false;
+            }
+            if (tag == "enemy") {
+                return false;
+            }
+            if (tag == "PJ") {
+                return false;
+            }
         }
         return true;
     }
-
 
 }

@@ -40,9 +40,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
         this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
-        eventHandler = new EventHandler(boris);
-        eventHandler.pollEvents(scene);
-    
+
         eventHandler = new EventHandler(boris);
         eventHandler.pollEvents(scene);
 

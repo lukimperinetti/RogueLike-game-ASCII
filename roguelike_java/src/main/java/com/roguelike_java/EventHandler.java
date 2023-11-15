@@ -2,17 +2,23 @@ package com.roguelike_java;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.roguelike_java.Entities.Entity;
 
+//Se charge de gérer les events généraux (entrées clavier et souris)
 public class EventHandler {
 
     private Map<KeyCode, Boolean> keyPressedMap = new HashMap<>();
     private Entity playerEntity;  // Ajoute une référence à l'entité que tu veux déplacer
 
+    private static int mouseX;
+    private static int mouseY;
+
+    //EVENTS//
     public EventHandler(Entity playerEntity) {
         this.playerEntity = playerEntity;
     }
@@ -28,8 +34,13 @@ public class EventHandler {
         scene.setOnKeyReleased(event -> {
             keyPressedMap.put(event.getCode(), false);
         });
-    }
 
+        scene.setOnMouseMoved(event -> {
+            handleMousePosition( (int) event.getSceneX() , (int) event.getSceneY() );
+        });
+    }
+    
+    //Entrée clavier :
     public void handleKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
             case Z:
@@ -47,5 +58,21 @@ public class EventHandler {
             case E:
                 ListEntity.getBoris().equipWeapon();
         }
+    }
+
+    //Entrée souris :
+    public void handleMousePosition(int mouseX, int mouseY){
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
+        System.out.println("Position de la souris : X = " + mouseX + ", Y = " + mouseY);
+    }
+
+
+    //GETTERS
+    public static int getMouseX(){
+        return mouseX;
+    }
+    public static int getMouseY(){
+        return mouseY;
     }
 }

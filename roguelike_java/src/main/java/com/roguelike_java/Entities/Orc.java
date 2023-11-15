@@ -6,12 +6,12 @@ import com.roguelike_java.ListEntity;
 import com.roguelike_java.UItext;
 import com.roguelike_java.Utils;
 
-public class Goblin extends Enemy {
+public class Orc extends Enemy {
 
     private int turn;
 
-    public Goblin(int X, int Y) {
-        super("Goblin", X, Y, "Hashtag.png", 50, 1);
+    public Orc(int X, int Y) {
+        super("Orc", X, Y, "Orc.png", 40, 5);
         App.displaySprite(this);
         this.turn = 0;
     }
@@ -19,8 +19,8 @@ public class Goblin extends Enemy {
     public void doAction() {
 
         // SE DIRIGE VERS LE JOUEUR :
-        // Ne joue qu'un tour sur deux.
-        if (turn < 1) {
+        // Joue a chaque tour.
+        if (turn == 1) {
             turn++;
         } else {
             int Xplayer = ListEntity.getBoris().coordX;

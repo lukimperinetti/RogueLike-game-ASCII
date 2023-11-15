@@ -134,10 +134,6 @@ public class DungeonGeneration {
         for (int i = Y2; i >= Y; i--){
             Grid.createGround(X, i);
         }
-
-
-
-
     }
 
     //Generation de couloir en 2 dimensions

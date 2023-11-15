@@ -6,9 +6,11 @@ import com.roguelike_java.Entities.Entity;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 
 //Classe qui s'occupe de faire apparaitre une popup a l'endroit ou la souris pointe.
 //Classe principalement static. Pas sur de vouloir que ça le reste. (potentielles multiples popup ?)
+//A REFACTORER, FONCTIONS PRINCIPALES PAS CLAIR.
 public class PopupMouse {
     
     private static Image image = new Image("Bloc-test.png");
@@ -16,6 +18,8 @@ public class PopupMouse {
 
     private static int gridPositionX;
     private static int gridPositionY;
+    private static int size = 0;
+    private static int sizeMax = 3;
 
     private static boolean visibility = true; //pasutilisé
 
@@ -28,24 +32,33 @@ public class PopupMouse {
     private static ImageView popupBotSprite = new ImageView(popupBot);
     private static ArrayList<ImageView> listPopupMidSprite = new ArrayList<ImageView>();
 
+    private static Label label;
+
 
     //GETTER 
-    public boolean isVisible(){
+    public static boolean isVisible(){
         return visibility;
     }
 
     public static void initPopup(){
         image = new Image("Bloc-test.png");
         popupSprite = new ImageView(image);
+
+
         App.displaySprite(popupSprite);
+
+        for (int i = 0; i < 3; i++){
+            listPopupMidSprite.add(new ImageView(popupMid));
+        }
     }
 
+    //A RENOMMER IMPERATIVEMENT.
     public static void movePopup(){
 
         gridPositionX = (EventHandler.getMouseX()/16);
         gridPositionY = (EventHandler.getMouseY()/16);
 
-        displayPopup("POUET");
+        //displayPopup("POUET");
         //popupSprite.setTranslateX(gridPositionX*16);
         //popupSprite.setTranslateY(gridPositionY*16);
 
@@ -69,28 +82,32 @@ public class PopupMouse {
     public static void displayPopup(String message){
 
         int i = 1;
-        int size = 2;
-
-        for (i = 0; i < size; i++){
-            
+        size = 3;
+        if (size > sizeMax){
+            size = sizeMax;
         }
+
+        makeInvisible();
+        movePopup(); //Pour récupérer la position de la souris.
 
         //X
         popupTopSprite.setTranslateX((gridPositionX+1)*16);
         popupBotSprite.setTranslateX((gridPositionX+1)*16);
 
-        for (i = 0; i < listPopupMidSprite.size(); i++){
-            listPopupMidSprite.get(i).setTranslateX((gridPositionX+1)*16);
-            listPopupMidSprite.get(i).setTranslateY((gridPositionY + (i*2))*16);
+        for (i = 1; i <= size; i++){
+            listPopupMidSprite.get(i-1).setTranslateX((gridPositionX+1)*16);
+            listPopupMidSprite.get(i-1).setTranslateY((gridPositionY + (i*2))*16);
         }
 
         //Y
         popupTopSprite.setTranslateY(gridPositionY*16);
         popupBotSprite.setTranslateY((gridPositionY+(i*2))*16);
 
+        makeVisible();
+
         //Tofront :
         popupTopSprite.toFront();
-        popupBotSprite.toFront();
+        popupBotSprite.toFront();  
 
     }
 
@@ -100,15 +117,22 @@ public class PopupMouse {
             visibility = true;
             App.displaySprite(popupTopSprite);
             App.displaySprite(popupBotSprite);
+
+            for (int i = 0; i < size; i++){
+                App.displaySprite(listPopupMidSprite.get(i));
+            }
         }
-        movePopup();
-        displayPopup("SALUT");
     }
     public static void makeInvisible(){
         if (visibility == true){
             visibility = false;
             App.deleteSprite(popupTopSprite);
             App.deleteSprite(popupBotSprite);
+
+            for (ImageView sprite : listPopupMidSprite) {
+                System.out.println("pouet");
+                App.deleteSprite(sprite);
+            }
         }
     }
 

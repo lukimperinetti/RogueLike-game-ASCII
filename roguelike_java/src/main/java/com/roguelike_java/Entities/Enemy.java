@@ -6,8 +6,8 @@ import com.roguelike_java.UItext;
 
 public abstract class Enemy extends Unit{
     
-    public Enemy(String name, int X, int Y, int hp, int atk){
-        super(name, X, Y, "Hashtag.png", hp, "enemy");
+    public Enemy(String name, int X, int Y, String imageName, int hp, int atk){
+        super(name, X, Y, imageName, hp, "enemy");
         ListEntity.addEnemy(this); //S'ajoute a la liste d'ennemis a jouer.
         sprite.toFront();
 

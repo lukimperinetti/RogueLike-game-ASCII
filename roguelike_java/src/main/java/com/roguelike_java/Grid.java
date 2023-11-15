@@ -13,6 +13,7 @@ public class Grid {
     private Entity Boris;
     private Entity testEnemy;
     private Entity testEnemy2;
+    private Entity testEnemy3;
 
     public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille STATIC generale
 
@@ -58,6 +59,7 @@ public class Grid {
         Boris = new Boris(DungeonGeneration.getStartingPosX()+2, DungeonGeneration.getStartingPosY()+2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
+        testEnemy3 = new Orc(25, 25);
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable

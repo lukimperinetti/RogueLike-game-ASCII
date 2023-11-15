@@ -11,7 +11,7 @@ import com.roguelike_java.Entities.Items.*;
 
 public class Boris extends Unit {
     
-    int rangeVisibility = 4;
+    int rangeVisibility = 60;
     int defaultAtk = 10;
     Weapon weapon;
 

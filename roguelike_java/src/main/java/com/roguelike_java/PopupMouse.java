@@ -26,7 +26,7 @@ public class PopupMouse {
 
     private static ImageView popupTopSprite = new ImageView(popupTop);
     private static ImageView popupBotSprite = new ImageView(popupBot);
-    ArrayList<ImageView> listPopupMidSprite = new ArrayList<ImageView>();
+    private static ArrayList<ImageView> listPopupMidSprite = new ArrayList<ImageView>();
 
 
     //GETTER 
@@ -65,18 +65,28 @@ public class PopupMouse {
         }
     } 
 
+    //Fait apparaitre la popup
     public static void displayPopup(String message){
 
-        int i = 0;
+        int i = 1;
         int size = 2;
+
+        for (i = 0; i < size; i++){
+            
+        }
 
         //X
         popupTopSprite.setTranslateX((gridPositionX+1)*16);
         popupBotSprite.setTranslateX((gridPositionX+1)*16);
 
+        for (i = 0; i < listPopupMidSprite.size(); i++){
+            listPopupMidSprite.get(i).setTranslateX((gridPositionX+1)*16);
+            listPopupMidSprite.get(i).setTranslateY((gridPositionY + (i*2))*16);
+        }
+
         //Y
         popupTopSprite.setTranslateY(gridPositionY*16);
-        popupBotSprite.setTranslateY((gridPositionY+2)*16);
+        popupBotSprite.setTranslateY((gridPositionY+(i*2))*16);
 
         //Tofront :
         popupTopSprite.toFront();

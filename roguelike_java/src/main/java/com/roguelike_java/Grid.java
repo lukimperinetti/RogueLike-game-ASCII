@@ -58,7 +58,6 @@ public class Grid {
         Boris = new Boris(DungeonGeneration.getStartingPosX()+2, DungeonGeneration.getStartingPosY()+2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
-        new Sword(5, 5);
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable

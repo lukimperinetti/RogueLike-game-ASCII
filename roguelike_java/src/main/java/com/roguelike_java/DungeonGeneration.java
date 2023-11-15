@@ -1,6 +1,7 @@
 package com.roguelike_java;
 
 import com.roguelike_java.Entities.*;
+import com.roguelike_java.Entities.Items.*;
 
 //METHODES STATICS
 public class DungeonGeneration {
@@ -29,6 +30,7 @@ public class DungeonGeneration {
 
 
         int nbSalle = (int) (Math.random() * 7) + 4;
+        System.out.println("salle : " + nbSalle);
 
         // création d'un tableau 2D de booléens pour garder une trace des salles
         boolean[][] roomGrid = new boolean[Grid.getSizeX()][Grid.getSizeY()];
@@ -49,9 +51,13 @@ public class DungeonGeneration {
             if (k > 0){
                 createLane(oldRoomX+2, oldRoomY+2, posXRoom+2, posYRoom+2);
             }
-
+            
+            if (k > 0){
+                new Sword(posXRoom+3, posYRoom+3);
+            }
             oldRoomX = posXRoom;
             oldRoomY = posYRoom;
+
 
 
             boolean areaFree = true;

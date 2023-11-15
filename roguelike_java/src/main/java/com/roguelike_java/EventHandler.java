@@ -44,6 +44,8 @@ public class EventHandler {
             case D:
                 ListEntity.getBoris().playerMove(1, 0);
                 break;
+            case E:
+                ListEntity.getBoris().equipWeapon();
         }
     }
 }

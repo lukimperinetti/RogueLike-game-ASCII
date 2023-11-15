@@ -20,7 +20,7 @@ public class TextLabel {
         for (int i = 0; i < lines; i++){
             this.text += text.substring(40*i, 40*(i+1)) + "\n";
         }
-        this.text += text.substring(40*(lines), text.length()-1);
+        this.text += text.substring(40*(lines), text.length());
 
         label = new Label(this.text);
 

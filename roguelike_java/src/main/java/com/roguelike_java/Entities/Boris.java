@@ -7,22 +7,21 @@ import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
 import com.roguelike_java.UItext;
 import com.roguelike_java.UnitManager;
+import com.roguelike_java.Entities.Items.*;
 
 public class Boris extends Unit {
     
-    int rangeVisibility;
-
+    int rangeVisibility = 4;
+    int defaultAtk = 10;
+    Weapon weapon;
 
     public Boris(int X, int Y){
         super("Boris", X, Y, "Arobase.png", 20, "PJ");
         ListEntity.setBoris(this);
-
         App.displaySprite(this); //S'affiche.
-        sprite.setTranslateZ(1);
 
-        this.setAtk(10);
-
-        rangeVisibility = 5;
+        this.setAtk(defaultAtk);
+        this.weapon = null;
     }
 
     @Override
@@ -72,6 +71,8 @@ public class Boris extends Unit {
             Grid.displaySquareEntities(coordX, coordY);
             Grid.displaySquareEntities(oldX, oldY);
 
+            onPlayerMove();
+
         } else if(canAttack(coordX + dX, coordY + dY)){
             
             UItext.printText("Boris attaque un " + Grid.getEnnemy(coordX + dX, coordY + dY).getName() + ".");
@@ -108,5 +109,33 @@ public class Boris extends Unit {
             l = 0;
             k++;
         }
+    }
+
+    //Test toutes les entitées sur la case du joueur, et écrit les descriptions si besoin dans le récapitulatif.
+    public void onPlayerMove(){
+
+        ArrayList<Entity> listEntity = Grid.getEntities(coordX, coordY);
+        for (Entity entity : listEntity) {
+            if (entity instanceof Item){ 
+                ((Item)entity).description();
+            }
+        }
+    }
+
+    public void equipWeapon(){
+
+        Weapon weapon = Grid.getWeapon(coordX, coordY);
+
+        if (weapon != null){
+            weapon.deleteEntity();
+            this.weapon = weapon;
+            this.atk = weapon.getAtk();
+            UItext.printText("Boris équipe : " + weapon.getName() );
+        }
+        else {
+            UItext.printText("Il n'y a rien a équipper.");
+        }
+
+
     }
 }

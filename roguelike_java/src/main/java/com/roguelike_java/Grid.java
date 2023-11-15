@@ -58,7 +58,7 @@ public class Grid {
         Boris = new Boris(DungeonGeneration.getStartingPosX()+2, DungeonGeneration.getStartingPosY()+2);
         testEnemy = new Goblin(20, 20);
         testEnemy2 = new Goblin(30, 15);
-        new Item("Salut", 10, 10, "pouet", "object");
+        new Sword(5, 5);
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable
@@ -84,6 +84,18 @@ public class Grid {
         for (int i = 0; i < listEntity.size(); i++) {
             if (listEntity.get(i).getTag() == "enemy") {
                 return listEntity.get(i);
+            }
+        }
+
+        return null;
+    }
+
+    public static Weapon getWeapon(int X, int Y) {
+        ArrayList<Entity> listEntity = getEntities(X, Y);
+
+        for (int i = 0; i < listEntity.size(); i++) {
+            if (listEntity.get(i).getTag() == "weapon") {
+                return (Weapon)listEntity.get(i);
             }
         }
 

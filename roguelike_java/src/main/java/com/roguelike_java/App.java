@@ -47,7 +47,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // ---- //
+        // INITIALISATION : //
+        //Background
         root.getChildren().add(spriteBackground);
         spriteBackground.toBack();
 
@@ -55,19 +56,23 @@ public class App extends Application {
         spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
         spriteBackgroundText.toBack();
 
+        //Grid :
         Grid grid = new Grid(sizeX, sizeY);
 
+        //Popup :
+        PopupMouse.initPopup();
     }
     public static void main(String[] args) {
         launch();
     }
 
-    //Affiche une entity donnée.
+    //Methodes d'affichage de sprites/objets :
     public static void displaySprite(Entity entity){
         root.getChildren().add(entity.sprite);
-
     }
-
+    public static void displaySprite(ImageView sprite){
+        root.getChildren().add(sprite);
+    }
     public static void displayText(Label label){
         root.getChildren().add(label);
     }
@@ -75,6 +80,9 @@ public class App extends Application {
     //Supprime l'affichage d'un sprite a partir d'une entity donnée (d'un sprite déjà affiché)
     public static void deleteSprite(Entity entity){
         root.getChildren().remove(entity.sprite);
+    }
+    public static void deleteSprite(ImageView sprite){
+        root.getChildren().remove(sprite);
     }
 
     //Remet le background en fond

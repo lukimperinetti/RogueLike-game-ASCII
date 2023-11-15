@@ -2,6 +2,7 @@ package com.roguelike_java;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 import java.util.HashMap;
@@ -38,6 +39,11 @@ public class EventHandler {
         scene.setOnMouseMoved(event -> {
             handleMousePosition( (int) event.getSceneX() , (int) event.getSceneY() );
         });
+
+        scene.setOnMouseClicked(event -> {
+            handleMouseClick(event.getButton());
+
+        });
     }
     
     //Entrée clavier :
@@ -64,7 +70,19 @@ public class EventHandler {
     public void handleMousePosition(int mouseX, int mouseY){
         this.mouseX = mouseX;
         this.mouseY = mouseY;
-        System.out.println("Position de la souris : X = " + mouseX + ", Y = " + mouseY);
+
+        //PopupMouse.movePopup();
+    }
+
+    public void handleMouseClick(MouseButton mouseButton){
+            if (mouseButton == MouseButton.PRIMARY) {
+                PopupMouse.makeVisible();
+                PopupMouse.displayEntities();
+            }
+
+            if (mouseButton == MouseButton.SECONDARY) {
+                PopupMouse.makeInvisible();
+            }
     }
 
 

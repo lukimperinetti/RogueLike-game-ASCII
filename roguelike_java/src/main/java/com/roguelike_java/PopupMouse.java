@@ -19,6 +19,16 @@ public class PopupMouse {
 
     private static boolean visibility = true; //pasutilisé
 
+    //Popup :
+    private static Image popupTop = new Image("top-popup.png");
+    private static Image popupBot = new Image("bot-popup.png");
+    private static Image popupMid = new Image("mid-popup.png");
+
+    private static ImageView popupTopSprite = new ImageView(popupTop);
+    private static ImageView popupBotSprite = new ImageView(popupBot);
+    ArrayList<ImageView> listPopupMidSprite = new ArrayList<ImageView>();
+
+
     //GETTER 
     public boolean isVisible(){
         return visibility;
@@ -35,10 +45,11 @@ public class PopupMouse {
         gridPositionX = (EventHandler.getMouseX()/16);
         gridPositionY = (EventHandler.getMouseY()/16);
 
-        popupSprite.setTranslateX(gridPositionX*16);
-        popupSprite.setTranslateY(gridPositionY*16);
+        displayPopup("POUET");
+        //popupSprite.setTranslateX(gridPositionX*16);
+        //popupSprite.setTranslateY(gridPositionY*16);
 
-        popupSprite.toFront();
+        //popupSprite.toFront();
     }
 
     public static void displayEntities(){        
@@ -54,19 +65,43 @@ public class PopupMouse {
         }
     } 
 
+    public static void displayPopup(String message){
+
+        int i = 0;
+        int size = 2;
+
+        //X
+        popupTopSprite.setTranslateX((gridPositionX+1)*16);
+        popupBotSprite.setTranslateX((gridPositionX+1)*16);
+
+        //Y
+        popupTopSprite.setTranslateY(gridPositionY*16);
+        popupBotSprite.setTranslateY((gridPositionY+2)*16);
+
+        //Tofront :
+        popupTopSprite.toFront();
+        popupBotSprite.toFront();
+
+    }
+
     //Methodes pour cacher ou montrer la popup
     public static void makeVisible(){
         if (visibility == false){
             visibility = true;
-            App.displaySprite(popupSprite);
+            App.displaySprite(popupTopSprite);
+            App.displaySprite(popupBotSprite);
         }
         movePopup();
+        displayPopup("SALUT");
     }
     public static void makeInvisible(){
         if (visibility == true){
             visibility = false;
-            App.deleteSprite(popupSprite);
+            App.deleteSprite(popupTopSprite);
+            App.deleteSprite(popupBotSprite);
         }
     }
+
+
 
 }

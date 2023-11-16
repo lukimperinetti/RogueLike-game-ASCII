@@ -6,6 +6,7 @@ import com.roguelike_java.Entities.Entity;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 
 //Classe qui s'occupe de faire apparaitre une popup a l'endroit ou la souris pointe.
@@ -32,7 +33,7 @@ public class PopupMouse {
     private static ImageView popupBotSprite = new ImageView(popupBot);
     private static ArrayList<ImageView> listPopupMidSprite = new ArrayList<ImageView>();
 
-    private static Label label;
+    private static Label label = new Label(" ");
 
 
     //GETTER 
@@ -40,12 +41,11 @@ public class PopupMouse {
         return visibility;
     }
 
+    //INITIALISATION
     public static void initPopup(){
         image = new Image("Bloc-test.png");
         popupSprite = new ImageView(image);
-
-
-        App.displaySprite(popupSprite);
+        label.setTextFill(Color.WHITE);
 
         for (int i = 0; i < 3; i++){
             listPopupMidSprite.add(new ImageView(popupMid));
@@ -53,46 +53,50 @@ public class PopupMouse {
     }
 
     //A RENOMMER IMPERATIVEMENT.
-    public static void movePopup(){
-
+    public static void getMousePosition(){
         gridPositionX = (EventHandler.getMouseX()/16);
         gridPositionY = (EventHandler.getMouseY()/16);
 
-        //displayPopup("POUET");
-        //popupSprite.setTranslateX(gridPositionX*16);
-        //popupSprite.setTranslateY(gridPositionY*16);
-
-        //popupSprite.toFront();
     }
 
-    public static void displayEntities(){        
+    public static String displayEntities(){
+
+        int numEntities = 0;
         ArrayList<Entity> listEntity;
-        
+        String str = "Entites : \n";
+
         if (gridPositionX < App.sizeX && gridPositionY < App.sizeY){
             listEntity = Grid.getEntities(gridPositionX, gridPositionY);
 
             System.out.println("---");
             for (Entity entity : listEntity) {
                 System.out.println(entity.getName());
+                str += entity.getName() + "\n";
+                numEntities ++;
             }
         }
+
+        size = numEntities/2;
+        return str;
     } 
 
     //Fait apparaitre la popup
     public static void displayPopup(String message){
 
+        getMousePosition();
+        label.setText(displayEntities());
+
         int i = 1;
-        size = 3;
         if (size > sizeMax){
             size = sizeMax;
         }
 
         makeInvisible();
-        movePopup(); //Pour récupérer la position de la souris.
 
         //X
         popupTopSprite.setTranslateX((gridPositionX+1)*16);
         popupBotSprite.setTranslateX((gridPositionX+1)*16);
+        label.setTranslateX((gridPositionX+2)*16);
 
         for (i = 1; i <= size; i++){
             listPopupMidSprite.get(i-1).setTranslateX((gridPositionX+1)*16);
@@ -102,12 +106,14 @@ public class PopupMouse {
         //Y
         popupTopSprite.setTranslateY(gridPositionY*16);
         popupBotSprite.setTranslateY((gridPositionY+(i*2))*16);
+        label.setTranslateY((gridPositionY+1)*16);
 
         makeVisible();
 
         //Tofront :
         popupTopSprite.toFront();
         popupBotSprite.toFront();  
+        label.toFront();
 
     }
 
@@ -117,6 +123,7 @@ public class PopupMouse {
             visibility = true;
             App.displaySprite(popupTopSprite);
             App.displaySprite(popupBotSprite);
+            App.displayText(label);
 
             for (int i = 0; i < size; i++){
                 App.displaySprite(listPopupMidSprite.get(i));
@@ -128,6 +135,7 @@ public class PopupMouse {
             visibility = false;
             App.deleteSprite(popupTopSprite);
             App.deleteSprite(popupBotSprite);
+            App.deleteText(label);
 
             for (ImageView sprite : listPopupMidSprite) {
                 System.out.println("pouet");

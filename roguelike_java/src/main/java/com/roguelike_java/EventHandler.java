@@ -76,11 +76,7 @@ public class EventHandler {
 
     public void handleMouseClick(MouseButton mouseButton){
             if (mouseButton == MouseButton.PRIMARY) {
-
-                PopupMouse.makeInvisible();
-
                 PopupMouse.displayPopup("prout");
-                //PopupMouse.makeVisible();
             }
 
             if (mouseButton == MouseButton.SECONDARY) {

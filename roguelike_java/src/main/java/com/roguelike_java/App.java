@@ -84,6 +84,9 @@ public class App extends Application {
     public static void deleteSprite(ImageView sprite){
         root.getChildren().remove(sprite);
     }
+    public static void deleteText(Label label){
+        root.getChildren().remove(label);
+    }
 
     //Remet le background en fond
     public static void backgroundUpdate(){

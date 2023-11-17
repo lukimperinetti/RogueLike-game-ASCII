@@ -2,7 +2,7 @@ package com.roguelike_java.Entities;
 
 import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
-import com.roguelike_java.UItext;
+import com.roguelike_java.UI.UItext;
 
 public abstract class Enemy extends Unit{
     

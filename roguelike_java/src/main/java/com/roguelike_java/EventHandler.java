@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.roguelike_java.Entities.Entity;
+import com.roguelike_java.UI.PopupMouse;
 
 //Se charge de gérer les events généraux (entrées clavier et souris)
 public class EventHandler {
@@ -18,6 +19,13 @@ public class EventHandler {
 
     private static int mouseX;
     private static int mouseY;
+
+    private static GamestateManager.gameState state;
+
+    //GETTER - SETTER 
+    public static void updateGamestate(){
+        state = GamestateManager.getGamestate();
+    }
 
     //EVENTS//
     public EventHandler(Entity playerEntity) {
@@ -48,21 +56,24 @@ public class EventHandler {
     
     //Entrée clavier :
     public void handleKeyPressed(KeyCode keyCode) {
-        switch (keyCode) {
-            case Z:
-                ListEntity.getBoris().playerMove(0, -1);
-                break;
-            case S:
-                ListEntity.getBoris().playerMove(0, 1);
-                break;
-            case Q:
-                ListEntity.getBoris().playerMove(-1, 0);
-                break;
-            case D:
-                ListEntity.getBoris().playerMove(1, 0);
-                break;
-            case E:
-                ListEntity.getBoris().equipWeapon();
+
+        if(state == GamestateManager.gameState.RUNNING){
+            switch (keyCode) {
+                case Z:
+                    ListEntity.getBoris().playerMove(0, -1);
+                    break;
+                case S:
+                    ListEntity.getBoris().playerMove(0, 1);
+                    break;
+                case Q:
+                    ListEntity.getBoris().playerMove(-1, 0);
+                    break;
+                case D:
+                    ListEntity.getBoris().playerMove(1, 0);
+                    break;
+                case E:
+                    ListEntity.getBoris().equipWeapon();
+            }
         }
     }
 
@@ -75,6 +86,8 @@ public class EventHandler {
     }
 
     public void handleMouseClick(MouseButton mouseButton){
+
+        if(state == GamestateManager.gameState.RUNNING){
             if (mouseButton == MouseButton.PRIMARY) {
                 PopupMouse.displayPopup("prout");
             }
@@ -82,6 +95,7 @@ public class EventHandler {
             if (mouseButton == MouseButton.SECONDARY) {
                 PopupMouse.makeInvisible();
             }
+        }
     }
 
 

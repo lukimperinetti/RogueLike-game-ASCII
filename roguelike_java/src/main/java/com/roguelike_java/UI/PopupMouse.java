@@ -1,13 +1,17 @@
-package com.roguelike_java;
+package com.roguelike_java.UI;
 
 import java.util.ArrayList;
 
+import com.roguelike_java.App;
+import com.roguelike_java.EventHandler;
+import com.roguelike_java.Grid;
 import com.roguelike_java.Entities.Entity;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
+
 
 //Classe qui s'occupe de faire apparaitre une popup a l'endroit ou la souris pointe.
 //Classe principalement static. Pas sur de vouloir que ça le reste. (potentielles multiples popup ?)
@@ -23,6 +27,8 @@ public class PopupMouse {
     private static int sizeMax = 3;
 
     private static boolean visibility = true; //pasutilisé
+
+
 
     //Popup :
     private static Image popupTop = new Image("top-popup.png");
@@ -62,7 +68,6 @@ public class PopupMouse {
     //Se charge de récupérer les entités d'une case donnée et les concatene dans une chaine de caractère.
     public static String displayEntities(){
 
-        getMousePosition();
         int numEntities = 0;
         ArrayList<Entity> listEntity;
         String str = "";
@@ -73,11 +78,7 @@ public class PopupMouse {
 
             if (listEntity.size() == 0){ return null; }
 
-            System.out.println("---");
-
             for (Entity entity : listEntity) {
-
-                System.out.println(gridPositionX);
    
                 if (entity.isVisible() == true){
                     str += entity.getName() + "\n";
@@ -102,6 +103,7 @@ public class PopupMouse {
     //Fait apparaitre la popup
     public static void displayPopup(String message){
 
+        getMousePosition();
         String str = displayEntities();
         makeInvisible();
 

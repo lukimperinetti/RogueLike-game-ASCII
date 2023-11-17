@@ -3,11 +3,12 @@ package com.roguelike_java.Entities;
 import java.util.ArrayList;
 
 import com.roguelike_java.App;
+import com.roguelike_java.GamestateManager;
 import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
-import com.roguelike_java.UItext;
 import com.roguelike_java.UnitManager;
 import com.roguelike_java.Entities.Items.*;
+import com.roguelike_java.UI.UItext;
 
 public class Boris extends Unit {
     
@@ -100,8 +101,7 @@ public class Boris extends Unit {
 
                         j.get(0).toggleVisibility(); 
                         j.get(0).sprite.toBack();
-                        App.backgroundUpdate();
-                        
+                        App.backgroundUpdate();         
                     }
                 }
                 l++;
@@ -130,12 +130,21 @@ public class Boris extends Unit {
             weapon.deleteEntity();
             this.weapon = weapon;
             this.atk = weapon.getAtk();
-            UItext.printText("Boris équipe : " + weapon.getName() );
+            UItext.printText("Boris equipe : " + weapon.getName() );
         }
         else {
-            UItext.printText("Il n'y a rien a équipper.");
+            UItext.printText("Il n'y a rien a equipper.");
         }
-
-
     }
+
+    //Condition de défaite
+    @Override
+    public void loseHp(int damage){
+        super.loseHp(damage);
+        
+        if (hp == 0){
+            GamestateManager.defeat();;
+        }
+    }
+
 }

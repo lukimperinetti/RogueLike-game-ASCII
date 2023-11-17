@@ -5,9 +5,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javafx.scene.layout.Pane;
-
+import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 import javafx.scene.control.Label;
 
@@ -15,6 +16,8 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 import com.roguelike_java.Entities.Entity;
+import com.roguelike_java.GamestateManager.gameState;
+import com.roguelike_java.UI.*;
 
 /**
  * JavaFX App
@@ -25,6 +28,8 @@ public class App extends Application {
     private static Pane root;
     private EventHandler eventHandler;
     private Entity boris;
+
+    private Font customFont;
     
     public static final int sizeX = 60;
     public static final int sizeY = 40;
@@ -56,11 +61,22 @@ public class App extends Application {
         spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
         spriteBackgroundText.toBack();
 
+        //----//
+        //Loading Images :
+        ImageLoader.LoadUIimage();
+
         //Grid :
         Grid grid = new Grid(sizeX, sizeY);
 
         //Popup :
         PopupMouse.initPopup();
+
+        //Gamestate :
+        GamestateManager.initGamestate();
+
+        //DEBUGS :
+        UItext.printText("abcd ABCD");
+
     }
     public static void main(String[] args) {
         launch();

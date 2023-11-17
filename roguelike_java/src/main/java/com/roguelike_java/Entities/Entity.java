@@ -2,6 +2,7 @@ package com.roguelike_java.Entities;
 
 import com.roguelike_java.App;
 import com.roguelike_java.Grid;
+import com.roguelike_java.ImageLoader;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +20,7 @@ public abstract class Entity {
 
     protected Boolean visibility = false;
 
-    private Image image;
+    protected Image image;
     public ImageView sprite;
 
     //GETTERS :
@@ -52,7 +53,17 @@ public abstract class Entity {
         this.coordY = coordY;
 
         //Visu :
-        image = new Image(imageName);
+        //EN ATTENDANT :
+        if (imageName == "Wall.png"){
+            image = ImageLoader.getWall();
+        }
+        else if (imageName == "Ground.png"){
+            image = ImageLoader.getGround();
+        }
+        else {
+            image = new Image(imageName);
+        }
+
         sprite = new ImageView(image);   
 
         this.move(coordX, coordY);

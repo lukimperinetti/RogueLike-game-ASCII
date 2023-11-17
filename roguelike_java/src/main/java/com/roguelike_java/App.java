@@ -64,6 +64,7 @@ public class App extends Application {
         //----//
         //Loading Images :
         ImageLoader.LoadUIimage();
+        ImageLoader.LoadEntities();
 
         //Grid :
         Grid grid = new Grid(sizeX, sizeY);

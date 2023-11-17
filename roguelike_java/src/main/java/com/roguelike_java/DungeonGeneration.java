@@ -116,8 +116,6 @@ public class DungeonGeneration {
     //Generation de couloir en 1 dimension
     public static void createLaneHorizontal(int X, int Y, int X2){
 
-        System.out.println("coord : " + X + " " + Y + " " + X2);
-
         int temp;
         if (X > X2) { temp = X2; X2 = X; X = temp; }
 

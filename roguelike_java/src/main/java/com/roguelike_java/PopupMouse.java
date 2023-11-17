@@ -59,62 +59,83 @@ public class PopupMouse {
 
     }
 
+    //Se charge de récupérer les entités d'une case donnée et les concatene dans une chaine de caractère.
     public static String displayEntities(){
 
         int numEntities = 0;
         ArrayList<Entity> listEntity;
-        String str = "Entites : \n";
+        String str = "";
 
         if (gridPositionX < App.sizeX && gridPositionY < App.sizeY){
+
             listEntity = Grid.getEntities(gridPositionX, gridPositionY);
+
+            if (listEntity.size() == 0){ return null; }
 
             System.out.println("---");
             for (Entity entity : listEntity) {
-                System.out.println(entity.getName());
-                str += entity.getName() + "\n";
-                numEntities ++;
+
+                
+
+                if (entity.isVisible()){
+                    System.out.println("babanah");
+                    str += entity.getName() + "\n";
+                    numEntities ++;
+                }
+
+
             }
         }
 
+        if (str == ""){
+            return null;
+        }
+
         size = numEntities/2;
+
         return str;
     } 
 
     //Fait apparaitre la popup
     public static void displayPopup(String message){
 
-        getMousePosition();
-        label.setText(displayEntities());
+        String str = displayEntities();
+        if (str != null){
 
-        int i = 1;
-        if (size > sizeMax){
-            size = sizeMax;
+            getMousePosition();
+            label.setText(displayEntities());
+
+            int i = 1;
+            if (size > sizeMax){
+                size = sizeMax;
+            }
+
+            makeInvisible();
+
+            //X
+            popupTopSprite.setTranslateX((gridPositionX+1)*16);
+            popupBotSprite.setTranslateX((gridPositionX+1)*16);
+            label.setTranslateX((gridPositionX+2)*16);
+
+            for (i = 1; i <= size; i++){
+                listPopupMidSprite.get(i-1).setTranslateX((gridPositionX+1)*16);
+                listPopupMidSprite.get(i-1).setTranslateY((gridPositionY + (i*2))*16);
+            }
+
+            //Y
+            popupTopSprite.setTranslateY(gridPositionY*16);
+            popupBotSprite.setTranslateY((gridPositionY+(i*2))*16);
+            label.setTranslateY((gridPositionY+1)*16);
+
+            makeVisible();
+
+            //Tofront :
+            popupTopSprite.toFront();
+            popupBotSprite.toFront();  
+            label.toFront();
+
         }
-
-        makeInvisible();
-
-        //X
-        popupTopSprite.setTranslateX((gridPositionX+1)*16);
-        popupBotSprite.setTranslateX((gridPositionX+1)*16);
-        label.setTranslateX((gridPositionX+2)*16);
-
-        for (i = 1; i <= size; i++){
-            listPopupMidSprite.get(i-1).setTranslateX((gridPositionX+1)*16);
-            listPopupMidSprite.get(i-1).setTranslateY((gridPositionY + (i*2))*16);
-        }
-
-        //Y
-        popupTopSprite.setTranslateY(gridPositionY*16);
-        popupBotSprite.setTranslateY((gridPositionY+(i*2))*16);
-        label.setTranslateY((gridPositionY+1)*16);
-
-        makeVisible();
-
-        //Tofront :
-        popupTopSprite.toFront();
-        popupBotSprite.toFront();  
-        label.toFront();
-
+        
     }
 
     //Methodes pour cacher ou montrer la popup
@@ -138,7 +159,6 @@ public class PopupMouse {
             App.deleteText(label);
 
             for (ImageView sprite : listPopupMidSprite) {
-                System.out.println("pouet");
                 App.deleteSprite(sprite);
             }
         }

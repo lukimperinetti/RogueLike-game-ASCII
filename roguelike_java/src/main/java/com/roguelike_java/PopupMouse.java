@@ -52,7 +52,7 @@ public class PopupMouse {
         }
     }
 
-    //A RENOMMER IMPERATIVEMENT.
+    //Update la position de la souris
     public static void getMousePosition(){
         gridPositionX = (EventHandler.getMouseX()/16);
         gridPositionY = (EventHandler.getMouseY()/16);
@@ -62,6 +62,7 @@ public class PopupMouse {
     //Se charge de récupérer les entités d'une case donnée et les concatene dans une chaine de caractère.
     public static String displayEntities(){
 
+        getMousePosition();
         int numEntities = 0;
         ArrayList<Entity> listEntity;
         String str = "";
@@ -73,17 +74,15 @@ public class PopupMouse {
             if (listEntity.size() == 0){ return null; }
 
             System.out.println("---");
+
             for (Entity entity : listEntity) {
 
-                
-
-                if (entity.isVisible()){
-                    System.out.println("babanah");
+                System.out.println(gridPositionX);
+   
+                if (entity.isVisible() == true){
                     str += entity.getName() + "\n";
-                    numEntities ++;
+                    numEntities ++; 
                 }
-
-
             }
         }
 
@@ -91,7 +90,11 @@ public class PopupMouse {
             return null;
         }
 
-        size = numEntities/2;
+
+        if (numEntities > 0){
+            size = numEntities/2;
+        }
+
 
         return str;
     } 
@@ -100,9 +103,9 @@ public class PopupMouse {
     public static void displayPopup(String message){
 
         String str = displayEntities();
-        if (str != null){
+        makeInvisible();
 
-            getMousePosition();
+        if (str != null){
             label.setText(displayEntities());
 
             int i = 1;
@@ -110,7 +113,6 @@ public class PopupMouse {
                 size = sizeMax;
             }
 
-            makeInvisible();
 
             //X
             popupTopSprite.setTranslateX((gridPositionX+1)*16);

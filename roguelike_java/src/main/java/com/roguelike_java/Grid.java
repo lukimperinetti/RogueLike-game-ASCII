@@ -126,7 +126,7 @@ public class Grid {
         if( listEntity.size() > 0){
             listEntity.get(0).deleteEntity();
         }
-        listEntity.add(new Ground(X, Y));
+        listEntity.add(0, new Ground(X, Y));
     }
 
     //Permet d'afficher un seul des entitées présentent sur une case donnée

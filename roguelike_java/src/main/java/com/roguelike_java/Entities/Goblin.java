@@ -95,5 +95,4 @@ public class Goblin extends Enemy {
         }
         return true;
     }
-
 }

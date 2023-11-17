@@ -3,6 +3,7 @@ package com.roguelike_java;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javafx.scene.layout.Pane;
@@ -48,21 +49,19 @@ public class App extends Application {
 
         // Gestion des actions des boutons
         newGameButton.setOnAction(e -> {
-            // Ajoutez le code pour commencer une nouvelle partie
             System.out.println("Nouvelle partie commencée");
-            // lancer la fonction startGame : 
             startGame(stage);
 
         });
 
         // loadGameButton.setOnAction(e -> {
-        //     // Ajoutez le code pour charger une partie existante
-        //     System.out.println("Partie chargée");
+        // // Ajoutez le code pour charger une partie existante
+        // System.out.println("Partie chargée");
         // });
 
         // optionsButton.setOnAction(e -> {
-        //     // Ajoutez le code pour afficher la page d'options
-        //     System.out.println("Options");
+        // // Ajoutez le code pour afficher la page d'options
+        // System.out.println("Options");
         // });
 
         exitButton.setOnAction(e -> stage.close());
@@ -86,11 +85,22 @@ public class App extends Application {
         eventHandler = new EventHandler(boris);
         eventHandler.pollEvents(scene);
 
+        primaryStage.setTitle("Boris's Adventure");
         primaryStage.setScene(scene);
+
+        // Récupérer la taille de l'écran
+        Screen screen = Screen.getPrimary();
+        double screenWidth = screen.getBounds().getWidth();
+        double screenHeight = screen.getBounds().getHeight();
+
+        // Centrer la scène sur l'écran
+        primaryStage.setX((screenWidth - primaryStage.getWidth()) / 2);
+        primaryStage.setY((screenHeight - primaryStage.getHeight()) / 2);
+
         primaryStage.show();
 
         // INITIALISATION : //
-        //Background
+        // Background
         root.getChildren().add(spriteBackground);
         spriteBackground.toBack();
 
@@ -98,10 +108,10 @@ public class App extends Application {
         spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
         spriteBackgroundText.toBack();
 
-        //Grid :
+        // Grid :
         Grid grid = new Grid(sizeX, sizeY);
 
-        //Popup :
+        // Popup :
         PopupMouse.initPopup();
     }
 
@@ -109,14 +119,16 @@ public class App extends Application {
         launch();
     }
 
-    //Methodes d'affichage de sprites/objets :
-    public static void displaySprite(Entity entity){
+    // Methodes d'affichage de sprites/objets :
+    public static void displaySprite(Entity entity) {
         root.getChildren().add(entity.sprite);
     }
-    public static void displaySprite(ImageView sprite){
+
+    public static void displaySprite(ImageView sprite) {
         root.getChildren().add(sprite);
     }
-    public static void displayText(Label label){
+
+    public static void displayText(Label label) {
         root.getChildren().add(label);
     }
 
@@ -125,10 +137,12 @@ public class App extends Application {
     public static void deleteSprite(Entity entity) {
         root.getChildren().remove(entity.sprite);
     }
-    public static void deleteSprite(ImageView sprite){
+
+    public static void deleteSprite(ImageView sprite) {
         root.getChildren().remove(sprite);
     }
-    public static void deleteText(Label label){
+
+    public static void deleteText(Label label) {
         root.getChildren().remove(label);
     }
 

@@ -32,7 +32,10 @@ public class App extends Application {
 
     // Images de fond :
     private static Image background = new Image("FondMoche.png");
+    private static Image menubackground = new Image("FondMenu.png");
+
     private static ImageView spriteBackground = new ImageView(background);
+    private static ImageView MenuBackground = new ImageView(menubackground);
 
     private static Image backgroundText = new Image("FondText.png");
     private static ImageView spriteBackgroundText = new ImageView(backgroundText);
@@ -43,36 +46,24 @@ public class App extends Application {
 
         // Création des boutons
         Button newGameButton = new Button("Nouvelle partie");
-        // Button loadGameButton = new Button("Charger partie");
-        // Button optionsButton = new Button("Options");
         Button exitButton = new Button("Quitter");
 
         // Gestion des actions des boutons
         newGameButton.setOnAction(e -> {
             System.out.println("Nouvelle partie commencée");
             startGame(stage);
-
         });
-
-        // loadGameButton.setOnAction(e -> {
-        // // Ajoutez le code pour charger une partie existante
-        // System.out.println("Partie chargée");
-        // });
-
-        // optionsButton.setOnAction(e -> {
-        // // Ajoutez le code pour afficher la page d'options
-        // System.out.println("Options");
-        // });
-
         exitButton.setOnAction(e -> stage.close());
 
         // Création du layout
         VBox layout = new VBox(10);
         layout.getChildren().addAll(newGameButton, exitButton);
-        layout.setAlignment(Pos.CENTER);
+        layout.setAlignment(Pos.CENTER); // This will center the buttons both horizontally and vertically
+        layout.getChildren().add(MenuBackground);
+        MenuBackground.toBack();
 
         // Création de la scène
-        Scene scene = new Scene(layout, 300, 250);
+        Scene scene = new Scene(layout, 960, 640);
 
         // Affichage de la scène
         stage.setScene(scene);

@@ -3,8 +3,8 @@ package com.roguelike_java.Entities;
 import com.roguelike_java.App;
 import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
-import com.roguelike_java.UItext;
 import com.roguelike_java.Utils;
+import com.roguelike_java.UI.UItext;
 
 public class Goblin extends Enemy {
 
@@ -95,5 +95,4 @@ public class Goblin extends Enemy {
         }
         return true;
     }
-
 }

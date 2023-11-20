@@ -35,27 +35,28 @@ public class DungeonGeneration {
         // création d'un tableau 2D de booléens pour garder une trace des salles
         boolean[][] roomGrid = new boolean[Grid.getSizeX()][Grid.getSizeY()];
 
+        //Debug :
+        int zzz = 0;
+
         // Création des salles aléatoires à l'intérieur de la map
         for (int k = 0; k < nbSalle; k++) {
-            int roomX = (int) (Math.random() * 10) + 5; // entre 5 et 15
-            int roomY = (int) (Math.random() * 10) + 5; // entre 5 et 15
-            int posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1; // entre 1 et sizeX - roomX
-            int posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; // entre 1 et sizeY - roomY
+
+            //Taille de la salle :
+            int roomX = (int) (Math.random() * 10) + 5;
+            int roomY = (int) (Math.random() * 10) + 5;
+            //Position de la salle :
+            int posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1;
+            int posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; 
 
  
             if (k == 0){
                 startingPosX = posXRoom;
                 startingPosY = posYRoom;
-            }
 
-            if (k > 0){
-                createLane(oldRoomX+2, oldRoomY+2, posXRoom+2, posYRoom+2);
+                System.out.println(startingPosX);
+                System.out.println(startingPosY);
             }
             
-
-            oldRoomX = posXRoom;
-            oldRoomY = posYRoom;
-
 
 
             boolean areaFree = true;
@@ -80,10 +81,8 @@ public class DungeonGeneration {
 
             for (int i = 0; i < roomX; i++) {
                 for (int j = 0; j < roomY; j++) {
-                    Ground ground = new Ground(X + posXRoom + i, Y + posYRoom + j);
-                    App.deleteSprite(Grid.getGrid().get(X + posXRoom + i).get(Y + posYRoom + j).get(0));
-                    Grid.getGrid().get(X + posXRoom + i).get(Y + posYRoom + j).remove(0);
-                    Grid.getGrid().get(X + posXRoom + i).get(Y + posYRoom + j).add(ground);
+
+                    Grid.createGround(X + posXRoom + i, Y + posYRoom + j);
 
                     // Marque cette zone comme occupée dans la grille de la salle
                     roomGrid[X + posXRoom + i][Y + posYRoom + j] = true;
@@ -102,23 +101,35 @@ public class DungeonGeneration {
             }
 
             if (k > 0){
-                new Sword(posXRoom+3, posYRoom+3);
+                new Sword(oldRoomX, oldRoomY);
+                createLane(oldRoomX, oldRoomY, posXRoom, posYRoom);
+                new Sword(posXRoom, posYRoom);
+                System.out.println("nombre de lanes : " + zzz);
+                zzz++;
             }
 
+            oldRoomX = posXRoom;
+            oldRoomY = posYRoom;
         }
-
-        // Création des couloirs
-
     }
 
     //Generation de couloir en 1 dimension
-    public static void createLaneHorizontal(int X, int Y, int l){
-        for (int i = X; i < l+X; i++){
+    public static void createLaneHorizontal(int X, int Y, int X2){
+
+        int temp;
+        if (X > X2) { temp = X2; X2 = X; X = temp; }
+
+        for (int i = X; i <= X2; i++){
             Grid.createGround(i, Y);
         }
     }
-    public static void createLaneVertical(int X, int Y, int l){
-        for (int i = Y; i < l+Y; i++){
+
+    public static void createLaneVertical(int X, int Y, int Y2){
+
+        int temp; 
+        if (Y > Y2) { temp = Y2; Y2 = Y; Y = temp; }
+
+        for (int i = Y2; i >= Y; i--){
             Grid.createGround(X, i);
         }
     }
@@ -126,16 +137,12 @@ public class DungeonGeneration {
     //Generation de couloir en 2 dimensions
     public static void createLane(int X1, int Y1, int X2, int Y2){
 
-        int temp;
-        if (X1 > X2) { temp = X2; X2 = X1; X1 = temp; }
-        if (Y1 > Y2) { temp = Y2; Y2 = Y1; Y1 = temp; }
-
-        int midpointX = Math.abs(X2-X1)/2;
-        int midpointY = Math.abs(Y2-Y1)/2;
+        int midpointX = Math.abs(X2-X1)/2 + Math.min(X1, X2);
+        int midpointY = Math.abs(Y2-Y1)/2 + Math.min(Y1, Y2);
 
         createLaneHorizontal(X1, Y1, midpointX);
-        createLaneHorizontal(midpointX+X1, Y2, midpointX);
-        createLaneVertical(midpointX+X1, Y1, Math.abs(Y2-Y1));
+        createLaneHorizontal(midpointX, Y2, X2);
+        createLaneVertical(midpointX, Y1, Y2);
     }
 
     // // Création de la grande salle :

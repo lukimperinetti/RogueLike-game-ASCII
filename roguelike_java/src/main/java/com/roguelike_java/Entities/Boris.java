@@ -7,12 +7,13 @@ import com.roguelike_java.GamestateManager;
 import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
 import com.roguelike_java.UnitManager;
+import com.roguelike_java.Utils;
 import com.roguelike_java.Entities.Items.*;
 import com.roguelike_java.UI.UItext;
 
 public class Boris extends Unit {
     
-    int rangeVisibility = 5;
+    int rangeVisibility = 7;
     int defaultAtk = 10;
     Weapon weapon;
 
@@ -86,13 +87,14 @@ public class Boris extends Unit {
         
     }
 
-    //Methode qui gère le champ de vision du joueur.
+    //Methode qui gère le champ de vision du joueur
     public void playerVisibility(){
 
         //Pour compter les itérations du foreach (c'est nul mais j'ai pas mieux).
         int k = 0;
         int l = 0;
 
+        //DECORS :
         for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
 
             for (ArrayList<Entity> j : i) {
@@ -108,6 +110,15 @@ public class Boris extends Unit {
             }
             l = 0;
             k++;
+        }
+
+        //UNITES :
+        for (Unit unit : ListEntity.getListEnemies()) {
+            if ( Utils.distance2Dsquare(coordX, coordY, unit.getCoordX(), unit.getCoordY()) <= rangeVisibility){
+                unit.setVisibility(true);
+            }
+            else{ unit.setVisibility(false);}
+            
         }
     }
 

@@ -10,5 +10,8 @@ public class Utils {
         return Math.abs(x1 - x2);
     }
 
-
+    //Distance en BLOCS entre deux points (en 2 dimensions)
+    public static int distance2Dsquare(int x1, int y1, int x2, int y2){
+        return (Math.abs(x2-x1) + Math.abs(y2-y1));
+    }
 }

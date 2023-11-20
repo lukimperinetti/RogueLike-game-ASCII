@@ -44,14 +44,9 @@ public class Grid {
         // GENERATION DE TERRAIN :
 
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
-        //DungeonGeneration.createLane(4, 30, 17, 1);
-        //DungeonGeneration.createLaneVertical(1, 6, 1);
-
+        
         // On instancie Boris
         Boris = new Boris(DungeonGeneration.getStartingPosX() + 2, DungeonGeneration.getStartingPosY() + 2);
-        testEnemy = new Goblin(20, 20);
-        testEnemy2 = new Goblin(30, 15);
-        testEnemy3 = new Orc(25, 25);
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable

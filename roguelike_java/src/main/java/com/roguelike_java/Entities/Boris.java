@@ -3,6 +3,7 @@ package com.roguelike_java.Entities;
 import java.util.ArrayList;
 
 import com.roguelike_java.App;
+import com.roguelike_java.EventHandler;
 import com.roguelike_java.GamestateManager;
 import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
@@ -10,6 +11,7 @@ import com.roguelike_java.UnitManager;
 import com.roguelike_java.Utils;
 import com.roguelike_java.Entities.Items.*;
 import com.roguelike_java.UI.UItext;
+import com.roguelike_java.*;
 
 public class Boris extends Unit {
     
@@ -28,7 +30,6 @@ public class Boris extends Unit {
 
     @Override
     public Boolean canMove(int X, int Y){ //Condition de déplacement du personnage joueur.
-
         String tag;
 
         for (int i = 0; i < Grid.getGrid().get(X).get(Y).size(); i ++){
@@ -109,7 +110,7 @@ public class Boris extends Unit {
                 l++;
             }
             l = 0;
-            k++;
+            k++;    
         }
 
         //UNITES :
@@ -133,6 +134,17 @@ public class Boris extends Unit {
         }
     }
 
+    //Regarde ce qui se trouve sur la meme case que Boris, et intéragit avec.
+    public void interaction(){
+        
+        boolean bool = false;
+        for (Entity entity : Grid.getEntities(coordX, coordY)) {
+            if (entity.getName() == "Stairs") { bool= true; }
+        }
+        
+        if ( bool ) { Grid.newLevel(); }
+    }
+
     public void equipWeapon(){
 
         Weapon weapon = Grid.getWeapon(coordX, coordY);
@@ -152,9 +164,24 @@ public class Boris extends Unit {
     @Override
     public void loseHp(int damage){
         super.loseHp(damage);
-        
+
+        UItext.printText("Il vous reste : " + hp + "PV.");
+        UItext.printText(" ");
+
         if (hp == 0){
             GamestateManager.defeat();;
+        }
+    }
+
+    //DEBUG :
+    public void printEntity(){
+        System.out.println("--");
+        for (Entity entity : Grid.getEntities(coordX, coordY)) {
+            System.out.println(entity.getName());
+
+            if (entity.getName()=="Stairs"){ 
+                System.out.println(entity.isVisible());
+            }
         }
     }
 

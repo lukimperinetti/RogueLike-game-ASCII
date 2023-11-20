@@ -46,7 +46,7 @@ public class App extends Application {
         this.root = new Pane();
         this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
 
-        eventHandler = new EventHandler(boris);
+        eventHandler = new EventHandler();
         eventHandler.pollEvents(scene);
 
         stage.setScene(scene);
@@ -76,7 +76,7 @@ public class App extends Application {
         GamestateManager.initGamestate();
 
         //DEBUGS :
-        UItext.printText("abcd ABCD");
+        //UItext.printText("abcd ABCD");
 
     }
     public static void main(String[] args) {

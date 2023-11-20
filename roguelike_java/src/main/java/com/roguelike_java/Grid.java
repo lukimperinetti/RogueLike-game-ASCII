@@ -24,6 +24,7 @@ public class Grid {
     public final static int sizeSprite = 16;
 
     Grid(int sizeX, int sizeY) {
+        grid.clear();
         this.sizeX = sizeX;
         this.sizeY = sizeY;
 
@@ -44,13 +45,13 @@ public class Grid {
         // GENERATION DE TERRAIN :
 
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
-        
+
         // On instancie Boris
         Boris = new Boris(DungeonGeneration.getStartingPosX() + 2, DungeonGeneration.getStartingPosY() + 2);
 
         // On crée une instance de EventHandler et lui donne la référence à l'entité
         // Boris pour qu'il soit moovable
-        EventHandler eventHandler = new EventHandler(Boris);
+        EventHandler eventHandler = new EventHandler();
         eventHandler.pollEvents(App.scene);
     }
 
@@ -104,6 +105,8 @@ public class Grid {
     // METHODS
     // -------
 
+
+
     // Place un objet dans la grid a une position donnée
     public static void setEntity(Entity entity) {
         grid.get(entity.getCoordX()).get(entity.getCoordY()).add(entity);
@@ -118,6 +121,10 @@ public class Grid {
         grid.get(entity.getCoordX()).get(entity.getCoordY()).remove(entity);
     }
 
+
+
+
+
     //Cree un sol a la position spécifiée
     public static void createGround(int X, int Y){
 
@@ -128,6 +135,19 @@ public class Grid {
         }
         listEntity.add(0, new Ground(X, Y));
     }
+
+    public static void createStairs(int X, int Y){
+
+         ArrayList<Entity> listEntity = Grid.getGrid().get(X).get(Y);
+
+        if( listEntity.size() > 0){
+            listEntity.get(0).deleteEntity();
+        }
+        listEntity.add(0, new Stairs(X, Y));
+    }
+
+
+
 
     // Permet d'afficher un seul des entitées présentent sur une case donnée
     public static void displaySquareEntities(int X, int Y) {
@@ -147,6 +167,22 @@ public class Grid {
 
             i++;
         }
+    }
+
+
+
+
+    public static void newLevel(){
+        //Desaffichage : 
+        for (ArrayList<ArrayList<Entity>> listX : grid) {
+            for (ArrayList<Entity> listY : listX) {
+                for (Entity entity : listY) {
+                    App.deleteSprite(entity);
+                }
+            }
+        }
+        ListEntity.clearLists();
+        new Grid(App.sizeX, App.sizeY);
     }
 
 }

@@ -112,6 +112,8 @@ public class DungeonGeneration {
             oldRoomY = posYRoom;
 
             fillRoom(posXRoom, posYRoom, roomX, roomY);
+
+            Grid.createStairs(posXRoom+1, posYRoom+1);
         }
 
 

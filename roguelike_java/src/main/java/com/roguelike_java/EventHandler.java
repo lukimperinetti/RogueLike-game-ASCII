@@ -15,7 +15,6 @@ import com.roguelike_java.UI.PopupMouse;
 public class EventHandler {
 
     private Map<KeyCode, Boolean> keyPressedMap = new HashMap<>();
-    private Entity playerEntity;  // Ajoute une référence à l'entité que tu veux déplacer
 
     private static int mouseX;
     private static int mouseY;
@@ -25,11 +24,6 @@ public class EventHandler {
     //GETTER - SETTER 
     public static void updateGamestate(){
         state = GamestateManager.getGamestate();
-    }
-
-    //EVENTS//
-    public EventHandler(Entity playerEntity) {
-        this.playerEntity = playerEntity;
     }
 
     public void pollEvents(Scene scene) {
@@ -57,6 +51,7 @@ public class EventHandler {
     //Entrée clavier :
     public void handleKeyPressed(KeyCode keyCode) {
 
+        //System.out.println(keyCode);
         if(state == GamestateManager.gameState.RUNNING){
             switch (keyCode) {
                 case Z:
@@ -73,6 +68,10 @@ public class EventHandler {
                     break;
                 case E:
                     ListEntity.getBoris().equipWeapon();
+                    break;
+                case F:
+                    ListEntity.getBoris().interaction();
+                    break;
             }
         }
     }

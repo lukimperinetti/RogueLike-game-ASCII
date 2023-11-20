@@ -43,19 +43,9 @@ public class Grid {
 
         // GENERATION DE TERRAIN :
 
-        /*
-         * @TODO : Salle horizontale est un couloir !
-         */
-
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
-
-        // DungeonGeneration.createLane(5, 5, 20, 20);
-
-        // DungeonGeneration.createBloc(0, 0, 10, 8); // salle spawn
-        // DungeonGeneration.createBloc(5, 20, 16, 3);
-
-        // DungeonGeneration.connectVerticalBloc(5, 6, 3, 16); // couloir spawn
-        // DungeonGeneration.connectVerticalBloc(18, 21, 3, 6);
+        //DungeonGeneration.createLane(4, 30, 17, 1);
+        //DungeonGeneration.createLaneVertical(1, 6, 1);
 
         // On instancie Boris
         Boris = new Boris(DungeonGeneration.getStartingPosX() + 2, DungeonGeneration.getStartingPosY() + 2);
@@ -133,10 +123,15 @@ public class Grid {
         grid.get(entity.getCoordX()).get(entity.getCoordY()).remove(entity);
     }
 
-    // Cree un sol a la position spécifiée
-    public static void createGround(int X, int Y) {
-        Grid.getGrid().get(X).get(Y).remove(0);
-        Grid.getGrid().get(X).get(Y).add(new Ground(X, Y));
+    //Cree un sol a la position spécifiée
+    public static void createGround(int X, int Y){
+
+        ArrayList<Entity> listEntity = Grid.getGrid().get(X).get(Y);
+
+        if( listEntity.size() > 0){
+            listEntity.get(0).deleteEntity();
+        }
+        listEntity.add(0, new Ground(X, Y));
     }
 
     // Permet d'afficher un seul des entitées présentent sur une case donnée

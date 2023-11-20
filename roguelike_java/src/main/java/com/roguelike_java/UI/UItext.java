@@ -1,13 +1,22 @@
-package com.roguelike_java;
+package com.roguelike_java.UI;
 
 import java.util.ArrayList;
+
+import com.roguelike_java.App;
+import com.roguelike_java.Grid;
+
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-//Classe pour afficher du texte in game a droite de l'écran de jeu.
+//Classe pour afficher du texte.
+//S'occupe du récapitulatif en bas a droite.
+//S'occupe aussi des différentes fenetres qui apparaissent
 public class UItext {
 
     private static ArrayList<TextLabel> listLabel = new ArrayList<TextLabel>();
+    private static ImageView spriteTextbox4x8;
 
     public static void printText(String text){
 
@@ -36,6 +45,10 @@ public class UItext {
             textLabel.label.setTranslateY((App.sizeY * Grid.sizeSprite) - 32 - ( i * 16 ) - (offset));
 
         }
+    }
+
+    public static void textBox4x8(String text){
+
     }
 
 }

@@ -1,6 +1,6 @@
 package com.roguelike_java.Entities.Items;
 
-import com.roguelike_java.UItext;
+import com.roguelike_java.UI.UItext;
 
 public class Sword extends Weapon{
 
@@ -9,7 +9,7 @@ public class Sword extends Weapon{
     }
 
     public void description(){
-        UItext.printText("Une épée se trouve au sol.");
+        UItext.printText("Une epee se trouve au sol.");
         UItext.printText(" ");
     }
     

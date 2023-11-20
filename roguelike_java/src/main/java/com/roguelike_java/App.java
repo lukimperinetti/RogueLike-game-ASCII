@@ -58,9 +58,15 @@ public class App extends Application {
         // Création du layout
         VBox layout = new VBox(10);
         layout.getChildren().addAll(newGameButton, exitButton);
-        layout.setAlignment(Pos.CENTER); // This will center the buttons both horizontally and vertically
-        layout.getChildren().add(MenuBackground);
-        MenuBackground.toBack();
+        layout.setAlignment(Pos.CENTER);
+
+        // set MenuBackground as image of the layout :
+        layout.setStyle("-fx-background-image: url('FondMenu.png'); -fx-background-size: cover;");
+
+        newGameButton.setAlignment(Pos.CENTER);
+        newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
+        exitButton.setAlignment(Pos.CENTER);
+        exitButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
 
         // Création de la scène
         Scene scene = new Scene(layout, 960, 640);

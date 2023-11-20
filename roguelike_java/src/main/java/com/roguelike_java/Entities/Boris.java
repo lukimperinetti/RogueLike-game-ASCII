@@ -16,6 +16,7 @@ import com.roguelike_java.*;
 public class Boris extends Unit {
     
     int rangeVisibility = 7;
+    int rangeVisibilitySquare;
     int defaultAtk = 10;
     Weapon weapon;
 
@@ -26,6 +27,8 @@ public class Boris extends Unit {
 
         this.setAtk(defaultAtk);
         this.weapon = null;
+
+        rangeVisibilitySquare = rangeVisibility*rangeVisibility;
     }
 
     @Override
@@ -92,10 +95,11 @@ public class Boris extends Unit {
     public void playerVisibility(){
 
         //Pour compter les itérations du foreach (c'est nul mais j'ai pas mieux).
-        int k = 0;
-        int l = 0;
+        int k = 0; //X
+        int l = 0; //Y
 
         //DECORS :
+        /* OLD
         for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
 
             for (ArrayList<Entity> j : i) {
@@ -106,6 +110,29 @@ public class Boris extends Unit {
                         j.get(0).sprite.toBack();
                         App.backgroundUpdate();         
                     }
+                }
+                l++;
+            }
+            l = 0;
+            k++;    
+        }
+        */
+        for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
+
+            for (ArrayList<Entity> j : i) {
+                if ( Utils.distance2Dsquare(coordX, coordY, k, l) <= rangeVisibilitySquare){
+                    if(!j.get(0).isVisible()){ 
+
+                        j.get(0).toggleVisibility(); 
+                        j.get(0).sprite.toBack();
+                        App.backgroundUpdate(); 
+                        
+                        
+                    }
+                    j.get(0).sprite.setOpacity(l);
+                }
+                else if (isVisible()){
+                    j.get(0).sprite.setOpacity(0.5);
                 }
                 l++;
             }

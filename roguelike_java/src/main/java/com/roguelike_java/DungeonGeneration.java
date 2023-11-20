@@ -27,7 +27,14 @@ public class DungeonGeneration {
         //Variables de stockage
         int oldRoomX = 0;
         int oldRoomY = 0;
+        int oldSizeX = 0;
+        int oldSizeY = 0;
 
+        int roomX, roomY, posXRoom, posYRoom;
+        roomX = 0;
+        roomY = 0;
+        posXRoom = 0;
+        posYRoom = 0;
 
         int nbSalle = (int) (Math.random() * 7) + 4;
         System.out.println("salle : " + nbSalle);
@@ -35,18 +42,15 @@ public class DungeonGeneration {
         // création d'un tableau 2D de booléens pour garder une trace des salles
         boolean[][] roomGrid = new boolean[Grid.getSizeX()][Grid.getSizeY()];
 
-        //Debug :
-        int zzz = 0;
-
         // Création des salles aléatoires à l'intérieur de la map
         for (int k = 0; k < nbSalle; k++) {
 
             //Taille de la salle :
-            int roomX = (int) (Math.random() * 10) + 5;
-            int roomY = (int) (Math.random() * 10) + 5;
+            roomX = (int) (Math.random() * 10) + 5;
+            roomY = (int) (Math.random() * 10) + 5;
             //Position de la salle :
-            int posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1;
-            int posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; 
+            posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1;
+            posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; 
 
  
             if (k == 0){
@@ -101,22 +105,18 @@ public class DungeonGeneration {
             }
 
             if (k > 0){
-                new Sword(oldRoomX, oldRoomY);
                 createLane(oldRoomX, oldRoomY, posXRoom, posYRoom);
-                new Sword(posXRoom, posYRoom);
-                System.out.println("nombre de lanes : " + zzz);
-                zzz++;
             }
 
             oldRoomX = posXRoom;
             oldRoomY = posYRoom;
+            oldSizeX = roomX;
+            oldSizeY = roomY;
 
             fillRoom(posXRoom, posYRoom, roomX, roomY);
-
-            Grid.createStairs(posXRoom+1, posYRoom+1);
         }
 
-
+        Grid.createStairs((int) ( Math.random()*oldSizeX ) + oldRoomX, (int) ( Math.random()*oldSizeY) + oldRoomY);
     }
 
     //Generation de couloir en 1 dimension

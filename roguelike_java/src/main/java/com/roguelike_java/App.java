@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
+import com.roguelike_java.Entities.Boris;
 import com.roguelike_java.Entities.Entity;
 import com.roguelike_java.GamestateManager.gameState;
 import com.roguelike_java.UI.*;
@@ -68,6 +69,7 @@ public class App extends Application {
 
         //Grid :
         Grid grid = new Grid(sizeX, sizeY);
+        new Boris(DungeonGeneration.getStartingPosX() + 2, DungeonGeneration.getStartingPosY() + 2);
 
         //Popup :
         PopupMouse.initPopup();

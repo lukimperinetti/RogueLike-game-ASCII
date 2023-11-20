@@ -37,7 +37,6 @@ public class DungeonGeneration {
         posYRoom = 0;
 
         int nbSalle = (int) (Math.random() * 7) + 4;
-        System.out.println("salle : " + nbSalle);
 
         // création d'un tableau 2D de booléens pour garder une trace des salles
         boolean[][] roomGrid = new boolean[Grid.getSizeX()][Grid.getSizeY()];
@@ -56,13 +55,8 @@ public class DungeonGeneration {
             if (k == 0){
                 startingPosX = posXRoom;
                 startingPosY = posYRoom;
-
-                System.out.println(startingPosX);
-                System.out.println(startingPosY);
             }
             
-
-
             boolean areaFree = true;
             for (int i = -1; i <= roomX; i++) {
                 for (int j = -1; j <= roomY; j++) {
@@ -105,6 +99,7 @@ public class DungeonGeneration {
             }
 
             if (k > 0){
+                fillRoom(posXRoom, posYRoom, roomX, roomY);
                 createLane(oldRoomX, oldRoomY, posXRoom, posYRoom);
             }
 
@@ -113,7 +108,7 @@ public class DungeonGeneration {
             oldSizeX = roomX;
             oldSizeY = roomY;
 
-            fillRoom(posXRoom, posYRoom, roomX, roomY);
+            
         }
 
         Grid.createStairs((int) ( Math.random()*oldSizeX ) + oldRoomX, (int) ( Math.random()*oldSizeY) + oldRoomY);
@@ -151,11 +146,46 @@ public class DungeonGeneration {
         createLaneVertical(midpointX, Y1, Y2);
     }
 
+
+    //--------------------------//
     //GENERATION DANS LES SALLES :
     public static void fillRoom(int X, int Y, int sizeX, int sizeY){
-       int posX = ( (int) Math.random()*sizeX) + X;
-       int posY = ( (int) Math.random()*sizeY) + Y;
+        if (Math.random() > 0){
+            monsterGeneration(X, Y, sizeX, sizeY);
+        }
+        if (Math.random() > 0.2){
+            itemGeneration(X, Y, sizeX, sizeY);
+        }
+    }
 
-       new Goblin(posX, posY);
+
+    public static void monsterGeneration(int X, int Y, int sizeX, int sizeY){
+        int ranX = (int)Math.random()*sizeX + X;
+        int ranY = (int)Math.random()*sizeY + Y;
+
+        for (int i = 1; i < Utils.randint(1, 2); i++){
+
+            while (Grid.getEnnemy(ranX, ranY) != null){
+                ranX = (int)Math.random()*sizeX + X;
+                ranY = (int)Math.random()*sizeY + Y;
+            }
+            new Goblin(ranX, ranY);
+        }
+    }
+
+    public static void itemGeneration(int X, int Y, int sizeX, int sizeY){
+
+        int ranX = (int)Math.random()*sizeX + X;
+        int ranY = (int)Math.random()*sizeY + Y;
+
+        for (int i = 1; i < Utils.randint(1, 3); i++){
+
+            while (Grid.getEnnemy(ranX, ranY) != null){
+                ranX = (int)Math.random()*sizeX + X;
+                ranY = (int)Math.random()*sizeY + Y;
+            }
+
+            new Sword(ranX, ranY);
+        }
     }
 }

@@ -43,16 +43,7 @@ public class Grid {
         }
 
         // GENERATION DE TERRAIN :
-
         DungeonGeneration.createRoom(0, 0, sizeX, sizeY); // salle principale
-
-        // On instancie Boris
-        Boris = new Boris(DungeonGeneration.getStartingPosX() + 2, DungeonGeneration.getStartingPosY() + 2);
-
-        // On crée une instance de EventHandler et lui donne la référence à l'entité
-        // Boris pour qu'il soit moovable
-        EventHandler eventHandler = new EventHandler();
-        eventHandler.pollEvents(App.scene);
     }
 
     // GETTERS :
@@ -182,7 +173,12 @@ public class Grid {
             }
         }
         ListEntity.clearLists();
+
+        //Nouvelle grille :
         new Grid(App.sizeX, App.sizeY);
+        ListEntity.getBoris().move(DungeonGeneration.getStartingPosX(), DungeonGeneration.getStartingPosY());
+        ListEntity.getBoris().setVisibility(true);
+
     }
 
 }

@@ -91,6 +91,11 @@ public class Boris extends Unit {
         
     }
 
+    @Override
+    public void setVisibility(boolean ){
+        
+    }
+
     //Methode qui gère le champ de vision du joueur
     public void playerVisibility(){
 
@@ -99,24 +104,6 @@ public class Boris extends Unit {
         int l = 0; //Y
 
         //DECORS :
-        /* OLD
-        for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
-
-            for (ArrayList<Entity> j : i) {
-                if ( k > coordX-rangeVisibility && k < coordX+rangeVisibility  && l > coordY-rangeVisibility && l < coordY+rangeVisibility){
-                    if(!j.get(0).isVisible()){ 
-
-                        j.get(0).toggleVisibility(); 
-                        j.get(0).sprite.toBack();
-                        App.backgroundUpdate();         
-                    }
-                }
-                l++;
-            }
-            l = 0;
-            k++;    
-        }
-        */
         for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
 
             for (ArrayList<Entity> j : i) {
@@ -125,9 +112,7 @@ public class Boris extends Unit {
 
                         j.get(0).toggleVisibility(); 
                         j.get(0).sprite.toBack();
-                        App.backgroundUpdate(); 
-                        
-                        
+                        App.backgroundUpdate();                     
                     }
                     j.get(0).sprite.setOpacity(l);
                 }
@@ -139,14 +124,12 @@ public class Boris extends Unit {
             l = 0;
             k++;    
         }
-
         //UNITES :
         for (Unit unit : ListEntity.getListEnemies()) {
-            if ( Utils.distance2Dsquare(coordX, coordY, unit.getCoordX(), unit.getCoordY()) <= rangeVisibility){
+            if (  Utils.distance2Dsquare(coordX, coordY, unit.getCoordX(), unit.getCoordY()) <= rangeVisibilitySquare ){
                 unit.setVisibility(true);
             }
-            else{ unit.setVisibility(false);}
-            
+            else{ unit.setVisibility(false);}            
         }
     }
 

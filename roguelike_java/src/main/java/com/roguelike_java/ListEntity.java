@@ -37,7 +37,6 @@ public class ListEntity {
     }
 
     public static void clearLists(){
-        mainCaracter = null;
         listEnemies.clear();
 
     }

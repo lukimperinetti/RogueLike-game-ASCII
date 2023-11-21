@@ -138,7 +138,7 @@ public class App extends Application {
         GamestateManager.initGamestate();
 
         //DEBUGS :
-        //UItext.printText("abcd ABCD");
+
 
     }
 

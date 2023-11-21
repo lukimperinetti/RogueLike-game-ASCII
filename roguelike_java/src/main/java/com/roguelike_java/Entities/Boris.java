@@ -10,6 +10,7 @@ import com.roguelike_java.ListEntity;
 import com.roguelike_java.UnitManager;
 import com.roguelike_java.Utils;
 import com.roguelike_java.Entities.Items.*;
+import com.roguelike_java.UI.UILife;
 import com.roguelike_java.UI.UItext;
 import com.roguelike_java.*;
 
@@ -29,6 +30,9 @@ public class Boris extends Unit {
         this.weapon = null;
 
         rangeVisibilitySquare = rangeVisibility*rangeVisibility;
+
+        UILife.initLife();
+        UILife.displayLife(hp, maxHp);
     }
 
     @Override
@@ -177,6 +181,8 @@ public class Boris extends Unit {
 
         UItext.printText("Il vous reste : " + hp + "PV.");
         UItext.printText(" ");
+
+        UILife.displayLife(hp, maxHp);
 
         if (hp == 0){
             GamestateManager.defeat();;

@@ -92,7 +92,7 @@ public class Boris extends Unit {
     }
 
     @Override
-    public void setVisibility(boolean ){
+    public void setVisibility(boolean b){
         
     }
 

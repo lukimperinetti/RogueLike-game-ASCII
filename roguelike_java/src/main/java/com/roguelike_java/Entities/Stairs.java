@@ -7,6 +7,5 @@ public class Stairs extends Environment{
     
     public Stairs(int X, int Y){
         super("Stairs", X, Y, "stairs.png", "interactible");
-
     }
 }

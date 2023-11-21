@@ -72,6 +72,19 @@ public class EventHandler {
                 case F:
                     ListEntity.getBoris().interaction();
                     break;
+
+                case UP:
+                    Inventory.changeSelectedItem(-1, 0);
+                    break;
+                case DOWN:
+                    Inventory.changeSelectedItem(1, 0);
+                    break;
+                case LEFT:
+                    Inventory.changeSelectedItem(0, -1);
+                    break;
+                case RIGHT:
+                    Inventory.changeSelectedItem(0, 1);
+                    break;
             }
         }
     }

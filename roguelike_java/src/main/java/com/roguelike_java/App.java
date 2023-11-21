@@ -137,6 +137,9 @@ public class App extends Application {
         //Gamestate :
         GamestateManager.initGamestate();
 
+        //Inventory :
+        Inventory.init();
+
         //DEBUGS :
 
 

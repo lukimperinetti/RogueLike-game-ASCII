@@ -15,7 +15,7 @@ public class TextLabel {
     public String text = "";
     private Font customFont;
 
-    TextLabel(String text){
+    public TextLabel(String text){
 
         sizeStr = text.length();
 
@@ -33,7 +33,7 @@ public class TextLabel {
         label.setFont(customFont);
 
     }
-    TextLabel(String text, int X, int Y){
+    public TextLabel(String text, int X, int Y){
         sizeStr = text.length();
 
         lines = sizeStr/40; //Nombre de lignes

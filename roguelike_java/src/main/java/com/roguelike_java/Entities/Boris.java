@@ -174,6 +174,19 @@ public class Boris extends Unit {
         }
     }
 
+    public void takeItem(){
+        Item item = Grid.getItem(coordX, coordY);
+
+        if (item != null){
+            item.takeItem();
+            UItext.printText("Boris ramasse : " + item.getName());
+        }
+        else {
+            UItext.printText("Il n'y a rien a ramasser.");
+        }
+        UItext.printText(" ");
+    }
+
     //Condition de défaite
     @Override
     public void loseHp(int damage){

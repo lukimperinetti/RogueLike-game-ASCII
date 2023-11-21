@@ -56,8 +56,7 @@ public class Grid {
     }
 
     // GETTERS ALTERNATIFS :
-    // Retourne le premier ennemi de la coordonnée donnée. Retourne null si aucun
-    // ennemi
+    // Renvoient le premier objet d'un type donné.
     public static Entity getEnnemy(int X, int Y) {
         ArrayList<Entity> listEntity = grid.get(X).get(Y);
 
@@ -69,7 +68,6 @@ public class Grid {
 
         return null;
     }
-
     public static Weapon getWeapon(int X, int Y) {
         ArrayList<Entity> listEntity = getEntities(X, Y);
 
@@ -78,7 +76,16 @@ public class Grid {
                 return (Weapon) listEntity.get(i);
             }
         }
+        return null;
+    }
+    public static Item getItem(int X, int Y){
+         ArrayList<Entity> listEntity = getEntities(X, Y);
 
+        for (int i = 0; i < listEntity.size(); i++) {
+            if (listEntity.get(i) instanceof Item) {
+                return (Item) listEntity.get(i);
+            }
+        }
         return null;
     }
 

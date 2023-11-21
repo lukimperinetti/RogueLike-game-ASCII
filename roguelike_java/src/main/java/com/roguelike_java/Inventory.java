@@ -25,10 +25,10 @@ public class Inventory {
     private static int offsetX = App.sizeX * Grid.sizeSprite;
     private static int offsetY = 0;
 
-    private static int inventorySize = 15;
+    private static int inventorySize = 10;
     private static int lineSize = 5;
 
-    private static int selectedItem = -1;
+    private static int selectedItem = 0;
     private static int lastSelectedItem = -1;
 
     //LOGIQUE// 
@@ -55,7 +55,7 @@ public class Inventory {
         inventorySprite.toFront();
 
         for (int i = 0; i < inventorySize; i++){
-            Label label = new TextLabel("pouet").getLabel();
+            Label label = new TextLabel("--------").getLabel();
             itemText.add(label);
 
             label.setTranslateX(offsetX + 20 + (i/lineSize) * 100);
@@ -67,7 +67,30 @@ public class Inventory {
 
         }
         selectorSprite.toFront();
+        displaySelector();
+
+        //DEBUG :
+        inventory.add(new Sword());
+        updateInventory();
     }
+
+    public static void addItem(Item item){
+
+        inventory.add(item);
+        updateInventory();
+
+    }
+
+    public static void dropItem(){
+        if(inventory.size()-1 >= selectedItem){
+            Item item = inventory.get(selectedItem);
+            inventory.remove(item);
+            item.dropItem();
+            updateInventory();
+        }
+
+    }
+
 
     //Permet de changer l'item selectionné.
     public static void changeSelectedItem(int k, int j){
@@ -76,7 +99,6 @@ public class Inventory {
         if (k!=0 && (selectedItem%lineSize)+k < lineSize && (selectedItem%lineSize)+k >= 0){
             selectedItem += k;
             displaySelector();
-            System.out.println("a");
         }
 
         else if (( selectedItem + j*lineSize >= 0 && selectedItem + j*lineSize < inventorySize)){
@@ -85,26 +107,40 @@ public class Inventory {
         }
     }
 
+    public static void updateInventory(){
+
+        for (Label label : itemText) {
+            label.setText("------");
+        }
+
+        int i = 0;
+        for (Item item : inventory) {
+            itemText.get(i).setText(item.getName());
+            i++;
+        }
+    }
+
     //AFFICHAGE//
     public static void displayInventory(){
+        inventorySprite.toFront();
+        selectorSprite.toFront();
         for (int i = 0; i < itemText.size(); i++){
-
+            itemText.get(i).toFront();
         }
     }
 
     public static void displaySelector(){
-        selectorSprite.setTranslateX(offsetX + 20 + (selectedItem/lineSize) * 100);
-        selectorSprite.setTranslateY(offsetY + 20 + (selectedItem%lineSize) * 50);
+        //inventorySprite.toFront();
+
+
+        selectorSprite.setTranslateX(offsetX + 10 + (selectedItem/lineSize) * 100);
+        selectorSprite.setTranslateY(offsetY + 15 + (selectedItem%lineSize) * 50);
         selectorSprite.toFront();
 
+
         itemText.get(selectedItem).setTextFill(Color.BLACK);
-        if (lastSelectedItem >= 0){ itemText.get(lastSelectedItem).setTextFill(Color.WHITE); }
+        if (lastSelectedItem >= 0 && lastSelectedItem != selectedItem){ itemText.get(lastSelectedItem).setTextFill(Color.WHITE); }
 
         itemText.get(selectedItem).toFront();
-
     }
-
-
-
-
 }

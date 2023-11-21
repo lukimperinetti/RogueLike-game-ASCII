@@ -9,6 +9,11 @@ public abstract class Weapon extends Item{
 
         this.atk = atk;
     }
+    Weapon(String name, String imageName, int atk){
+        super(name, imageName, "weapon");
+
+        this.atk = atk;
+    }
 
     public int getAtk(){
         return atk;

@@ -73,8 +73,11 @@ public class App extends Application {
         // set MenuBackground as image of the layout :
         layout.setStyle("-fx-background-image: url('FondMenu.png'); -fx-background-size: cover;");
 
-        newGameButton.setAlignment(Pos.CENTER);
-        newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
+        // newGameButton.setAlignment(Pos.CENTER);
+        // newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
+        ImageView img = new ImageView("banner1.png");
+        img.setPickOnBounds(true); // allows click on transparent areas
+        img.setOnMouseClicked(e -> System.out.println("clicked on transparent image"));
         exitButton.setAlignment(Pos.CENTER);
         exitButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
 

@@ -42,10 +42,13 @@ public class App extends Application {
     private static Image backgroundText = new Image("FondText.png");
     private static ImageView spriteBackgroundText = new ImageView(backgroundText);
 
+    private static Image bottomUI = new Image("UI_bottom.png");
+    private static ImageView spriteBottomUI = new ImageView(bottomUI);
+
     @Override
     public void start(Stage stage) throws IOException {
         this.root = new Pane();
-        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
+        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), (sizeY * Grid.sizeSprite) + 64);
 
         eventHandler = new EventHandler();
         eventHandler.pollEvents(scene);
@@ -61,6 +64,9 @@ public class App extends Application {
         root.getChildren().add(spriteBackgroundText);
         spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
         spriteBackgroundText.toBack();
+
+        root.getChildren().add(spriteBottomUI);
+        spriteBottomUI.setTranslateY(sizeY * Grid.sizeSprite);
 
         //----//
         //Loading Images :

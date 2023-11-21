@@ -79,10 +79,10 @@ public abstract class Entity {
         sprite.setTranslateY(Y * Grid.sizeSprite);
 
         // Enregistre la nouvelle position + affichage
-        // Grid.displaySquareEntities(coordX, coordY);
         this.coordX = X;
         this.coordY = Y;
-        // Grid.displaySquareEntities(X, Y);
+
+        
     }
 
     public void relativeMove(int dX, int dY) { // Deplacement relatif par rapport a la position actuelle.

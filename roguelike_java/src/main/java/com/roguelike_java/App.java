@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
+import com.roguelike_java.Entities.Boris;
 import com.roguelike_java.Entities.Entity;
 import com.roguelike_java.GamestateManager.gameState;
 import com.roguelike_java.UI.*;
@@ -88,7 +89,8 @@ public class App extends Application {
     private void startGame(Stage primaryStage) {
         this.root = new Pane();
         this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
-        eventHandler = new EventHandler(boris);
+
+        eventHandler = new EventHandler();
         eventHandler.pollEvents(scene);
 
         primaryStage.setTitle("Boris's Adventure");
@@ -121,6 +123,7 @@ public class App extends Application {
 
         // Grid :
         Grid grid = new Grid(sizeX, sizeY);
+        new Boris(DungeonGeneration.getStartingPosX() + 2, DungeonGeneration.getStartingPosY() + 2);
 
         // Popup :
         PopupMouse.initPopup();
@@ -129,7 +132,7 @@ public class App extends Application {
         GamestateManager.initGamestate();
 
         //DEBUGS :
-        UItext.printText("abcd ABCD");
+        //UItext.printText("abcd ABCD");
 
     }
 

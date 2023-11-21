@@ -3,16 +3,20 @@ package com.roguelike_java.Entities;
 import java.util.ArrayList;
 
 import com.roguelike_java.App;
+import com.roguelike_java.EventHandler;
 import com.roguelike_java.GamestateManager;
 import com.roguelike_java.Grid;
 import com.roguelike_java.ListEntity;
 import com.roguelike_java.UnitManager;
+import com.roguelike_java.Utils;
 import com.roguelike_java.Entities.Items.*;
 import com.roguelike_java.UI.UItext;
+import com.roguelike_java.*;
 
 public class Boris extends Unit {
     
-    int rangeVisibility = 5;
+    int rangeVisibility = 7;
+    int rangeVisibilitySquare;
     int defaultAtk = 10;
     Weapon weapon;
 
@@ -23,11 +27,12 @@ public class Boris extends Unit {
 
         this.setAtk(defaultAtk);
         this.weapon = null;
+
+        rangeVisibilitySquare = rangeVisibility*rangeVisibility;
     }
 
     @Override
     public Boolean canMove(int X, int Y){ //Condition de déplacement du personnage joueur.
-
         String tag;
 
         for (int i = 0; i < Grid.getGrid().get(X).get(Y).size(); i ++){
@@ -86,28 +91,45 @@ public class Boris extends Unit {
         
     }
 
-    //Methode qui gère le champ de vision du joueur.
+    @Override
+    public void setVisibility(boolean b){
+        
+    }
+
+    //Methode qui gère le champ de vision du joueur
     public void playerVisibility(){
 
         //Pour compter les itérations du foreach (c'est nul mais j'ai pas mieux).
-        int k = 0;
-        int l = 0;
+        int k = 0; //X
+        int l = 0; //Y
 
+        //DECORS :
         for (ArrayList<ArrayList<Entity>> i : Grid.getGrid()) {
 
             for (ArrayList<Entity> j : i) {
-                if ( k > coordX-rangeVisibility && k < coordX+rangeVisibility  && l > coordY-rangeVisibility && l < coordY+rangeVisibility){
+                if ( Utils.distance2Dsquare(coordX, coordY, k, l) <= rangeVisibilitySquare){
                     if(!j.get(0).isVisible()){ 
 
                         j.get(0).toggleVisibility(); 
                         j.get(0).sprite.toBack();
-                        App.backgroundUpdate();         
+                        App.backgroundUpdate();                     
                     }
+                    j.get(0).sprite.setOpacity(l);
+                }
+                else if (isVisible()){
+                    j.get(0).sprite.setOpacity(0.5);
                 }
                 l++;
             }
             l = 0;
-            k++;
+            k++;    
+        }
+        //UNITES :
+        for (Unit unit : ListEntity.getListEnemies()) {
+            if (  Utils.distance2Dsquare(coordX, coordY, unit.getCoordX(), unit.getCoordY()) <= rangeVisibilitySquare ){
+                unit.setVisibility(true);
+            }
+            else{ unit.setVisibility(false);}            
         }
     }
 
@@ -120,6 +142,17 @@ public class Boris extends Unit {
                 ((Item)entity).description();
             }
         }
+    }
+
+    //Regarde ce qui se trouve sur la meme case que Boris, et intéragit avec.
+    public void interaction(){
+        
+        boolean bool = false;
+        for (Entity entity : Grid.getEntities(coordX, coordY)) {
+            if (entity.getName() == "Stairs") { bool= true; }
+        }
+        
+        if ( bool ) { Grid.newLevel(); }
     }
 
     public void equipWeapon(){
@@ -141,9 +174,24 @@ public class Boris extends Unit {
     @Override
     public void loseHp(int damage){
         super.loseHp(damage);
-        
+
+        UItext.printText("Il vous reste : " + hp + "PV.");
+        UItext.printText(" ");
+
         if (hp == 0){
             GamestateManager.defeat();;
+        }
+    }
+
+    //DEBUG :
+    public void printEntity(){
+        System.out.println("--");
+        for (Entity entity : Grid.getEntities(coordX, coordY)) {
+            System.out.println(entity.getName());
+
+            if (entity.getName()=="Stairs"){ 
+                System.out.println(entity.isVisible());
+            }
         }
     }
 

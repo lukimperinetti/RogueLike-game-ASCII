@@ -27,38 +27,36 @@ public class DungeonGeneration {
         //Variables de stockage
         int oldRoomX = 0;
         int oldRoomY = 0;
+        int oldSizeX = 0;
+        int oldSizeY = 0;
 
+        int roomX, roomY, posXRoom, posYRoom;
+        roomX = 0;
+        roomY = 0;
+        posXRoom = 0;
+        posYRoom = 0;
 
         int nbSalle = (int) (Math.random() * 7) + 4;
-        System.out.println("salle : " + nbSalle);
 
         // création d'un tableau 2D de booléens pour garder une trace des salles
         boolean[][] roomGrid = new boolean[Grid.getSizeX()][Grid.getSizeY()];
-
-        //Debug :
-        int zzz = 0;
 
         // Création des salles aléatoires à l'intérieur de la map
         for (int k = 0; k < nbSalle; k++) {
 
             //Taille de la salle :
-            int roomX = (int) (Math.random() * 10) + 5;
-            int roomY = (int) (Math.random() * 10) + 5;
+            roomX = (int) (Math.random() * 10) + 5;
+            roomY = (int) (Math.random() * 10) + 5;
             //Position de la salle :
-            int posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1;
-            int posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; 
+            posXRoom = (int) (Math.random() * (sizeX - roomX - 1)) + 1;
+            posYRoom = (int) (Math.random() * (sizeY - roomY - 1)) + 1; 
 
  
             if (k == 0){
                 startingPosX = posXRoom;
                 startingPosY = posYRoom;
-
-                System.out.println(startingPosX);
-                System.out.println(startingPosY);
             }
             
-
-
             boolean areaFree = true;
             for (int i = -1; i <= roomX; i++) {
                 for (int j = -1; j <= roomY; j++) {
@@ -101,16 +99,19 @@ public class DungeonGeneration {
             }
 
             if (k > 0){
-                new Sword(oldRoomX, oldRoomY);
+                fillRoom(posXRoom, posYRoom, roomX, roomY);
                 createLane(oldRoomX, oldRoomY, posXRoom, posYRoom);
-                new Sword(posXRoom, posYRoom);
-                System.out.println("nombre de lanes : " + zzz);
-                zzz++;
             }
 
             oldRoomX = posXRoom;
             oldRoomY = posYRoom;
+            oldSizeX = roomX;
+            oldSizeY = roomY;
+
+            
         }
+
+        Grid.createStairs((int) ( Math.random()*oldSizeX ) + oldRoomX, (int) ( Math.random()*oldSizeY) + oldRoomY);
     }
 
     //Generation de couloir en 1 dimension
@@ -145,80 +146,46 @@ public class DungeonGeneration {
         createLaneVertical(midpointX, Y1, Y2);
     }
 
-    // // Création de la grande salle :
-    // for (int i = 1; i < sizeX - 1; i++) {
-    // for (int j = 1; j < sizeY - 1; j++) {
-    // Ground ground = new Ground(X + i, Y + j);
-    // App.deleteSprite(Grid.getGrid().get(X + i).get(Y + j).get(0));
-    // Grid.getGrid().get(X + i).get(Y + j).remove(0);
-    // Grid.getGrid().get(X + i).get(Y + j).add(ground);
-    // }
-    // }
 
-    /*
-     * Création d'une salle secondaire dans une salle principale
-     */
-    // public static void createBloc(int X, int Y, int sizeX, int sizeY) {
-    // createRoom(X, Y, sizeX, sizeY);
-    // for (int i = 0; i < sizeX; i++) {
-    // for (int j = 0; j < sizeY; j++) {
-    // if (i == 0 || i == sizeX - 1 || j == 0 || j == sizeY - 1) {
-    // Wall wall = new Wall(X + i, Y + j);
-    // // Suppression :
-    // App.deleteSprite(Grid.getGrid().get(X + i).get(Y + j).get(0)); // Gerer ça
-    // avec une vrai fonction.
-    // Grid.getGrid().get(X + i).get(Y + j).remove(0);
+    //--------------------------//
+    //GENERATION DANS LES SALLES :
+    public static void fillRoom(int X, int Y, int sizeX, int sizeY){
+        if (Math.random() > 0){
+            monsterGeneration(X, Y, sizeX, sizeY);
+        }
+        if (Math.random() > 0.2){
+            itemGeneration(X, Y, sizeX, sizeY);
+        }
+    }
 
-    // // Creation :
-    // Grid.getGrid().get(X + i).get(Y + j).add(wall);
-    // // App.displaySprite(wall);
-    // }
-    // }
-    // }
-    // }
 
-    // public static void connectVerticalBloc(int X, int Y, int sizeX, int sizeY) {
-    // // Crée la salle
-    // createRoom(X, Y, sizeX, sizeY);
-    // // Connecte la salle en ajoutant des murs
-    // for (int i = 0; i < sizeX; i++) {
-    // for (int j = 0; j < sizeY; j++) {
-    // // Ajoute un mur à toutes les positions sur les bords, excluant l'axe Y
-    // if ((i == 0 || i == sizeX - 1) && (j != 0 && j != sizeY - 1)) {
-    // // Crée un mur à la position actuelle
-    // Wall wall = new Wall(X + i, Y + j);
-    // // Suppression de l'élément existant
-    // App.deleteSprite(Grid.getGrid().get(X + i).get(Y + j).get(0));
-    // Grid.getGrid().get(X + i).get(Y + j).remove(0);
-    // // Ajoute le mur à la place
-    // Grid.getGrid().get(X + i).get(Y + j).add(wall);
-    // }
-    // }
-    // }
-    // }
+    public static void monsterGeneration(int X, int Y, int sizeX, int sizeY){
+        int ranX = (int)Math.random()*sizeX + X;
+        int ranY = (int)Math.random()*sizeY + Y;
 
-    // public static void connectHorizontalBloc(int X, int Y, int sizeX, int sizeY)
-    // {
-    // // Crée la salle
-    // createRoom(X, Y, sizeX, sizeY);
+        for (int i = 1; i < Utils.randint(1, 2); i++){
 
-    // // Connecte la salle en ajoutant des murs
-    // for (int i = 0; i < sizeX; i++) {
-    // for (int j = 0; j < sizeY; j++) {
-    // // Ajoute un mur à toutes les positions sur les bords, excluant l'axe X
-    // if ((j == 0 || j == sizeY - 1) && (i != 0 && i != sizeX - 1)) {
-    // // Crée un mur à la position actuelle
-    // Wall wall = new Wall(X + i, Y + j);
+            while (Grid.getEnnemy(ranX, ranY) != null){
+                ranX = (int)Math.random()*sizeX + X;
+                ranY = (int)Math.random()*sizeY + Y;
+            }
+            new Goblin(ranX, ranY);
+        }
+    }
 
-    // // Suppression de l'élément existant
-    // App.deleteSprite(Grid.getGrid().get(X + i).get(Y + j).get(0));
-    // Grid.getGrid().get(X + i).get(Y + j).remove(0);
+    public static void itemGeneration(int X, int Y, int sizeX, int sizeY){
 
-    // // Ajoute le mur à la place
-    // Grid.getGrid().get(X + i).get(Y + j).add(wall);
-    // }
-    // }
-    // }
-    // }
+        int ranX = (int)Math.random()*sizeX + X;
+        int ranY = (int)Math.random()*sizeY + Y;
 
+        for (int i = 1; i < Utils.randint(1, 3); i++){
+
+            while (Grid.getEnnemy(ranX, ranY) != null){
+                ranX = (int)Math.random()*sizeX + X;
+                ranY = (int)Math.random()*sizeY + Y;
+            }
+
+            new Sword(ranX, ranY);
+        }
+    }
 }

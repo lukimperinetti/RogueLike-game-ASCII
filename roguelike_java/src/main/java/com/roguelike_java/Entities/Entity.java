@@ -142,4 +142,12 @@ public abstract class Entity {
         }
     }
 
+    public void setVisibility(boolean bool){
+
+        if (bool && visibility != bool){ App.displaySprite(this);}
+        else  if (!bool && visibility != bool) { App.deleteSprite(this);}
+        visibility = bool;
+
+    }
+
 }

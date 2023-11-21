@@ -12,7 +12,6 @@ public class Goblin extends Enemy {
 
     public Goblin(int X, int Y) {
         super("Goblin", X, Y, "Hashtag.png", 50, 1);
-        App.displaySprite(this);
         this.turn = 0;
     }
 

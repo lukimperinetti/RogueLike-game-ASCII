@@ -33,6 +33,26 @@ public class TextLabel {
         label.setFont(customFont);
 
     }
+    TextLabel(String text, int X, int Y){
+        sizeStr = text.length();
+
+        lines = sizeStr/40; //Nombre de lignes
+
+        customFont = Font.loadFont(getClass().getResource("/Fonts/Pokemon_Classic.ttf").toExternalForm(), 10); 
+
+
+        for (int i = 0; i < lines; i++){
+            this.text += text.substring(40*i, 40*(i+1)) + "\n";
+        }
+        this.text += text.substring(40*(lines), text.length());
+
+        label = new Label(this.text);
+        label.setFont(customFont);
+    }
+
+    public Label getLabel(){
+        return label;
+    }
 
 }
 

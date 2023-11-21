@@ -50,6 +50,9 @@ public class App extends Application {
     private static Image backgroundText = new Image("FondText.png");
     private static ImageView spriteBackgroundText = new ImageView(backgroundText);
 
+    private static Image bottomUI = new Image("UI_bottom.png");
+    private static ImageView spriteBottomUI = new ImageView(bottomUI);
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Menu de démarrage");
@@ -74,10 +77,10 @@ public class App extends Application {
         layout.setStyle("-fx-background-image: url('FondMenu.png'); -fx-background-size: cover;");
 
         // newGameButton.setAlignment(Pos.CENTER);
-        // newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
-        ImageView img = new ImageView("banner1.png");
-        img.setPickOnBounds(true); // allows click on transparent areas
-        img.setOnMouseClicked(e -> System.out.println("clicked on transparent image"));
+        newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
+        // ImageView img = new ImageView("banner1.png");
+        // img.setPickOnBounds(true); // allows click on transparent areas
+        // img.setOnMouseClicked(e -> System.out.println("clicked on transparent image"));
         exitButton.setAlignment(Pos.CENTER);
         exitButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
 
@@ -91,7 +94,7 @@ public class App extends Application {
 
     private void startGame(Stage primaryStage) {
         this.root = new Pane();
-        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
+        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), (sizeY * Grid.sizeSprite) + 64);
 
         eventHandler = new EventHandler();
         eventHandler.pollEvents(scene);
@@ -119,6 +122,9 @@ public class App extends Application {
         spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
         spriteBackgroundText.toBack();
 
+        root.getChildren().add(spriteBottomUI);
+        spriteBottomUI.setTranslateY(sizeY * Grid.sizeSprite);
+
         //----//
         //Loading Images :
         ImageLoader.LoadUIimage();
@@ -135,7 +141,7 @@ public class App extends Application {
         GamestateManager.initGamestate();
 
         //DEBUGS :
-        //UItext.printText("abcd ABCD");
+
 
     }
 

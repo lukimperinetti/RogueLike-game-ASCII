@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.roguelike_java.Entities.Entity;
 import com.roguelike_java.UI.PopupMouse;
+import com.roguelike_java.UI.UIequipment;
 
 //Se charge de gérer les events généraux (entrées clavier et souris)
 public class EventHandler {
@@ -73,14 +74,11 @@ public class EventHandler {
                     ListEntity.getBoris().playerMove(1, 0);
                     break;
                 case E:
-                    ListEntity.getBoris().equipWeapon();
+                    ListEntity.getBoris().takeItem();
                     break;
                 case F:
                     ListEntity.getBoris().interaction();
                     break;
-                case A:
-                    ListEntity.getBoris().takeItem();
-
                 
             }
         }
@@ -104,6 +102,10 @@ public class EventHandler {
                     //Inventory.dropItem();
                     Inventory.displayPopup();
                     break;
+
+                case I:
+                    UIequipment.displayEquipment();
+                    break;
             }
         }
         else if (inventoryState == inventoryState.SELECTED){
@@ -117,6 +119,16 @@ public class EventHandler {
                     break;
                 case DOWN:
                     Inventory.changeSelectedOption(1);
+                    break;
+                case ENTER:
+                    Inventory.useSelectedOption();
+                    break;
+            }
+        }
+        else if (inventoryState == inventoryState.HIDDEN){
+            switch (keyCode) {
+                case ESCAPE:
+                    UIequipment.hideEquipment();
                     break;
             }
         }

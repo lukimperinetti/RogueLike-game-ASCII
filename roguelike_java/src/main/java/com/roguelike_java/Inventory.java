@@ -16,7 +16,8 @@ public class Inventory {
     
     public static enum inventoryState{
         DEFAULT,
-        SELECTED;
+        SELECTED,
+        HIDDEN,
     }
 
     private static inventoryState state;
@@ -79,8 +80,8 @@ public class Inventory {
             label.setTextFill(Color.WHITE);
             App.displayText(label);
             label.toFront();
-
         }
+        
         selectorSprite.toFront();
         displaySelector();
 
@@ -104,7 +105,13 @@ public class Inventory {
         return state;
     }
 
-
+    public static boolean isInventoryFull(){
+        if ( inventory.size() >= inventorySize){
+            return true;
+        }
+        return false;
+    }
+    //----------------------//
     //METHODES :
     public static void addItem(Item item){
 
@@ -116,12 +123,24 @@ public class Inventory {
     //Lache l'item sur le sol
     public static void dropItem(){
         if(inventory.size()-1 >= selectedItem){
+
             Item item = inventory.get(selectedItem);
             inventory.remove(item);
             item.dropItem();
-            updateInventory();
-        }
 
+            updateInventory();
+            deletePopup();
+            setState(inventoryState.DEFAULT);
+
+            UnitManager.enemyTurn();
+        }
+    }
+    public static void removeItem(Item item){
+        inventory.remove(item);
+        updateInventory();
+
+        deletePopup();
+        setState(inventoryState.DEFAULT);
     }
 
     //Permet de changer l'item selectionné.
@@ -148,7 +167,7 @@ public class Inventory {
 
         int i = 0;
         for (Item item : inventory) {
-            itemText.get(i).setText(item.getName());
+            itemText.get(i).setText(item.getShortName());
             i++;
         }
     }
@@ -182,25 +201,37 @@ public class Inventory {
     //Affiche la popup d'option quand on selectionne un item.
     public static void displayPopup(){
 
-        setState(inventoryState.SELECTED);
+        if (selectedItem < inventory.size()){
+            setState(inventoryState.SELECTED);
 
-        if (actualPopup != null) {
-            actualPopup.deletePopup();
-            displayInventory();
+            if (actualPopup != null) {
+                actualPopup.deletePopup();
+                displayInventory();
+            }
+            actualPopup = new PopupInventory(
+                offsetX - 92 + (selectedItem/lineSize) * 100,
+                offsetY + 15 + (selectedItem%lineSize) * 50,
+                inventory.get(selectedItem).getListOption());
         }
-
-        actualPopup = new PopupInventory(3, offsetX - 92 + (selectedItem/lineSize) * 100, offsetY + 15 + (selectedItem%lineSize) * 50);
+        
+        
     }
 
     public static void deletePopup(){
         if (actualPopup != null){
             actualPopup.deletePopup();
             displayInventory();
+
+            actualPopup = null;
         }
     }
 
     public static void changeSelectedOption(int k){
         actualPopup.updateSelector(k);
+    }
+
+    public static void useSelectedOption(){
+        inventory.get(selectedItem).itemAction(actualPopup.getSelectedOption());
     }
 
 

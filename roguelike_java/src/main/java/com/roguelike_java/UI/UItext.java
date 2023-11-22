@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.roguelike_java.App;
 import com.roguelike_java.Grid;
 import com.roguelike_java.Inventory;
+import com.roguelike_java.Inventory.inventoryState;
 
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -25,8 +26,13 @@ public class UItext {
         listLabel.add(textLabel);
 
         OffsetText();
-        Inventory.displayInventory();
-
+        if (Inventory.getState() == inventoryState.HIDDEN){
+            UIequipment.displayEquipment();
+        }
+        else {
+            Inventory.displayInventory();
+        }
+        
         textLabel.label.setTranslateX( (App.sizeX * Grid.sizeSprite) + 16);
         textLabel.label.setTranslateY( (App.sizeY * Grid.sizeSprite) - 32 - (textLabel.lines * 16));
         textLabel.label.setTextFill(Color.WHITE);

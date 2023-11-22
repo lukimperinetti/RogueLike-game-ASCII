@@ -28,8 +28,8 @@ public class PopupInventory {
     private int selectedOption;
     private int lastSelectedOption;
 
-    public PopupInventory(int popupSize, int X, int Y){
-        this.popupSize = popupSize;
+    public PopupInventory(int X, int Y, ArrayList<String> listOption){
+        popupSize = listOption.size();
         this.X = X;
         this.Y = Y;
 
@@ -45,7 +45,7 @@ public class PopupInventory {
 
         App.displaySprite(sprite);
         for (int i = 0; i < popupSize; i++){
-            listLabel.add(new TextLabel("Option " + i).getLabel());
+            listLabel.add(new TextLabel(listOption.get(i)).getLabel());
             listLabel.get(i).setTranslateX(X);
             listLabel.get(i).setTranslateY(Y + (i*32));
             listLabel.get(i).setTextFill(Color.WHITE);
@@ -98,6 +98,10 @@ public class PopupInventory {
         }
         selectorSprite.toFront();
         listLabel.get(selectedOption).toFront();
+    }
+
+    public String getSelectedOption(){
+        return listLabel.get(selectedOption).getText();
     }
 
 }

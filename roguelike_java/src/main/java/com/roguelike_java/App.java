@@ -139,6 +139,7 @@ public class App extends Application {
 
         //Inventory :
         Inventory.init();
+        UIequipment.init();
 
         //DEBUGS :
 

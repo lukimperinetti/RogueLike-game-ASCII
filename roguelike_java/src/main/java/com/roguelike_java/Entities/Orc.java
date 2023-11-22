@@ -14,6 +14,8 @@ public class Orc extends Enemy {
         super("Orc", X, Y, "Orc.png", 40, 5);
         App.displaySprite(this);
         this.turn = 0;
+
+        poids = 1;
     }
 
     public void doAction() {

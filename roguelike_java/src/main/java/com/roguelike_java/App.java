@@ -54,7 +54,10 @@ public class App extends Application {
     private static ImageView spriteBottomUI = new ImageView(bottomUI);
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException{
+
+        GamestateManager.setGamestate(gameState.MENU);
+
         stage.setTitle("Menu de démarrage");
 
         // Création des boutons
@@ -78,9 +81,6 @@ public class App extends Application {
 
         // newGameButton.setAlignment(Pos.CENTER);
         newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
-        // ImageView img = new ImageView("banner1.png");
-        // img.setPickOnBounds(true); // allows click on transparent areas
-        // img.setOnMouseClicked(e -> System.out.println("clicked on transparent image"));
         exitButton.setAlignment(Pos.CENTER);
         exitButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
 
@@ -141,10 +141,7 @@ public class App extends Application {
         GamestateManager.initGamestate();
 
         //DEBUGS :
-
-
     }
-
     public static void main(String[] args) {
         launch();
     }

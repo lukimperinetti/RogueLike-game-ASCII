@@ -19,4 +19,8 @@ public abstract class Weapon extends Item{
         return atk;
     }
 
+    public void itemAction(){
+        
+    }
+
 }

@@ -20,10 +20,14 @@ public class EventHandler {
     private static int mouseY;
 
     private static GamestateManager.gameState state;
+    private static Inventory.inventoryState inventoryState;
 
     //GETTER - SETTER 
     public static void updateGamestate(){
         state = GamestateManager.getGamestate();
+    }
+    public static void updateInventoryState(){
+        inventoryState = Inventory.getState();
     }
 
     public void pollEvents(Scene scene) {
@@ -52,6 +56,8 @@ public class EventHandler {
     public void handleKeyPressed(KeyCode keyCode) {
 
         //System.out.println(keyCode);
+
+        //MAIN GAME
         if(state == GamestateManager.gameState.RUNNING){
             switch (keyCode) {
                 case Z:
@@ -75,6 +81,13 @@ public class EventHandler {
                 case A:
                     ListEntity.getBoris().takeItem();
 
+                
+            }
+        }
+
+        //INVENTAIRE :
+        if (inventoryState == inventoryState.DEFAULT){
+            switch (keyCode) {
                 case UP:
                     Inventory.changeSelectedItem(-1, 0);
                     break;
@@ -88,7 +101,22 @@ public class EventHandler {
                     Inventory.changeSelectedItem(0, 1);
                     break;
                 case ENTER:
-                    Inventory.dropItem();
+                    //Inventory.dropItem();
+                    Inventory.displayPopup();
+                    break;
+            }
+        }
+        else if (inventoryState == inventoryState.SELECTED){
+            switch (keyCode) {
+                case ESCAPE:
+                    Inventory.setState(inventoryState.DEFAULT);
+                    Inventory.deletePopup();
+                    break;
+                case UP:
+                    Inventory.changeSelectedOption(-1);
+                    break;
+                case DOWN:
+                    Inventory.changeSelectedOption(1);
                     break;
             }
         }

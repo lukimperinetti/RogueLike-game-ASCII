@@ -47,4 +47,7 @@ public abstract class Item extends Entity{
     }
 
     public abstract void description();
+
+    //Methode appellé lorsqu'on intéragi avec un item dans l'inventaire.
+    public abstract void itemAction();
 }

@@ -14,10 +14,19 @@ import javafx.scene.image.ImageView;
 //Classe qui se charge de stocker et afficher l'inventaire
 public class Inventory {
     
+    public static enum inventoryState{
+        DEFAULT,
+        SELECTED;
+    }
+
+    private static inventoryState state;
+
     private static Image inventoryImage;
     private static ImageView inventorySprite;
     private static Image selector;
     private static ImageView selectorSprite;
+
+    private static PopupInventory actualPopup;
 
     private static ArrayList<Item> inventory;
     private static ArrayList<Label> itemText;
@@ -25,13 +34,19 @@ public class Inventory {
     private static int offsetX = App.sizeX * Grid.sizeSprite;
     private static int offsetY = 0;
 
+    //Taille de l'inventaire et des lignes.
     private static int inventorySize = 10;
     private static int lineSize = 5;
 
+    //Selection
     private static int selectedItem = 0;
     private static int lastSelectedItem = -1;
 
-    //LOGIQUE// 
+    //Selection de la popup
+    private static int selectedOption = 0;
+
+
+    //INITIALISATION : 
     public static void init(){
         //Background :
         inventoryImage = new Image("Inventory.png");
@@ -69,11 +84,28 @@ public class Inventory {
         selectorSprite.toFront();
         displaySelector();
 
+        //STATE :
+        state = inventoryState.DEFAULT;
+        EventHandler.updateInventoryState();
+
         //DEBUG :
         inventory.add(new Sword());
         updateInventory();
     }
+    //-----------------------------------//
+    //SETTER :
+    public static void setState(inventoryState newState){
+        state = newState;
+        EventHandler.updateInventoryState();
+    }
 
+    //GETTER :
+    public static inventoryState getState(){
+        return state;
+    }
+
+
+    //METHODES :
     public static void addItem(Item item){
 
         inventory.add(item);
@@ -81,6 +113,7 @@ public class Inventory {
 
     }
 
+    //Lache l'item sur le sol
     public static void dropItem(){
         if(inventory.size()-1 >= selectedItem){
             Item item = inventory.get(selectedItem);
@@ -90,7 +123,6 @@ public class Inventory {
         }
 
     }
-
 
     //Permet de changer l'item selectionné.
     public static void changeSelectedItem(int k, int j){
@@ -107,6 +139,7 @@ public class Inventory {
         }
     }
 
+    //Update des labels de chaque item.
     public static void updateInventory(){
 
         for (Label label : itemText) {
@@ -121,6 +154,7 @@ public class Inventory {
     }
 
     //AFFICHAGE//
+    //Update l'ordre d'affichage de l'inventaire.
     public static void displayInventory(){
         inventorySprite.toFront();
         selectorSprite.toFront();
@@ -129,9 +163,9 @@ public class Inventory {
         }
     }
 
+    //Selecteur indiquant quel item est selectionné.
     public static void displaySelector(){
         //inventorySprite.toFront();
-
 
         selectorSprite.setTranslateX(offsetX + 10 + (selectedItem/lineSize) * 100);
         selectorSprite.setTranslateY(offsetY + 15 + (selectedItem%lineSize) * 50);
@@ -143,4 +177,31 @@ public class Inventory {
 
         itemText.get(selectedItem).toFront();
     }
+
+    //GESTION DE LA POPUP :
+    //Affiche la popup d'option quand on selectionne un item.
+    public static void displayPopup(){
+
+        setState(inventoryState.SELECTED);
+
+        if (actualPopup != null) {
+            actualPopup.deletePopup();
+            displayInventory();
+        }
+
+        actualPopup = new PopupInventory(3, offsetX - 92 + (selectedItem/lineSize) * 100, offsetY + 15 + (selectedItem%lineSize) * 50);
+    }
+
+    public static void deletePopup(){
+        if (actualPopup != null){
+            actualPopup.deletePopup();
+            displayInventory();
+        }
+    }
+
+    public static void changeSelectedOption(int k){
+        actualPopup.updateSelector(k);
+    }
+
+
 }

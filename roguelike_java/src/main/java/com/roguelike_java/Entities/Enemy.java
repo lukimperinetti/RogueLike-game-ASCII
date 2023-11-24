@@ -6,12 +6,20 @@ import com.roguelike_java.UI.UItext;
 
 public abstract class Enemy extends Unit {
 
+    public static double poids;
+    public static String test = "test";
+
     public Enemy(String name, int X, int Y, String imageName, int hp, int atk) {
         super(name, X, Y, imageName, hp, "enemy");
         ListEntity.addEnemy(this); // S'ajoute a la liste d'ennemis a jouer.
         sprite.toFront();
 
         setAtk(atk);
+    }
+
+    //GETTERS : 
+    public double getPoids(){
+        return poids;
     }
 
     public Boolean canAttack(int X, int Y) { // Check si on peut attaquer la cible.

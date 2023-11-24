@@ -2,6 +2,8 @@ package com.roguelike_java;
 
 import com.roguelike_java.Entities.*;
 import com.roguelike_java.Entities.Items.*;
+import com.roguelike_java.Generators.EnemyGenerator;
+import com.roguelike_java.Generators.ItemGenerator;
 
 //METHODES STATICS
 public class DungeonGeneration {
@@ -71,6 +73,7 @@ public class DungeonGeneration {
                 }
                 if (!areaFree)
                     break;
+                    
             }
 
             // Si la zone n'est pas libre, on passe à l'itération suivante
@@ -160,16 +163,17 @@ public class DungeonGeneration {
 
 
     public static void monsterGeneration(int X, int Y, int sizeX, int sizeY){
+
         int ranX = (int)Math.random()*sizeX + X;
         int ranY = (int)Math.random()*sizeY + Y;
 
-        for (int i = 1; i < Utils.randint(1, 2); i++){
+        for (int i = 1; i < Utils.randint(1, 4); i++){
 
             while (Grid.getEnnemy(ranX, ranY) != null){
                 ranX = (int)Math.random()*sizeX + X;
                 ranY = (int)Math.random()*sizeY + Y;
             }
-            new Goblin(ranX, ranY);
+            EnemyGenerator.monsterGeneratorBasic(ranX, ranY, 1);
         }
     }
 
@@ -178,14 +182,16 @@ public class DungeonGeneration {
         int ranX = (int)Math.random()*sizeX + X;
         int ranY = (int)Math.random()*sizeY + Y;
 
-        for (int i = 1; i < Utils.randint(1, 3); i++){
+        for (int i = 1; i < Utils.randint(1 , 3); i++){
 
-            while (Grid.getEnnemy(ranX, ranY) != null){
-                ranX = (int)Math.random()*sizeX + X;
-                ranY = (int)Math.random()*sizeY + Y;
+            
+            while (Grid.getItem(ranX, ranY) != null){
+                ranX = (int) (Math.random()*sizeX + X);
+                ranY = (int) (Math.random()*sizeY + Y);
+                
             }
 
-            new Sword(ranX, ranY);
+            ItemGenerator.itemGeneratorBasic(ranX, ranY);
         }
     }
 }

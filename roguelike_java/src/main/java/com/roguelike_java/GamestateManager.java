@@ -14,6 +14,7 @@ public class GamestateManager {
     public static enum gameState {
         RUNNING,
         PAUSE,
+        MENU,
         END;
     }
 

@@ -13,6 +13,8 @@ public class Goblin extends Enemy {
     public Goblin(int X, int Y) {
         super("Goblin", X, Y, "Hashtag.png", 50, 1);
         this.turn = 0;
+
+        poids = 2;
     }
 
     public void doAction() {

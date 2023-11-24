@@ -4,16 +4,15 @@ import java.util.ArrayList;
 
 import com.roguelike_java.Entities.*; //Flemme de voir quoi importer exactement.
 import com.roguelike_java.Entities.Items.*;
+import com.roguelike_java.UI.UItext;
 
 //Classe qui s'occupe de stocker les objets sur une grille, pour pouvoir facilement les retrouver et les afficher
 public class Grid {
 
     private static int sizeX;
     private static int sizeY;
-    private Entity Boris;
-    private Entity testEnemy;
-    private Entity testEnemy2;
-    private Entity testEnemy3;
+
+    private static int level = 1;
 
     public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille
                                                                                                                 // STATIC
@@ -56,8 +55,7 @@ public class Grid {
     }
 
     // GETTERS ALTERNATIFS :
-    // Retourne le premier ennemi de la coordonnée donnée. Retourne null si aucun
-    // ennemi
+    // Renvoient le premier objet d'un type donné.
     public static Entity getEnnemy(int X, int Y) {
         ArrayList<Entity> listEntity = grid.get(X).get(Y);
 
@@ -69,7 +67,6 @@ public class Grid {
 
         return null;
     }
-
     public static Weapon getWeapon(int X, int Y) {
         ArrayList<Entity> listEntity = getEntities(X, Y);
 
@@ -78,7 +75,16 @@ public class Grid {
                 return (Weapon) listEntity.get(i);
             }
         }
+        return null;
+    }
+    public static Item getItem(int X, int Y){
+         ArrayList<Entity> listEntity = getEntities(X, Y);
 
+        for (int i = 0; i < listEntity.size(); i++) {
+            if (listEntity.get(i) instanceof Item) {
+                return (Item) listEntity.get(i);
+            }
+        }
         return null;
     }
 
@@ -178,7 +184,11 @@ public class Grid {
         new Grid(App.sizeX, App.sizeY);
         ListEntity.getBoris().move(DungeonGeneration.getStartingPosX(), DungeonGeneration.getStartingPosY());
         ListEntity.getBoris().setVisibility(true);
+        ListEntity.getBoris().playerVisibility();
 
+        level++;
+        UItext.printText("Vous descendez au " + level + "eme etage.");
+        UItext.printText(" ");
     }
 
 }

@@ -1,15 +1,11 @@
 package com.roguelike_java.Entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.roguelike_java.App;
-import com.roguelike_java.EventHandler;
-import com.roguelike_java.GamestateManager;
-import com.roguelike_java.Grid;
-import com.roguelike_java.ListEntity;
-import com.roguelike_java.UnitManager;
-import com.roguelike_java.Utils;
 import com.roguelike_java.Entities.Items.*;
+import com.roguelike_java.UI.UILife;
+import com.roguelike_java.UI.UIequipment;
 import com.roguelike_java.UI.UItext;
 import com.roguelike_java.*;
 
@@ -29,6 +25,14 @@ public class Boris extends Unit {
         this.weapon = null;
 
         rangeVisibilitySquare = rangeVisibility*rangeVisibility;
+
+        UILife.initLife();
+        UILife.displayLife(hp, maxHp);
+    }
+
+    //GETTERS :
+    public Weapon getWeapon(){
+        return weapon;
     }
 
     @Override
@@ -88,7 +92,6 @@ public class Boris extends Unit {
 
         this.playerVisibility();
         UnitManager.enemyTurn();
-        
     }
 
     @Override
@@ -124,12 +127,25 @@ public class Boris extends Unit {
             l = 0;
             k++;    
         }
+
+
         //UNITES :
         for (Unit unit : ListEntity.getListEnemies()) {
             if (  Utils.distance2Dsquare(coordX, coordY, unit.getCoordX(), unit.getCoordY()) <= rangeVisibilitySquare ){
                 unit.setVisibility(true);
             }
             else{ unit.setVisibility(false);}            
+        }
+
+        //ITEMS :
+        for (Item item : ListEntity.getListItems()) {
+            if ( !item.isInInventory()){
+
+                if (Utils.distance2Dsquare(coordX, coordY, item.getCoordX(), item.getCoordY()) <= rangeVisibilitySquare ){
+                    item.setVisibility(true);
+                }
+                else{ item.setVisibility(false);}    
+            }
         }
     }
 
@@ -155,19 +171,36 @@ public class Boris extends Unit {
         if ( bool ) { Grid.newLevel(); }
     }
 
-    public void equipWeapon(){
+    //EQUIPE DEPUIS LE SOL
+    public void equipWeapon(Weapon weapon){
+        this.weapon = weapon;
+        this.atk = weapon.getAtk();
 
-        Weapon weapon = Grid.getWeapon(coordX, coordY);
+        UItext.printText("Boris equipe : " + weapon.getName() );
+        UItext.printText(" ");
+        UIequipment.updateEquipment();
 
-        if (weapon != null){
-            weapon.deleteEntity();
-            this.weapon = weapon;
-            this.atk = weapon.getAtk();
-            UItext.printText("Boris equipe : " + weapon.getName() );
+        UnitManager.enemyTurn();
+    }
+
+
+    public void takeItem(){
+        Item item = Grid.getItem(coordX, coordY);
+
+        if (Inventory.isInventoryFull()){
+            UItext.printText("L'inventaire de Boris est plein.");
+        }
+        else if (item != null){
+            item.takeItem();
+            UItext.printText("Boris ramasse : " + item.getName());
+            item.setIsInInventory(true);
         }
         else {
-            UItext.printText("Il n'y a rien a equipper.");
+            UItext.printText("Il n'y a rien a ramasser.");
         }
+        UItext.printText(" ");
+
+        UnitManager.enemyTurn();
     }
 
     //Condition de défaite
@@ -178,9 +211,18 @@ public class Boris extends Unit {
         UItext.printText("Il vous reste : " + hp + "PV.");
         UItext.printText(" ");
 
+        UILife.displayLife(hp, maxHp);
+
         if (hp == 0){
             GamestateManager.defeat();;
         }
+    }
+
+    @Override
+    public void heal(int healValue){
+        super.heal(healValue);
+
+        UILife.displayLife(hp, maxHp);
     }
 
     //DEBUG :

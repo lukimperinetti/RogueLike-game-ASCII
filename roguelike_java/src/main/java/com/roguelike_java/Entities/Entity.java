@@ -74,15 +74,18 @@ public abstract class Entity {
 
     public void move(int X, int Y) { // Fonction de déplacement absolu
 
-        // Deplace le sprite
-        sprite.setTranslateX(X * Grid.sizeSprite);
-        sprite.setTranslateY(Y * Grid.sizeSprite);
+        if( X >= 0 && X < App.sizeX*Grid.getSizeX() && Y >= 0 && Y < App.sizeY*Grid.getSizeY()){
+            // Deplace le sprite
+            sprite.setTranslateX(X * Grid.sizeSprite);
+            sprite.setTranslateY(Y * Grid.sizeSprite);
 
-        // Enregistre la nouvelle position + affichage
-        // Grid.displaySquareEntities(coordX, coordY);
-        this.coordX = X;
-        this.coordY = Y;
-        // Grid.displaySquareEntities(X, Y);
+            // Enregistre la nouvelle position + affichage
+            this.coordX = X;
+            this.coordY = Y;
+        }
+
+
+        
     }
 
     public void relativeMove(int dX, int dY) { // Deplacement relatif par rapport a la position actuelle.

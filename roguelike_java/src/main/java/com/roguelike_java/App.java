@@ -23,6 +23,7 @@ import java.io.IOException;
 import com.roguelike_java.Entities.Boris;
 import com.roguelike_java.Entities.Entity;
 import com.roguelike_java.GamestateManager.gameState;
+import com.roguelike_java.Generators.EnemyGenerator;
 import com.roguelike_java.UI.*;
 
 /**
@@ -50,8 +51,14 @@ public class App extends Application {
     private static Image backgroundText = new Image("FondText.png");
     private static ImageView spriteBackgroundText = new ImageView(backgroundText);
 
+    private static Image bottomUI = new Image("UI_bottom.png");
+    private static ImageView spriteBottomUI = new ImageView(bottomUI);
+
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException{
+
+        GamestateManager.setGamestate(gameState.MENU);
+
         stage.setTitle("Menu de démarrage");
 
         // Création des boutons
@@ -73,7 +80,7 @@ public class App extends Application {
         // set MenuBackground as image of the layout :
         layout.setStyle("-fx-background-image: url('FondMenu.png'); -fx-background-size: cover;");
 
-        newGameButton.setAlignment(Pos.CENTER);
+        // newGameButton.setAlignment(Pos.CENTER);
         newGameButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
         exitButton.setAlignment(Pos.CENTER);
         exitButton.setStyle("-fx-font: 30 arial; -fx-base: #ee2211;");
@@ -88,7 +95,7 @@ public class App extends Application {
 
     private void startGame(Stage primaryStage) {
         this.root = new Pane();
-        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), sizeY * Grid.sizeSprite);
+        this.scene = new Scene(root, (sizeX * Grid.sizeSprite) + (280), (sizeY * Grid.sizeSprite) + 64);
 
         eventHandler = new EventHandler();
         eventHandler.pollEvents(scene);
@@ -116,6 +123,9 @@ public class App extends Application {
         spriteBackgroundText.setTranslateX(sizeX * Grid.sizeSprite);
         spriteBackgroundText.toBack();
 
+        root.getChildren().add(spriteBottomUI);
+        spriteBottomUI.setTranslateY(sizeY * Grid.sizeSprite);
+
         //----//
         //Loading Images :
         ImageLoader.LoadUIimage();
@@ -131,11 +141,13 @@ public class App extends Application {
         //Gamestate :
         GamestateManager.initGamestate();
 
+        //Inventory :
+        Inventory.init();
+        UIequipment.init();
+
         //DEBUGS :
-        //UItext.printText("abcd ABCD");
 
     }
-
     public static void main(String[] args) {
         launch();
     }

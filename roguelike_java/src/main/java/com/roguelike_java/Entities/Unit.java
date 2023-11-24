@@ -7,6 +7,7 @@ import com.roguelike_java.UI.UItext;
 public abstract class Unit extends Entity {
 
     protected int hp;
+    protected int maxHp;
     protected int atk;
 
     // GETTERS :
@@ -27,6 +28,7 @@ public abstract class Unit extends Entity {
         super(name, X, Y, imageName, tag);
 
         this.hp = hp;
+        this.maxHp = hp;
         this.atk = 1; // atk par defaut.
         visibility = true;
     }
@@ -40,6 +42,17 @@ public abstract class Unit extends Entity {
         }
 
         UItext.printText(name + " perd " + damage + " PV.");
+        UItext.printText(" ");
+    }
+
+    public void heal(int healValue){
+
+        hp += healValue;
+        if (hp > maxHp){
+            hp = maxHp;
+        }
+
+        UItext.printText(name + " se soigne de " + healValue + " PV.");
         UItext.printText(" ");
     }
 

@@ -74,6 +74,17 @@ public class EventHandler {
                     break;
             }
         }
+
+        if (state == GamestateManager.gameState.END) {
+            System.out.println("Tu dois quitter le jeu");
+            if (keyCode == KeyCode.ESCAPE) {
+                System.out.println("clique sur ESCAPE");
+                // restart the game :
+                GamestateManager.setGamestate(GamestateManager.gameState.MENU);
+                // restart :
+                
+            }
+        }
     }
 
     //Entrée souris :

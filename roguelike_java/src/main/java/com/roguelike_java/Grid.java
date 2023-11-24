@@ -178,6 +178,8 @@ public class Grid {
         new Grid(App.sizeX, App.sizeY);
         ListEntity.getBoris().move(DungeonGeneration.getStartingPosX(), DungeonGeneration.getStartingPosY());
         ListEntity.getBoris().setVisibility(true);
+        ListEntity.getBoris().playerVisibility();
+        //Grid.getGrid().get(DungeonGeneration.getStartingPosX()).get(DungeonGeneration.getStartingPosY()).add(ListEntity.getBoris());
 
     }
 

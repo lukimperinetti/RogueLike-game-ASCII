@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.roguelike_java.Entities.Entity;
 import com.roguelike_java.UI.PopupMouse;
+import com.roguelike_java.UI.UIequipment;
 
 //Se charge de gérer les events généraux (entrées clavier et souris)
 public class EventHandler {
@@ -20,10 +21,14 @@ public class EventHandler {
     private static int mouseY;
 
     private static GamestateManager.gameState state;
+    private static Inventory.inventoryState inventoryState;
 
     //GETTER - SETTER 
     public static void updateGamestate(){
         state = GamestateManager.getGamestate();
+    }
+    public static void updateInventoryState(){
+        inventoryState = Inventory.getState();
     }
 
     public void pollEvents(Scene scene) {
@@ -52,6 +57,8 @@ public class EventHandler {
     public void handleKeyPressed(KeyCode keyCode) {
 
         //System.out.println(keyCode);
+
+        //MAIN GAME
         if(state == GamestateManager.gameState.RUNNING){
             switch (keyCode) {
                 case Z:
@@ -67,10 +74,61 @@ public class EventHandler {
                     ListEntity.getBoris().playerMove(1, 0);
                     break;
                 case E:
-                    ListEntity.getBoris().equipWeapon();
+                    ListEntity.getBoris().takeItem();
                     break;
                 case F:
                     ListEntity.getBoris().interaction();
+                    break;
+                
+            }
+        }
+
+        //INVENTAIRE :
+        if (inventoryState == inventoryState.DEFAULT){
+            switch (keyCode) {
+                case UP:
+                    Inventory.changeSelectedItem(-1, 0);
+                    break;
+                case DOWN:
+                    Inventory.changeSelectedItem(1, 0);
+                    break;
+                case LEFT:
+                    Inventory.changeSelectedItem(0, -1);
+                    break;
+                case RIGHT:
+                    Inventory.changeSelectedItem(0, 1);
+                    break;
+                case ENTER:
+                    //Inventory.dropItem();
+                    Inventory.displayPopup();
+                    break;
+
+                case I:
+                    UIequipment.displayEquipment();
+                    break;
+            }
+        }
+        else if (inventoryState == inventoryState.SELECTED){
+            switch (keyCode) {
+                case ESCAPE:
+                    Inventory.setState(inventoryState.DEFAULT);
+                    Inventory.deletePopup();
+                    break;
+                case UP:
+                    Inventory.changeSelectedOption(-1);
+                    break;
+                case DOWN:
+                    Inventory.changeSelectedOption(1);
+                    break;
+                case ENTER:
+                    Inventory.useSelectedOption();
+                    break;
+            }
+        }
+        else if (inventoryState == inventoryState.HIDDEN){
+            switch (keyCode) {
+                case ESCAPE:
+                    UIequipment.hideEquipment();
                     break;
             }
         }

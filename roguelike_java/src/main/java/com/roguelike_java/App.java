@@ -23,6 +23,7 @@ import java.io.IOException;
 import com.roguelike_java.Entities.Boris;
 import com.roguelike_java.Entities.Entity;
 import com.roguelike_java.GamestateManager.gameState;
+import com.roguelike_java.Generators.EnemyGenerator;
 import com.roguelike_java.UI.*;
 
 /**
@@ -140,7 +141,12 @@ public class App extends Application {
         //Gamestate :
         GamestateManager.initGamestate();
 
+        //Inventory :
+        Inventory.init();
+        UIequipment.init();
+
         //DEBUGS :
+
     }
     public static void main(String[] args) {
         launch();

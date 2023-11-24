@@ -45,6 +45,17 @@ public abstract class Unit extends Entity {
         UItext.printText(" ");
     }
 
+    public void heal(int healValue){
+
+        hp += healValue;
+        if (hp > maxHp){
+            hp = maxHp;
+        }
+
+        UItext.printText(name + " se soigne de " + healValue + " PV.");
+        UItext.printText(" ");
+    }
+
     public void attack(Unit unit) {
         unit.loseHp(atk);
     }

@@ -6,7 +6,7 @@ import com.roguelike_java.UI.UItext;
 
 public abstract class Enemy extends Unit {
 
-    protected double poids;
+    public static double poids;
     public static String test = "test";
 
     public Enemy(String name, int X, int Y, String imageName, int hp, int atk) {

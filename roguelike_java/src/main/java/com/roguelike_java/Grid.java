@@ -4,16 +4,15 @@ import java.util.ArrayList;
 
 import com.roguelike_java.Entities.*; //Flemme de voir quoi importer exactement.
 import com.roguelike_java.Entities.Items.*;
+import com.roguelike_java.UI.UItext;
 
 //Classe qui s'occupe de stocker les objets sur une grille, pour pouvoir facilement les retrouver et les afficher
 public class Grid {
 
     private static int sizeX;
     private static int sizeY;
-    private Entity Boris;
-    private Entity testEnemy;
-    private Entity testEnemy2;
-    private Entity testEnemy3;
+
+    private static int level = 1;
 
     public static ArrayList<ArrayList<ArrayList<Entity>>> grid = new ArrayList<ArrayList<ArrayList<Entity>>>(); // grille
                                                                                                                 // STATIC
@@ -186,8 +185,10 @@ public class Grid {
         ListEntity.getBoris().move(DungeonGeneration.getStartingPosX(), DungeonGeneration.getStartingPosY());
         ListEntity.getBoris().setVisibility(true);
         ListEntity.getBoris().playerVisibility();
-        //Grid.getGrid().get(DungeonGeneration.getStartingPosX()).get(DungeonGeneration.getStartingPosY()).add(ListEntity.getBoris());
 
+        level++;
+        UItext.printText("Vous descendez au " + level + "eme etage.");
+        UItext.printText(" ");
     }
 
 }

@@ -17,15 +17,16 @@ public abstract class Item extends Entity{
         super(name, X, Y, imageName, tag);
 
         Grid.setEntity(this);
-        App.displaySprite(this);
 
-        visibility = true;
+        visibility = false;
         isInInventory = false;
 
         listOption = new ArrayList<String>();
         listOption.add("Jeter");
 
         this.shortName = shortName;
+
+        ListEntity.addItem(this);
     }
     public Item(String name, String imageName, String tag, String shortName){
         super(name, 0, 0, imageName, tag);
@@ -39,16 +40,25 @@ public abstract class Item extends Entity{
         this.shortName = shortName;
 
         deleteEntity(); //SE SUPPRIME
+
+        ListEntity.addItem(this);
     }
 
     //GETTERS :
     public String getShortName(){
         return shortName;
     }
-
     public void takeItem(){
         deleteEntity();
         Inventory.addItem(this);
+    }
+    public boolean isInInventory(){
+        return isInInventory;
+    }
+
+    //SETTERS :
+    public void setIsInInventory(boolean a){
+        isInInventory = a;
     }
 
     public void dropItem(){

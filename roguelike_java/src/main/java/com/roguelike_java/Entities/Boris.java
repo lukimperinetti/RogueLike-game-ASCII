@@ -1,14 +1,8 @@
 package com.roguelike_java.Entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.roguelike_java.App;
-import com.roguelike_java.EventHandler;
-import com.roguelike_java.GamestateManager;
-import com.roguelike_java.Grid;
-import com.roguelike_java.ListEntity;
-import com.roguelike_java.UnitManager;
-import com.roguelike_java.Utils;
 import com.roguelike_java.Entities.Items.*;
 import com.roguelike_java.UI.UILife;
 import com.roguelike_java.UI.UIequipment;
@@ -133,12 +127,25 @@ public class Boris extends Unit {
             l = 0;
             k++;    
         }
+
+
         //UNITES :
         for (Unit unit : ListEntity.getListEnemies()) {
             if (  Utils.distance2Dsquare(coordX, coordY, unit.getCoordX(), unit.getCoordY()) <= rangeVisibilitySquare ){
                 unit.setVisibility(true);
             }
             else{ unit.setVisibility(false);}            
+        }
+
+        //ITEMS :
+        for (Item item : ListEntity.getListItems()) {
+            if ( !item.isInInventory()){
+
+                if (Utils.distance2Dsquare(coordX, coordY, item.getCoordX(), item.getCoordY()) <= rangeVisibilitySquare ){
+                    item.setVisibility(true);
+                }
+                else{ item.setVisibility(false);}    
+            }
         }
     }
 
@@ -186,6 +193,7 @@ public class Boris extends Unit {
         else if (item != null){
             item.takeItem();
             UItext.printText("Boris ramasse : " + item.getName());
+            item.setIsInInventory(true);
         }
         else {
             UItext.printText("Il n'y a rien a ramasser.");
@@ -208,6 +216,13 @@ public class Boris extends Unit {
         if (hp == 0){
             GamestateManager.defeat();;
         }
+    }
+
+    @Override
+    public void heal(int healValue){
+        super.heal(healValue);
+
+        UILife.displayLife(hp, maxHp);
     }
 
     //DEBUG :

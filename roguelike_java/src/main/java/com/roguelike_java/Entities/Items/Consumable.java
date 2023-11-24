@@ -15,4 +15,5 @@ public abstract class Consumable extends Item{
         listOption.add("Manger");
     }
 
+
 }

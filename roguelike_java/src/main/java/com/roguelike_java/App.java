@@ -143,8 +143,6 @@ public class App extends Application {
         UIequipment.init();
 
         //DEBUGS :
-        EnemyGenerator.test(20,20);
-
 
     }
 
